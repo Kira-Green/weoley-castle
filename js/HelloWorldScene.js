@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 import {
   ViroScene,
@@ -12,13 +12,14 @@ import {
   ViroMaterials
 } from 'react-viro';
 
-export default class HelloWorldScene extends Component {
 
+export default class HelloWorldScene extends Component {
   constructor() {
     super();
 
     this.state = {} // Set initial state here
   
+
   }
 
   sceneOne = () => {
@@ -34,11 +35,11 @@ export default class HelloWorldScene extends Component {
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
           onFuse={{callback:this.sceneOne, timeToFuse:1500}}
-        />
+
+     />
       </ViroScene>
     );
   }
-
 }
 
 var styles = StyleSheet.create({
