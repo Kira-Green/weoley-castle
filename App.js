@@ -72,16 +72,14 @@ export default class ViroSample extends Component {
     return (
       <View style={localStyles.outer}>
         <View style={localStyles.inner}>
-          <Text style={localStyles.titleText}>
-            Choose your desired experience:
-          </Text>
+          <Text style={localStyles.titleText}>What you wana do fam:</Text>
 
           <TouchableHighlight
             style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
             underlayColor={"#68a0ff"}
           >
-            <Text style={localStyles.buttonText}>AR</Text>
+            <Text style={localStyles.buttonText}>AlTeRnaTe r34liTy</Text>
           </TouchableHighlight>
 
           <TouchableHighlight
