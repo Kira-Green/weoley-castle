@@ -4,7 +4,13 @@ import React, { Component } from "react";
 
 import { StyleSheet } from "react-native";
 
-import { ViroScene, Viro360Image, ViroText, ViroBox } from "react-viro";
+import {
+  ViroScene,
+  Viro360Image,
+  ViroText,
+  ViroBox,
+  ViroButton
+} from "react-viro";
 
 export default class HelloSceneThree extends Component {
   constructor() {
@@ -28,42 +34,44 @@ export default class HelloSceneThree extends Component {
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/rhys.JPG")} />
         <ViroText
-          text="Safe Giant Rhys"
-          width={1}
-          height={1}
-          position={[2, -0.6, -2]}
+          text="See Giant Rhys on the right!"
+          width={1.5}
+          height={1.5}
+          position={[-3, 0.5, 1]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
+
         <ViroText
           text="Let's go and see Olivia"
           width={1}
           height={1}
-          position={[-2, 0.5, -2]}
+          position={[3, 0.5, 1]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-
-        <ViroBox
-          position={[-3, 0, -2]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onHover={this.sceneFour}
+        <ViroButton
+          source={require("./res/arrow.png")}
+          position={[2, -0.5, 0.8]}
+          width={2}
+          height={2}
+          opacity={0.4}
+          transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.sceneFour, timeToFuse: 1500 }}
         />
         <ViroText
-          text="Go back to the beach"
-          width={1}
-          height={1}
-          position={[5, 0.5, -2]}
+          text="Gaze on the box to go back to the beach"
+          width={1.5}
+          height={1.5}
+          position={[0, 0.5, 3]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-
         <ViroBox
-          position={[5, 0, -2]}
+          position={[0, 0, 3]}
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
-          onHover={this.backToBeach}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
@@ -78,7 +86,7 @@ var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 15,
-    color: "#FFFF00",
+    color: "#ffff",
     textAlignVertical: "center",
     textAlign: "center"
   }

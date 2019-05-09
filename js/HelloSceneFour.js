@@ -4,7 +4,14 @@ import React, { Component } from "react";
 
 import { StyleSheet } from "react-native";
 
-import { ViroScene, Viro360Image, ViroText, ViroBox } from "react-viro";
+import {
+  ViroScene,
+  Viro360Image,
+  ViroText,
+  ViroBox,
+  ViroButton,
+  ViroImage
+} from "react-viro";
 
 export default class HelloSceneFour extends Component {
   constructor() {
@@ -31,7 +38,7 @@ export default class HelloSceneFour extends Component {
           text="This is Olivia! Say Hi"
           width={1}
           height={1}
-          position={[-2, -0.6, -2]}
+          position={[-2, 1, -0]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
@@ -44,26 +51,30 @@ export default class HelloSceneFour extends Component {
           style={styles.helloWorldTextStyle}
         />
 
-        <ViroBox
+        <ViroButton
+          source={require("./res/arrow.png")}
           position={[-1, 0, -2]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onHover={this.sceneFive}
+          width={1.5}
+          height={1.5}
+          opacity={0.4}
+          onFuse={{ callback: this.sceneFive, timeToFuse: 1500 }}
         />
         <ViroText
-          text="Go back to the beach"
+          text="Gaze on the weird pic man, to go back to the beach"
           width={1}
           height={1}
-          position={[5, 0.5, -2]}
+          position={[2, 0.5, 5]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          style={styles.blackTextStyle}
         />
 
-        <ViroBox
-          position={[5, 0, -2]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onHover={this.backToBeach}
+        <ViroImage
+          source={require("./res/castlelogo.png")}
+          position={[2, 2, 20]}
+          height={8}
+          width={8}
+          transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
@@ -78,7 +89,14 @@ var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 15,
-    color: "#FFFF00",
+    color: "#ffff",
+    textAlignVertical: "center",
+    textAlign: "center"
+  },
+  blackTextStyle: {
+    fontFamily: "Arial",
+    fontSize: 15,
+    color: "#000000",
     textAlignVertical: "center",
     textAlign: "center"
   }
