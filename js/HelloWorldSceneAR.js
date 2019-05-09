@@ -17,6 +17,8 @@ export default class HelloWorldSceneAR extends Component {
 
 		// bind 'this' to functions
 		this._onInitialized = this._onInitialized.bind(this);
+		this._onAnchorFound = this._onAnchorFound.bind(this);
+		this._onAnchorFoundTwo = this._onAnchorFoundTwo.bind(this);
 	}
 
 	render() {
@@ -42,10 +44,30 @@ export default class HelloWorldSceneAR extends Component {
 					<ViroSound 
 						source={require("./res/horse-carriage-sound.mp3")}
 						/>
+				</ViroARImageMarker>
 
+				<ViroARImageMarker 
+					target={"targetTwo"}
+					onAnchorFound={this._onAnchorFoundTwo}
+				>
+					<ViroSound 
+						source={require("./res/medieval-music.wav")}
+						/>
 				</ViroARImageMarker>
 			</ViroARScene>
 		);
+	}
+
+	_onAnchorFound() {
+		this.setState({
+			text: ""
+		})
+	}
+
+	_onAnchorFoundTwo() {
+		this.setState({
+			text: "In the Great Hall amazing feasts were held for visitors"
+		})
 	}
 
 	_onInitialized(state, reason) {
@@ -62,6 +84,11 @@ export default class HelloWorldSceneAR extends Component {
 ViroARTrackingTargets.createTargets({
 	"targetOne" : {
 		source : require("./res/testLogo2.jpg"),
+		orientation : "Up",
+		physicalWidth : 0.04 //real world width in meters
+	},
+	"targetTwo" : {
+		source : require("./res/targetTwo.jpg"),
 		orientation : "Up",
 		physicalWidth : 0.04 //real world width in meters
 	},
