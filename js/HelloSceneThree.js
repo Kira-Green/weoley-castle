@@ -41,6 +41,14 @@ export default class HelloSceneThree extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
+        <ViroButton
+          source={require("./res/arrow.png")}
+          position={[-3, 0, 1]}
+          width={1}
+          height={1}
+          opacity={0.4}
+          transformBehaviors={["billboard"]}
+        />
 
         <ViroText
           text="Let's go and see Olivia"
@@ -51,10 +59,10 @@ export default class HelloSceneThree extends Component {
           style={styles.helloWorldTextStyle}
         />
         <ViroButton
-          source={require("./res/arrow.png")}
+          source={require("./res/archway.png")}
           position={[2, -0.5, 0.8]}
-          width={2}
-          height={2}
+          width={1}
+          height={1}
           opacity={0.4}
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.sceneFour, timeToFuse: 1500 }}

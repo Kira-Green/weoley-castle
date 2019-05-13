@@ -52,10 +52,10 @@ export default class HelloSceneFour extends Component {
         />
 
         <ViroButton
-          source={require("./res/arrow.png")}
+          source={require("./res/archway.png")}
           position={[-1, 0, -2]}
-          width={1.5}
-          height={1.5}
+          width={1}
+          height={1}
           opacity={0.4}
           onFuse={{ callback: this.sceneFive, timeToFuse: 1500 }}
         />

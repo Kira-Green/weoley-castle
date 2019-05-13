@@ -94,10 +94,10 @@ export default class HelloBeachScene extends Component {
           style={styles.blackTextStyle}
         />
         <ViroButton
-          source={require("./res/arrow.png")}
+          source={require("./res/archway.png")}
           position={[5, 0, -2]}
-          width={2}
-          height={2}
+          width={1}
+          height={1}
           opacity={0.4}
           onFuse={{ callback: this.sceneTwo, timeToFuse: 1500 }}
           transformBehaviors={["billboard"]}

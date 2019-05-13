@@ -27,18 +27,18 @@ export default class HelloWorldScene extends Component {
       <ViroScene>
         <Viro360Image source={require("./res/guadalupe_360.jpg")} />
         <ViroText
-          text="Follow the arrows to find new places!"
+          text="Look at the archways to find new places!"
           width={2}
           height={2}
           position={[0, 0, -2]}
           style={styles.helloWorldTextStyle}
         />
         <ViroButton
-          source={require("./res/arrow.png")}
-          position={[0, -1.5, -2]}
-          width={1.5}
-          height={1.5}
-          opacity={0.4}
+          source={require("./res/archway.png")}
+          position={[0, -1.2, -2]}
+          width={1}
+          height={1}
+          opacity={0.8}
           onFuse={{ callback: this.sceneOne, timeToFuse: 1500 }}
         />
       </ViroScene>
