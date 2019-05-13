@@ -4,7 +4,13 @@ import React, { Component } from "react";
 
 import { StyleSheet } from "react-native";
 
-import { ViroScene, Viro360Image, ViroText, ViroBox } from "react-viro";
+import {
+  ViroScene,
+  Viro360Image,
+  ViroText,
+  ViroBox,
+  ViroButton
+} from "react-viro";
 
 export default class HelloSceneFive extends Component {
   constructor() {
@@ -31,7 +37,7 @@ export default class HelloSceneFive extends Component {
           text="The Castle again"
           width={1}
           height={1}
-          position={[-2, -0.6, -2]}
+          position={[-2, 0.5, 0.3]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
@@ -44,14 +50,17 @@ export default class HelloSceneFive extends Component {
           style={styles.helloWorldTextStyle}
         />
 
-        <ViroBox
-          position={[1, 0, -2]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onHover={this.sceneSix}
+        <ViroButton
+          source={require("./res/arrow.png")}
+          position={[-6, 0, 1]}
+          width={2}
+          height={2}
+          opacity={0.4}
+          transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.sceneSix, timeToFuse: 1500 }}
         />
         <ViroText
-          text="Go back to the beach"
+          text="Gaze on the box to go back to the beach"
           width={1}
           height={1}
           position={[5, 0.5, -2]}
@@ -63,7 +72,7 @@ export default class HelloSceneFive extends Component {
           position={[5, 0, -2]}
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
-          onHover={this.backToBeach}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
@@ -78,7 +87,7 @@ var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 15,
-    color: "#FFFF00",
+    color: "#ffff",
     textAlignVertical: "center",
     textAlign: "center"
   }

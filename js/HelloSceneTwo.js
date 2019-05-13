@@ -4,7 +4,13 @@ import React, { Component } from "react";
 
 import { StyleSheet } from "react-native";
 
-import { ViroScene, Viro360Image, ViroText, ViroBox } from "react-viro";
+import {
+  ViroScene,
+  Viro360Image,
+  ViroText,
+  ViroBox,
+  ViroButton
+} from "react-viro";
 
 export default class HelloSceneTwo extends Component {
   constructor() {
@@ -17,11 +23,11 @@ export default class HelloSceneTwo extends Component {
 
   backToBeach = () => {
     this.props.sceneNavigator.push({ scene: require("./HelloWorldScene.js") });
-  }
- 
-sceneThree = () => {
+  };
+
+  sceneThree = () => {
     this.props.sceneNavigator.push({ scene: require("./HelloSceneThree.js") });
-  }
+  };
 
   render() {
     return (
@@ -31,39 +37,43 @@ sceneThree = () => {
           text="Welcome to School of Code"
           width={1}
           height={1}
-          position={[-2, -0.6, -2]}
+          position={[1, 0, -0.9]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-      <ViroText
+        <ViroText
           text="Meet Giant Rhys"
           width={1}
           height={1}
-          position={[-1, 0.5, -2]}
+          position={[-1, 0.6, 1]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
-       <ViroBox
-          position={[-1, 0, -2]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onHover={this.sceneThree}
+        <ViroButton
+          source={require("./res/arrow.png")}
+          position={[-1, 0.5, 2]}
+          width={1.5}
+          height={1.5}
+          opacity={0.4}
+          transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.sceneThree, timeToFuse: 1500 }}
         />
-          <ViroText
-          text="Go back to the beach"
-          width={1}
-          height={1}
-          position={[2, 0.5, -2]}
+
+        <ViroText
+          text="Gaze on the box to go back to the beach"
+          width={1.5}
+          height={2}
+          position={[2, 0.5, 2]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
         <ViroBox
-          position={[2, 0, -2]}
+          position={[2, 0, 2]}
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
-          onHover={this.backToBeach}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
@@ -78,7 +88,7 @@ var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 15,
-    color: "#FFFF00",
+    color: "#ffff",
     textAlignVertical: "center",
     textAlign: "center"
   }

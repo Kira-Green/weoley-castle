@@ -17,8 +17,8 @@ export default class HelloSceneSix extends Component {
 
   backToBeach = () => {
     this.props.sceneNavigator.push({ scene: require("./HelloWorldScene.js") });
-  }
- 
+  };
+
   render() {
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
@@ -31,8 +31,8 @@ export default class HelloSceneSix extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-          <ViroText
-          text="Go back to the beach"
+        <ViroText
+          text="Gaze on the back to go back to the beach"
           width={1}
           height={1}
           position={[5, 0.5, -2]}
@@ -44,7 +44,7 @@ export default class HelloSceneSix extends Component {
           position={[5, 0, -2]}
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
-          onHover={this.backToBeach}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
@@ -59,7 +59,7 @@ var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 15,
-    color: "#FFFF00",
+    color: "#ffff",
     textAlignVertical: "center",
     textAlign: "center"
   }
