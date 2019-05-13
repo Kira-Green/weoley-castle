@@ -7,7 +7,7 @@ import { StyleSheet } from "react-native";
 import { ViroARScene, ViroText, ViroSound, ViroConstants, ViroARImageMarker, ViroARTrackingTargets, ViroImage, Viro3DObject,
 	ViroAmbientLight,
 	ViroSpotLight,
-ViroPortalScene, ViroPortal, Viro360Image } from "react-viro";
+ViroPortalScene, ViroPortal, Viro360Image, ViroVideo } from "react-viro";
 
 export default class HelloWorldSceneAR extends Component {
 	constructor() {
@@ -39,6 +39,20 @@ export default class HelloWorldSceneAR extends Component {
 					position={[0, 0, -1]}
 					style={styles.helloWorldTextStyle}
 				/>
+<ViroVideo
+    source={require("./res/WeoleyCastleReconstruction.mp4")}
+    loop={false}
+    position={[-2,0,-2]}
+		scale={[1.5, 1.5, 0]}
+		transformBehaviors={["billboardX"]}
+ />
+ 	<ViroText
+						text="This video will show you a reconstruction of the castle."
+						scale={[0.6, 0.6, 0.6]}
+						position={[-2, -.9, -2]}
+						style={styles.helloWorldTextStyle}
+						transformBehaviors={"billboardX"}/>
+
 				<ViroARImageMarker 
 					target={"targetOne"}
 					onAnchorFound={this._onAnchorFound}
