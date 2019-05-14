@@ -10,7 +10,12 @@ import {
   ViroText,
   ViroBox,
   ViroButton,
-  ViroMaterials
+  ViroMaterials,
+  ViroPortal,
+  ViroPortalScene,
+  Viro3DObject,
+  ViroAmbientLight,
+  ViroAnimations
 } from "react-viro";
 
 export default class HelloBeachScene extends Component {
@@ -84,24 +89,42 @@ export default class HelloBeachScene extends Component {
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
         <ViroText
           text="Go to the classroom"
           width={1}
           height={1}
-          position={[2, 0.9, -0.9]}
+          position={[2, 0.5, -0.8]}
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
         />
-        <ViroButton
-          source={require("./res/arrow.png")}
+        {/* <ViroButton
+          source={require("./res/archway.png")}
           position={[5, 0, -2]}
-          width={2}
-          height={2}
+          width={1}
+          height={1}
           opacity={0.4}
           onFuse={{ callback: this.sceneTwo, timeToFuse: 1500 }}
           transformBehaviors={["billboard"]}
-        />
+        /> */}
+        <ViroAmbientLight color="#ffffff" />
+        <ViroPortalScene>
+          <ViroPortal position={[5, 0, -2]} scale={[0.5, 0.5, 0.5]}>
+            <Viro3DObject
+              source={require("./res/portal_archway.vrx")}
+              resources={[
+                require("./res/portal_archway_diffuse.png"),
+                require("./res/portal_archway_normal.png"),
+                require("./res/portal_archway_specular.png")
+              ]}
+              onFuse={{ callback: this.sceneTwo, timeToFuse: 1500 }}
+              type="VRX"
+              transformBehaviors={["billboard"]}
+            />
+          </ViroPortal>
+          <Viro360Image source={require("./res/360_0082_Stitch_XHC.JPG")} />
+        </ViroPortalScene>
         <ViroText
           text="This is where the drawbridge and entrance used to be, surrounded by a moat"
           position={[2.5, 0.5, 2]}
@@ -118,6 +141,15 @@ export default class HelloBeachScene extends Component {
     this.props.sceneNavigator.pop();
   }
 }
+
+ViroAnimations.registerAnimations({
+  rotate: {
+    properties: {
+      rotateY: "+=90"
+    },
+    duration: 250 //.25 seconds
+  }
+});
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {

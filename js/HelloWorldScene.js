@@ -9,7 +9,11 @@ import {
   ViroText,
   ViroButton,
   Viro360Image,
-  ViroMaterials
+  ViroMaterials,
+  Viro3DObject,
+  ViroPortalScene,
+  ViroAmbientLight,
+  ViroPortal
 } from "react-viro";
 
 export default class HelloWorldScene extends Component {
@@ -27,20 +31,28 @@ export default class HelloWorldScene extends Component {
       <ViroScene>
         <Viro360Image source={require("./res/guadalupe_360.jpg")} />
         <ViroText
-          text="Follow the arrows to find new places!"
+          text="Look at the archways to find new places!"
           width={2}
           height={2}
           position={[0, 0, -2]}
           style={styles.helloWorldTextStyle}
         />
-        <ViroButton
-          source={require("./res/arrow.png")}
-          position={[0, -1.5, -2]}
-          width={1.5}
-          height={1.5}
-          opacity={0.4}
-          onFuse={{ callback: this.sceneOne, timeToFuse: 1500 }}
-        />
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
+        <ViroPortalScene>
+          <ViroPortal position={[0, -1.5, -2]} scale={[0.5, 0.5, 0.5]}>
+            <Viro3DObject
+              source={require("./res/portal_archway.vrx")}
+              resources={[
+                require("./res/portal_archway_diffuse.png"),
+                require("./res/portal_archway_normal.png"),
+                require("./res/portal_archway_specular.png")
+              ]}
+              onFuse={{ callback: this.sceneOne, timeToFuse: 1500 }}
+              type="VRX"
+            />
+          </ViroPortal>
+          <Viro360Image source={require("./res/1_Stitch_XHC.JPG")} />
+        </ViroPortalScene>
       </ViroScene>
     );
   }
