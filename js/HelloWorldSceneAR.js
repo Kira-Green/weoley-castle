@@ -19,7 +19,8 @@ export default class HelloWorldSceneAR extends Component {
 			image1: false,
 			sound1: false,
 			image2: false,
-			sound2: false
+			sound2: false,
+			pauseVideo: true
 		};
 
 		// bind 'this' to functions
@@ -27,6 +28,8 @@ export default class HelloWorldSceneAR extends Component {
 		this._onAnchorFound = this._onAnchorFound.bind(this);
 		this._onAnchorFoundTwo = this._onAnchorFoundTwo.bind(this);
 		this._onAnchorFoundThree = this._onAnchorFoundThree.bind(this);
+		this._onPortalEnter = this._onPortalEnter.bind(this);
+		this._onPortalExit = this._onPortalExit.bind(this);
 	}
 
 	render() {
@@ -39,20 +42,6 @@ export default class HelloWorldSceneAR extends Component {
 					position={[0, 0, -1]}
 					style={styles.helloWorldTextStyle}
 				/>
-<ViroVideo
-    source={require("./res/WeoleyCastleReconstruction.mp4")}
-    loop={false}
-    position={[-2,0,-2]}
-		scale={[1.5, 1.5, 0]}
-		transformBehaviors={["billboardX"]}
- />
- 	<ViroText
-						text="This video will show you a reconstruction of the castle."
-						scale={[0.6, 0.6, 0.6]}
-						position={[-2, -.9, -2]}
-						style={styles.helloWorldTextStyle}
-						transformBehaviors={"billboardX"}/>
-
 				<ViroARImageMarker 
 					target={"targetOne"}
 					onAnchorFound={this._onAnchorFound}
@@ -112,25 +101,34 @@ export default class HelloWorldSceneAR extends Component {
               type="VRX"/>
           </ViroPortal>
           <Viro360Image source={require("./res/1_Stitch_XHC.JPG")} />
-						<ViroPortalScene passable={true} dragType="FixedDistance" onDrag={()=>{}}>
-          	<ViroPortal position={[1, 0, 2]} scale={[.1, .1, .1]}>
+
+					<ViroText
+						text="Step into a reconstruction of the castle."
+						scale={[0.6, 0.6, 0.6]}
+						position={[-1, -.3, 2]}
+						style={styles.helloWorldTextStyle}
+						transformBehaviors={"billboard"}/>
+						<ViroPortalScene onPortalEnter={this._onPortalEnter} onPortalExit={this._onPortalExit} passable={true} dragType="FixedDistance" onDrag={()=>{}}>
+          	<ViroPortal position={[-1, 0, 2]} scale={[.1, .1, .1]}>
             <Viro3DObject source={require('./res/portal_archway.vrx')}
               resources={[require('./res/portal_archway_diffuse.png'),
                           require('./res/portal_archway_normal.png'),
                           require('./res/portal_archway_specular.png')]}
               type="VRX"/>
-          	</ViroPortal>
-          	<Viro360Image source={require("./res/guadalupe_360.jpg")} />
-        </ViroPortalScene>
+          	</ViroPortal> 
+						<Viro360Image source={require("./res/360_theater_dark.jpg")} />
+						<ViroVideo
+    source={require("./res/WeoleyCastleReconstruction.mp4")}
+		loop={false} 
+		paused={this.state.pauseVideo}
+		position={[7500, 300, -300]} 
+		scale={[8000, 5000, 3000]}
+		rotationPivot={[-1, 0, 2]}
+		rotation={[0, -90, 0]}
+		transformBehaviors={"billboard"}
+/>
 
-
-
-
-
-
-
-
-
+        	</ViroPortalScene>
         </ViroPortalScene>
 				
 			</ViroARScene>
@@ -163,10 +161,23 @@ export default class HelloWorldSceneAR extends Component {
 			sound2: false,
 		})
 	}
+
+	_onPortalEnter() {
+		this.setState({
+			pauseVideo: false
+		})
+	}
+
+	_onPortalExit() {
+		this.setState({
+			pauseVideo: true
+		})
+	}
+
 	_onInitialized(state, reason) {
 		if (state == ViroConstants.TRACKING_NORMAL) {
 			this.setState({
-				text: "Welcome to Weoley Castle! Scan the markers on the information boards to find out more."
+				text: "Welcome to Weoley Castle! Scan the markers. Look around to find portals."
 			});
 		} else if (state == ViroConstants.TRACKING_NONE) {
 			text: "Try to focus your camera on one of the marker images on the boards."
