@@ -77,7 +77,7 @@ export default class ViroSample extends Component {
           <TouchableHighlight
             style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-            underlayColor={"#68a0ff"}
+            underlayColor={"#EE82EE"}
           >
             <Text style={localStyles.buttonText}>AlTeRnaTe r34liTy</Text>
           </TouchableHighlight>

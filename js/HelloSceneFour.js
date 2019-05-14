@@ -8,8 +8,11 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
-  ViroBox,
-  ViroButton,
+  ViroAnimations,
+  ViroAmbientLight,
+  Viro3DObject,
+  ViroPortal,
+  ViroPortalScene,
   ViroImage
 } from "react-viro";
 
@@ -46,19 +49,28 @@ export default class HelloSceneFour extends Component {
           text="Back to Weoley"
           width={1}
           height={1}
-          position={[-1, 0.5, -2]}
+          position={[0.2, 2, -8]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
-        <ViroButton
-          source={require("./res/archway.png")}
-          position={[-1, 0, -2]}
-          width={1}
-          height={1}
-          opacity={0.4}
-          onFuse={{ callback: this.sceneFive, timeToFuse: 1500 }}
-        />
+        <ViroAmbientLight color="#ffffff" />
+        <ViroPortalScene>
+          <ViroPortal position={[0.2, 0, -8]} scale={[1, 1, 1]}>
+            <Viro3DObject
+              source={require("./res/portal_archway.vrx")}
+              resources={[
+                require("./res/portal_archway_diffuse.png"),
+                require("./res/portal_archway_normal.png"),
+                require("./res/portal_archway_specular.png")
+              ]}
+              onFuse={{ callback: this.sceneFive, timeToFuse: 1500 }}
+              type="VRX"
+              transformBehaviors={["billboard"]}
+            />
+          </ViroPortal>
+          <Viro360Image source={require("./res/360_0111_Stitch_XHC.JPG")} />
+        </ViroPortalScene>
         <ViroText
           text="Gaze on the weird pic man, to go back to the beach"
           width={1}
@@ -75,6 +87,7 @@ export default class HelloSceneFour extends Component {
           width={8}
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+          // animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -84,6 +97,15 @@ export default class HelloSceneFour extends Component {
     this.props.sceneNavigator.pop();
   }
 }
+
+ViroAnimations.registerAnimations({
+  rotate: {
+    properties: {
+      rotateY: "+=90"
+    },
+    duration: 250 //.25 seconds
+  }
+});
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {

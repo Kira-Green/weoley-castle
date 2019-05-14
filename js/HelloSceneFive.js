@@ -9,7 +9,13 @@ import {
   Viro360Image,
   ViroText,
   ViroBox,
-  ViroButton
+  ViroButton,
+  ViroAmbientLight,
+  Viro3DObject,
+  ViroPortal,
+  ViroPortalScene,
+  ViroImage,
+  ViroAnimations
 } from "react-viro";
 
 export default class HelloSceneFive extends Component {
@@ -37,7 +43,7 @@ export default class HelloSceneFive extends Component {
           text="The Castle again"
           width={1}
           height={1}
-          position={[-2, 0.5, 0.3]}
+          position={[-2, 0.8, 0.3]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
@@ -50,7 +56,7 @@ export default class HelloSceneFive extends Component {
           style={styles.helloWorldTextStyle}
         />
 
-        <ViroButton
+        {/* <ViroButton
           source={require("./res/archway.png")}
           position={[-6, 0, 1]}
           width={1}
@@ -58,7 +64,24 @@ export default class HelloSceneFive extends Component {
           opacity={0.4}
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.sceneSix, timeToFuse: 1500 }}
-        />
+        /> */}
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={500} />
+        <ViroPortalScene>
+          <ViroPortal position={[-6, 0, 1]} scale={[1, 1, 1]}>
+            <Viro3DObject
+              source={require("./res/portal_archway.vrx")}
+              resources={[
+                require("./res/portal_archway_diffuse.png"),
+                require("./res/portal_archway_normal.png"),
+                require("./res/portal_archway_specular.png")
+              ]}
+              onFuse={{ callback: this.sceneSix, timeToFuse: 1500 }}
+              type="VRX"
+              transformBehaviors={["billboard"]}
+            />
+          </ViroPortal>
+          <Viro360Image source={require("./res/360_0116_Stitch_XHC.JPG")} />
+        </ViroPortalScene>
         <ViroText
           text="Gaze on the box to go back to the beach"
           width={1}
@@ -73,6 +96,7 @@ export default class HelloSceneFive extends Component {
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -82,6 +106,15 @@ export default class HelloSceneFive extends Component {
     this.props.sceneNavigator.pop();
   }
 }
+
+ViroAnimations.registerAnimations({
+  rotate: {
+    properties: {
+      rotateY: "+=90"
+    },
+    duration: 250 //.25 seconds
+  }
+});
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {

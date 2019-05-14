@@ -4,7 +4,13 @@ import React, { Component } from "react";
 
 import { StyleSheet } from "react-native";
 
-import { ViroScene, Viro360Image, ViroText, ViroBox } from "react-viro";
+import {
+  ViroScene,
+  Viro360Image,
+  ViroText,
+  ViroBox,
+  ViroAnimations
+} from "react-viro";
 
 export default class HelloSceneSix extends Component {
   constructor() {
@@ -45,6 +51,7 @@ export default class HelloSceneSix extends Component {
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -54,6 +61,15 @@ export default class HelloSceneSix extends Component {
     this.props.sceneNavigator.pop();
   }
 }
+
+ViroAnimations.registerAnimations({
+  rotate: {
+    properties: {
+      rotateY: "+=90"
+    },
+    duration: 250 //.25 seconds
+  }
+});
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {

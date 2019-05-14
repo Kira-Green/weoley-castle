@@ -9,7 +9,12 @@ import {
   Viro360Image,
   ViroText,
   ViroBox,
-  ViroButton
+  ViroButton,
+  ViroAmbientLight,
+  Viro3DObject,
+  ViroPortal,
+  ViroPortalScene,
+  ViroAnimations
 } from "react-viro";
 
 export default class HelloSceneTwo extends Component {
@@ -45,12 +50,12 @@ export default class HelloSceneTwo extends Component {
           text="Meet Giant Rhys"
           width={1}
           height={1}
-          position={[-1, 0.6, 1]}
+          position={[0, 0, -3]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
-        <ViroButton
+        {/* <ViroButton
           source={require("./res/archway.png")}
           position={[-1, 0.5, 2]}
           width={1}
@@ -58,8 +63,24 @@ export default class HelloSceneTwo extends Component {
           opacity={0.4}
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.sceneThree, timeToFuse: 1500 }}
-        />
-
+        /> */}
+        <ViroAmbientLight color="#ffffff" />
+        <ViroPortalScene>
+          <ViroPortal position={[0, 0, -5]} scale={[1, 1, 1]}>
+            <Viro3DObject
+              source={require("./res/portal_archway.vrx")}
+              resources={[
+                require("./res/portal_archway_diffuse.png"),
+                require("./res/portal_archway_normal.png"),
+                require("./res/portal_archway_specular.png")
+              ]}
+              onFuse={{ callback: this.sceneThree, timeToFuse: 1500 }}
+              type="VRX"
+              transformBehaviors={["billboard"]}
+            />
+          </ViroPortal>
+          <Viro360Image source={require("./res/rhys.JPG")} />
+        </ViroPortalScene>
         <ViroText
           text="Gaze on the box to go back to the beach"
           width={1.5}
@@ -74,6 +95,7 @@ export default class HelloSceneTwo extends Component {
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -83,6 +105,15 @@ export default class HelloSceneTwo extends Component {
     this.props.sceneNavigator.pop();
   }
 }
+
+ViroAnimations.registerAnimations({
+  rotate: {
+    properties: {
+      rotateY: "+=90"
+    },
+    duration: 250 //.25 seconds
+  }
+});
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
