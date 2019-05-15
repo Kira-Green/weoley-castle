@@ -1,18 +1,12 @@
-/**
- * Copyright (c) 2017-present, Viro, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
 import React, { Component } from "react";
 import {
   AppRegistry,
   Text,
+  Image,
+  ImageBackground,
   View,
   StyleSheet,
+  Linking,
   PixelRatio,
   TouchableHighlight
 } from "react-native";
@@ -30,13 +24,13 @@ var sharedProps = {
 var InitialARScene = require("./js/HelloWorldSceneAR");
 var InitialVRScene = require("./js/HelloWorldScene");
 
-var UNSET = "UNSET";
+var MAIN = "MAIN";
 var VR_NAVIGATOR_TYPE = "VR";
 var AR_NAVIGATOR_TYPE = "AR";
 
-// This determines which type of experience to launch in, or UNSET, if the user should
+// This determines which type of experience to launch in, or MAIN, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
-var defaultNavigatorType = UNSET;
+var defaultNavigatorType = MAIN;
 
 export default class ViroSample extends Component {
   constructor() {
@@ -47,6 +41,7 @@ export default class ViroSample extends Component {
       sharedProps: sharedProps
     };
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
+    this._goToURL = this._goToURL.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
@@ -58,7 +53,7 @@ export default class ViroSample extends Component {
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
   // if you are building a specific type of experience.
   render() {
-    if (this.state.navigatorType == UNSET) {
+    if (this.state.navigatorType == MAIN) {
       return this._getExperienceSelector();
     } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
       return this._getVRNavigator();
@@ -67,29 +62,72 @@ export default class ViroSample extends Component {
     }
   }
 
+  _goToURL() {
+    Linking.canOpenURL(
+      "https://eu-west-1.sumerian.aws/2f7cca0d03dd433f8c5257622304a292.scene"
+    ).then(supported => {
+      if (supported) {
+        Linking.openURL(
+          "https://eu-west-1.sumerian.aws/2f7cca0d03dd433f8c5257622304a292.scene"
+        );
+      } else {
+        console.log("Don't know how to open URI: " + this.props.url);
+      }
+    });
+  }
   // Presents the user with a choice of an AR or VR experience
   _getExperienceSelector() {
     return (
-      <View style={localStyles.outer}>
-        <View style={localStyles.inner}>
-          <Text style={localStyles.titleText}>What you wana do fam:</Text>
-
-          <TouchableHighlight
-            style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-            underlayColor={"#EE82EE"}
-          >
-            <Text style={localStyles.buttonText}>AlTeRnaTe r34liTy</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
-            underlayColor={"#68a0ff"}
-          >
-            <Text style={localStyles.buttonText}>VR</Text>
-          </TouchableHighlight>
+      <View style={localStyles.container}>
+        <Image
+          source={require("./js/res/WeoleyCastle-19.jpg")}
+          flex={1}
+          style={{ height: "100%" }}
+          resizeMode={"contain"}
+          position={"absolute"}
+        />
+        <View style={localStyles.header}>
+          <Image
+            source={require("./js/res/weoley.png")}
+            resizeMode="contain"
+            style={{ width: "80%", height: "40%" }}
+          />
+          <Image
+            resizeMode="contain"
+            source={require("./js/res/weoleyface.png")}
+            style={{ height: "50%" }}
+            marginTop={"2%"}
+          />
         </View>
+        <View style={localStyles.textContainer}>
+          <Text style={localStyles.titleText}>
+            Welcome to the Weoley Experience!
+          </Text>
+        </View>
+        <View style={localStyles.instructions}>
+          <Text
+            style={{ fontSize: 20, color: "white" }}
+            onPress={this._goToURL}
+          >
+            Click here to interact with our virtual host
+          </Text>
+        </View>
+
+        <TouchableHighlight
+          style={localStyles.buttons}
+          onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
+          underlayColor={"#68a0ff"}
+        >
+          <Text style={localStyles.buttonText}>VR</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          style={localStyles.buttons}
+          onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
+          underlayColor={"#EE82EE"}
+        >
+          <Text style={localStyles.buttonText}>AR</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -128,32 +166,59 @@ export default class ViroSample extends Component {
   // This function "exits" Viro by setting the navigatorType to UNSET.
   _exitViro() {
     this.setState({
-      navigatorType: UNSET
+      navigatorType: MAIN
     });
   }
 }
 
 var localStyles = StyleSheet.create({
-  viroContainer: {
+  container: {
     flex: 1,
-    backgroundColor: "black"
-  },
-  outer: {
-    flex: 1,
-    flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "black"
+
+    flexDirection: "column",
+    backgroundColor: "red"
+  },
+  header: {
+    flex: 1,
+    width: "100%",
+    height: 20,
+    backgroundColor: "rgba(100, 100, 100, 0.6)",
+    borderBottomColor: "red",
+    borderBottomWidth: 1,
+    alignItems: "center",
+    flexDirection: "column",
+    alignSelf: "flex-start"
+  },
+  imageContainer: {
+    borderColor: "red",
+    borderWidth: 3,
+    borderRadius: 1
+  },
+
+  textContainer: {
+    flex: 1,
+    flexDirection: "column",
+    fontWeight: "600",
+    height: "30%",
+    width: "100%",
+    alignItems: "center"
+  },
+  instructions: {
+    backgroundColor: "black",
+    opacity: 0.5,
+    borderColor: "red",
+    borderWidth: 3,
+    borderRadius: 1
   },
   inner: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "black"
+    backgroundColor: "white"
   },
   titleText: {
-    paddingTop: 30,
-    paddingBottom: 20,
-    color: "#fff",
+    color: "white",
     textAlign: "center",
     fontSize: 25
   },
@@ -173,6 +238,13 @@ var localStyles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#fff"
+  },
+  buttonCont: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "red",
+    height: "30%",
+    flexDirection: "column"
   },
   exitButton: {
     height: 50,
