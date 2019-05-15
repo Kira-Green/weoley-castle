@@ -41,7 +41,10 @@ export default class ViroSample extends Component {
       sharedProps: sharedProps
     };
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
-    this._goToURL = this._goToURL.bind(this);
+    this._goToAWS = this._goToAWS.bind(this);
+    this._goToWeoleyWebsite = this._goToWeoleyWebsite.bind(this);
+    this._goToEvents = this._goToEvents.bind(this);
+    this._goToFeedback = this._goToFeedback.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
@@ -62,7 +65,7 @@ export default class ViroSample extends Component {
     }
   }
 
-  _goToURL() {
+  _goToAWS() {
     Linking.canOpenURL(
       "https://eu-west-1.sumerian.aws/2f7cca0d03dd433f8c5257622304a292.scene"
     ).then(supported => {
@@ -75,7 +78,41 @@ export default class ViroSample extends Component {
       }
     });
   }
-  // Presents the user with a choice of an AR or VR experience
+
+  _goToWeoleyWebsite() {
+    Linking.canOpenURL("https://www.birminghammuseums.org.uk/weoley").then(
+      supported => {
+        if (supported) {
+          Linking.openURL("https://www.birminghammuseums.org.uk/weoley");
+        } else {
+          console.log("Don't know how to open URI weoley website");
+        }
+      }
+    );
+  }
+  _goToEvents() {
+    Linking.canOpenURL(
+      "https://www.birminghammuseums.org.uk/weoley/whats-on"
+    ).then(supported => {
+      if (supported) {
+        Linking.openURL("https://www.birminghammuseums.org.uk/weoley/whats-on");
+      } else {
+        console.log("Don't know how to open URI for events");
+      }
+    });
+  }
+  _goToFeedback() {
+    Linking.canOpenURL("https://forms.gle/EY7dwpgy7NmBhkdz7").then(
+      supported => {
+        if (supported) {
+          Linking.openURL("https://forms.gle/EY7dwpgy7NmBhkdz7");
+        } else {
+          console.log("Don't know how to open URI for events");
+        }
+      }
+    );
+  }
+  // Presents the user with a choice of an AR or VR experience/go to link in footer
   _getExperienceSelector() {
     return (
       <View style={localStyles.container}>
@@ -107,27 +144,49 @@ export default class ViroSample extends Component {
         <View style={localStyles.instructions}>
           <Text
             style={{ fontSize: 20, color: "white" }}
-            onPress={this._goToURL}
+            onPress={this._goToAWS}
           >
             Click here to interact with our virtual host
           </Text>
         </View>
+        <View style={localStyles.experiences}>
+          <TouchableHighlight
+            style={localStyles.buttons}
+            onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
+            underlayColor={"#68a0ff"}
+          >
+            <Text style={localStyles.buttonText}>VR</Text>
+          </TouchableHighlight>
 
-        <TouchableHighlight
-          style={localStyles.buttons}
-          onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
-          underlayColor={"#68a0ff"}
-        >
-          <Text style={localStyles.buttonText}>VR</Text>
-        </TouchableHighlight>
+          <TouchableHighlight
+            style={localStyles.buttons}
+            onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
+            underlayColor={"#EE82EE"}
+          >
+            <Text style={localStyles.buttonText}>AR</Text>
+          </TouchableHighlight>
+        </View>
 
-        <TouchableHighlight
-          style={localStyles.buttons}
-          onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-          underlayColor={"#EE82EE"}
-        >
-          <Text style={localStyles.buttonText}>AR</Text>
-        </TouchableHighlight>
+        <View style={localStyles.footer}>
+          <TouchableHighlight
+            style={localStyles.footerButtons}
+            onPress={this._goToWeoleyWebsite}
+          >
+            <Text style={localStyles.footerText}>Weoley website</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={localStyles.footerButtons}
+            onPress={this._goToEvents}
+          >
+            <Text style={localStyles.footerText}>Events</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={localStyles.footerButtons}
+            onPress={this._goToFeedback}
+          >
+            <Text style={localStyles.footerText}>Give Feedback</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -163,7 +222,7 @@ export default class ViroSample extends Component {
     };
   }
 
-  // This function "exits" Viro by setting the navigatorType to UNSET.
+  // This function "exits" Viro by setting the navigatorType to MAIN.
   _exitViro() {
     this.setState({
       navigatorType: MAIN
@@ -175,27 +234,21 @@ var localStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-
-    flexDirection: "column",
-    backgroundColor: "red"
+    flexDirection: "column"
   },
   header: {
     flex: 1,
     width: "100%",
     height: 20,
     backgroundColor: "rgba(100, 100, 100, 0.6)",
-    borderBottomColor: "red",
-    borderBottomWidth: 1,
     alignItems: "center",
     flexDirection: "column",
     alignSelf: "flex-start"
   },
   imageContainer: {
-    borderColor: "red",
     borderWidth: 3,
     borderRadius: 1
   },
-
   textContainer: {
     flex: 1,
     flexDirection: "column",
@@ -211,16 +264,17 @@ var localStyles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 1
   },
-  inner: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white"
-  },
   titleText: {
     color: "white",
     textAlign: "center",
     fontSize: 25
+  },
+  experiences: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    height: 10
   },
   buttonText: {
     color: "#fff",
@@ -232,19 +286,45 @@ var localStyles = StyleSheet.create({
     width: 150,
     paddingTop: 20,
     paddingBottom: 20,
-    marginTop: 10,
-    marginBottom: 10,
+    // marginTop: 10,
+    // marginBottom: 10,
+    margin: "2%",
     backgroundColor: "#68a0cf",
-    borderRadius: 10,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: "#fff"
   },
   buttonCont: {
     flex: 1,
     width: "100%",
-    backgroundColor: "red",
     height: "30%",
     flexDirection: "column"
+  },
+  footer: {
+    flex: 1,
+    flexDirection: "row",
+    opacity: 0.8,
+    width: "100%",
+    height: 10,
+    backgroundColor: "rgba(100, 100, 100, 0.6)"
+  },
+  footerButtons: {
+    height: 60,
+    width: "30%",
+    paddingTop: 20,
+    paddingBottom: 20,
+    margin: 5,
+    // marginTop: 10,
+    // marginBottom: 10,
+    backgroundColor: "#68a0cf",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#fff"
+  },
+  footerText: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 15
   },
   exitButton: {
     height: 50,
