@@ -170,19 +170,19 @@ export default class ViroSample extends Component {
 
         <View style={localStyles.footer}>
           <TouchableHighlight
-            style={localStyles.footerButtons}
+            // style={localStyles.footerButtons}
             onPress={this._goToWeoleyWebsite}
           >
             <Text style={localStyles.footerText}>Weoley {"\n"}website</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            style={localStyles.footerButtons}
+            // style={localStyles.footerButtons}
             onPress={this._goToEvents}
           >
             <Text style={localStyles.footerText}>Upcoming{"\n"}Events</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            style={localStyles.footerButtons}
+            // style={localStyles.footerButtons}
             onPress={this._goToFeedback}
           >
             <Text style={localStyles.footerText}>
@@ -314,9 +314,9 @@ var localStyles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     flexDirection: "row",
-
+    justifyContent: "space-evenly",
     width: "100%",
-    height: "15%",
+    // height: "5%",
     backgroundColor: "rgba(0, 0, 0, .2)",
     position: "relative"
   },
@@ -337,9 +337,11 @@ var localStyles = StyleSheet.create({
     borderColor: "rgba(83, 102, 38, 1)"
   },
   footerText: {
-    color: "rgba(43, 80, 38, 1)",
+    color: "rgba(300, 300, 300, 1)",
+    // color: "rgba(43, 80, 38, 1)",
     textAlign: "center",
-    fontSize: 15
+    fontSize: 20,
+    textDecorationLine: "underline"
   },
   exitButton: {
     height: 50,
