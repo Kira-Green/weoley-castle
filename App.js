@@ -119,7 +119,9 @@ export default class ViroSample extends Component {
         <Image
           source={require("./js/res/WeoleyCastle-19.jpg")}
           flex={1}
-          style={{ height: "100%" }}
+          style={{
+            height: "100%"
+          }}
           resizeMode={"contain"}
           position={"absolute"}
         />
@@ -132,8 +134,7 @@ export default class ViroSample extends Component {
           <Image
             resizeMode="contain"
             source={require("./js/res/weoleyface.png")}
-            style={{ height: "50%" }}
-            marginTop={"2%"}
+            style={{ height: "70%", bottom: "10%" }}
           />
         </View>
         <View style={localStyles.textContainer}>
@@ -141,19 +142,11 @@ export default class ViroSample extends Component {
             Welcome to the Weoley Experience!
           </Text>
         </View>
-        <View style={localStyles.instructions}>
-          <Text
-            style={{ fontSize: 20, color: "white" }}
-            onPress={this._goToAWS}
-          >
-            Click here to interact with our virtual host
-          </Text>
-        </View>
         <View style={localStyles.experiences}>
           <TouchableHighlight
             style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
-            underlayColor={"#68a0ff"}
+            underlayColor={"rgba(43, 80, 38, .8)"}
           >
             <Text style={localStyles.buttonText}>VR</Text>
           </TouchableHighlight>
@@ -161,9 +154,17 @@ export default class ViroSample extends Component {
           <TouchableHighlight
             style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-            underlayColor={"#EE82EE"}
+            underlayColor={"rgba(280, 220, 0, 0.8)"}
           >
-            <Text style={localStyles.buttonText}>AR</Text>
+            <Text
+              style={{
+                color: "rgba(83, 102, 38, 1)",
+                textAlign: "center",
+                fontSize: 20
+              }}
+            >
+              AR
+            </Text>
           </TouchableHighlight>
         </View>
 
@@ -172,19 +173,22 @@ export default class ViroSample extends Component {
             style={localStyles.footerButtons}
             onPress={this._goToWeoleyWebsite}
           >
-            <Text style={localStyles.footerText}>Weoley website</Text>
+            <Text style={localStyles.footerText}>Weoley {"\n"}website</Text>
           </TouchableHighlight>
           <TouchableHighlight
             style={localStyles.footerButtons}
             onPress={this._goToEvents}
           >
-            <Text style={localStyles.footerText}>Events</Text>
+            <Text style={localStyles.footerText}>Upcoming{"\n"}Events</Text>
           </TouchableHighlight>
           <TouchableHighlight
             style={localStyles.footerButtons}
             onPress={this._goToFeedback}
           >
-            <Text style={localStyles.footerText}>Give Feedback</Text>
+            <Text style={localStyles.footerText}>
+              Give {"\n"}
+              Feedback
+            </Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -234,65 +238,71 @@ var localStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    flexDirection: "column"
+    flexDirection: "column",
+    backgroundColor: "rgba(0, 0, 0, .2)"
   },
   header: {
-    flex: 1,
+    flex: 4,
     width: "100%",
-    height: 20,
-    backgroundColor: "rgba(100, 100, 100, 0.6)",
+    height: "20%",
+    backgroundColor: "rgba(0, 0, 0, .2)",
     alignItems: "center",
-    flexDirection: "column",
-    alignSelf: "flex-start"
+    flexDirection: "column"
+    // position: "absolute"
   },
-  imageContainer: {
-    borderWidth: 3,
-    borderRadius: 1
-  },
+
   textContainer: {
     flex: 1,
-    flexDirection: "column",
+    backgroundColor: "rgba(0, 0, 0, .2)",
+    flexDirection: "row",
     fontWeight: "600",
-    height: "30%",
+    // height: "20%",
     width: "100%",
-    alignItems: "center"
-  },
-  instructions: {
-    backgroundColor: "black",
-    opacity: 0.5,
-    borderColor: "red",
-    borderWidth: 3,
-    borderRadius: 1
+    textAlign: "center"
   },
   titleText: {
-    color: "white",
+    width: "100%",
+    color: "rgba(300, 300, 300, 1)",
     textAlign: "center",
-    fontSize: 25
+    fontSize: 22
+    // marginLeft: "10%"
+    // marginRight: "10%"
   },
   experiences: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
     width: "100%",
-    height: 10
+    height: "20%",
+    backgroundColor: "rgba(0, 0, 0, .2)"
   },
   buttonText: {
-    color: "#fff",
+    color: "rgba(43, 80, 38, .8)",
     textAlign: "center",
     fontSize: 20
   },
   buttons: {
-    height: 80,
-    width: 150,
-    paddingTop: 20,
-    paddingBottom: 20,
+    height: 50,
+    width: 110,
+    paddingTop: 5,
+    paddingBottom: 5,
     // marginTop: 10,
     // marginBottom: 10,
-    margin: "2%",
-    backgroundColor: "#68a0cf",
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#fff"
+    margin: "10%",
+    backgroundColor: "rgba(255, 198, 0, 0.8)",
+    borderRadius: 50,
+    borderWidth: 5,
+    borderColor: "rgba(83, 102, 38, 1)",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4
   },
   buttonCont: {
     flex: 1,
@@ -302,27 +312,32 @@ var localStyles = StyleSheet.create({
   },
   footer: {
     flex: 1,
+    alignItems: "center",
     flexDirection: "row",
-    opacity: 0.8,
+
     width: "100%",
-    height: 10,
-    backgroundColor: "rgba(100, 100, 100, 0.6)"
+    height: "15%",
+    backgroundColor: "rgba(0, 0, 0, .2)",
+    position: "relative"
   },
   footerButtons: {
+    position: "relative",
     height: 60,
     width: "30%",
-    paddingTop: 20,
-    paddingBottom: 20,
-    margin: 5,
+    paddingBottom: 10,
+    paddingTop: 10,
+    marginRight: 5,
+    marginLeft: 5,
     // marginTop: 10,
     // marginBottom: 10,
-    backgroundColor: "#68a0cf",
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#fff"
+
+    backgroundColor: "rgba(255, 198, 0, 0.8)",
+    borderRadius: 50,
+    borderWidth: 3,
+    borderColor: "rgba(83, 102, 38, 1)"
   },
   footerText: {
-    color: "#fff",
+    color: "rgba(43, 80, 38, 1)",
     textAlign: "center",
     fontSize: 15
   },
