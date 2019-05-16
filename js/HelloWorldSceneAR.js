@@ -32,7 +32,8 @@ export default class HelloWorldSceneAR extends Component {
 			sound1: false,
 			image2: false,
 			sound2: false,
-			pauseVideo: true
+			pauseVideo: true,
+			ruinsPause: true
 		};
 
 		// bind 'this' to functions
@@ -42,12 +43,21 @@ export default class HelloWorldSceneAR extends Component {
 		this._onAnchorFoundThree = this._onAnchorFoundThree.bind(this);
 		this._onPortalEnter = this._onPortalEnter.bind(this);
 		this._onPortalExit = this._onPortalExit.bind(this);
+		this._onPortalEnterRuins = this._onPortalEnterRuins.bind(this);
+		this._onPortalExitRuins = this._onPortalExitRuins.bind(this);
 	}
 
 	render() {
 		return (
 			<ViroARScene onTrackingUpdated={this._onInitialized}>
 				<ViroAmbientLight color="#ffffff" intensity={200} />
+				<ViroSound
+						source={require("./res/intro.mp3")}
+						loop={false}
+						// muted={!this.state.sound1}
+						paused={false}
+						volume={1}
+					/>
 				<ViroText
 					text={this.state.text}
 					scale={[0.5, 0.5, 0.5]}
@@ -72,7 +82,7 @@ export default class HelloWorldSceneAR extends Component {
 						visible={this.state.image1}
 					/>
 					<ViroSound
-						source={require("./res/horse-carriage-sound.mp3")}
+						source={require("./res/Marker1audio.mp3")}
 						loop={false}
 						muted={!this.state.sound1}
 						paused={false}
@@ -85,7 +95,7 @@ export default class HelloWorldSceneAR extends Component {
 					onAnchorFound={this._onAnchorFoundTwo}
 				>
 					<ViroSound
-						source={require("./res/medieval-music.wav")}
+						source={require("./res/Marker2.mp3")}
 						loop={false}
 						muted={!this.state.sound2}
 						paused={false}
@@ -97,7 +107,32 @@ export default class HelloWorldSceneAR extends Component {
 					target={"targetThree"}
 					onAnchorFound={this._onAnchorFoundThree}
 				>
-					<ViroSound source={require("./res/medieval-music.wav")} />
+				<ViroSound
+						source={require("./res/audioMarker3.mp3")}
+						loop={false}
+						paused={false}
+						volume={1}
+					/>
+<ViroPortalScene
+					passable={true}
+					dragType="FixedDistance"
+					onDrag={() => {}}
+				>
+					<ViroPortal position={[1, 0, -1]} scale={[0.15, 0.15, 0.15]}>
+						<Viro3DObject
+							source={require("./res/portal_archway.vrx")}
+							resources={[
+								require("./res/portal_archway_diffuse.png"),
+								require("./res/portal_archway_normal.png"),
+								require("./res/portal_archway_specular.png")
+							]}
+							type="VRX"
+						/>
+						
+					</ViroPortal>
+					<Viro360Image source={require("./res/BmInside1.JPG")} />
+</ViroPortalScene>					
+
 				</ViroARImageMarker>
 
 				<ViroText
@@ -114,6 +149,8 @@ export default class HelloWorldSceneAR extends Component {
 				/>
 
 				<ViroPortalScene
+					onPortalEnter={this._onPortalEnterRuins}
+					onPortalExit={this._onPortalExitRuins}
 					passable={true}
 					dragType="FixedDistance"
 					onDrag={() => {}}
@@ -129,8 +166,13 @@ export default class HelloWorldSceneAR extends Component {
 							type="VRX"
 						/>
 					</ViroPortal>
-					<Viro360Image source={require("./res/1_Stitch_XHC.JPG")} />
-
+					<Viro360Image source={require("./res/1_Stitch_XHCtext.JPG")} />
+					<ViroSound
+						source={require("./res/ruinsInformal.mp3")}
+						loop={false}
+						paused={this.state.ruinsPause}
+						volume={1}
+					/>
 					<ViroText
 						text="Step into a reconstruction of the castle."
 						scale={[0.6, 0.6, 0.6]}
@@ -168,11 +210,11 @@ export default class HelloWorldSceneAR extends Component {
 							source={require("./res/360_theater_dark.jpg")}
 						/>
 						<ViroVideo
-							source={require("./res/WeoleyCastleReconstruction.mp4")}
+							source={require("./res/WCreconstruction6.mp4")}
 							loop={false}
 							paused={this.state.pauseVideo}
-							position={[7500, 300, -300]}
-							scale={[8000, 5000, 3000]}
+							position={[8000, 500, -500]}
+							scale={[6000, 3750, 2250]}
 							rotationPivot={[-1, 0, 2]}
 							rotation={[0, -90, 0]}
 							transformBehaviors={"billboard"}
@@ -220,6 +262,18 @@ export default class HelloWorldSceneAR extends Component {
 	_onPortalExit() {
 		this.setState({
 			pauseVideo: true
+		});
+	}
+
+	_onPortalEnterRuins() {
+		this.setState({
+			ruinsPause: false
+		});
+	}
+
+	_onPortalExitRuins() {
+		this.setState({
+			ruinsPause: true
 		});
 	}
 
