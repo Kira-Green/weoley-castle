@@ -97,7 +97,27 @@ export default class HelloWorldSceneAR extends Component {
 					target={"targetThree"}
 					onAnchorFound={this._onAnchorFoundThree}
 				>
+<ViroPortalScene
+					passable={true}
+					dragType="FixedDistance"
+					onDrag={() => {}}
+				>
+					<ViroPortal position={[1, 0, -1]} scale={[0.15, 0.15, 0.15]}>
+						<Viro3DObject
+							source={require("./res/portal_archway.vrx")}
+							resources={[
+								require("./res/portal_archway_diffuse.png"),
+								require("./res/portal_archway_normal.png"),
+								require("./res/portal_archway_specular.png")
+							]}
+							type="VRX"
+						/>
+						
+					</ViroPortal>
+					<Viro360Image source={require("./res/BmInside1.JPG")} />
 					<ViroSound source={require("./res/medieval-music.wav")} />
+</ViroPortalScene>					
+
 				</ViroARImageMarker>
 
 				<ViroText
@@ -129,7 +149,7 @@ export default class HelloWorldSceneAR extends Component {
 							type="VRX"
 						/>
 					</ViroPortal>
-					<Viro360Image source={require("./res/1_Stitch_XHC.JPG")} />
+					<Viro360Image source={require("./res/1_Stitch_XHCtext.JPG")} />
 
 					<ViroText
 						text="Step into a reconstruction of the castle."
@@ -168,7 +188,7 @@ export default class HelloWorldSceneAR extends Component {
 							source={require("./res/360_theater_dark.jpg")}
 						/>
 						<ViroVideo
-							source={require("./res/WeoleyCastleReconstruction.mp4")}
+							source={require("./res/WCreconstruction5.mp4")}
 							loop={false}
 							paused={this.state.pauseVideo}
 							position={[7500, 300, -300]}
