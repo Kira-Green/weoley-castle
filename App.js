@@ -139,7 +139,7 @@ export default class ViroSample extends Component {
         </View>
         <View style={localStyles.textContainer}>
           <Text style={localStyles.titleText}>
-            Welcome to the Weoley Experience!
+            Welcome to the{"\n"}Weoley Experience!
           </Text>
         </View>
         <View style={localStyles.experiences}>
@@ -253,18 +253,24 @@ var localStyles = StyleSheet.create({
 
   textContainer: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, .2)",
     flexDirection: "row",
     fontWeight: "600",
     // height: "20%",
-    width: "100%",
-    textAlign: "center"
+    width: "100%"
   },
   titleText: {
-    width: "100%",
-    color: "rgba(300, 300, 300, 1)",
+    // width: "100%",
+    color: "rgba(300, 300, 300, .8)",
     textAlign: "center",
-    fontSize: 22
+    fontSize: 22,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "rgba(300, 300, 300, .6)",
+    padding: 10,
+    backgroundColor: "rgba(0, 0, 0, .5)"
     // marginLeft: "10%"
     // marginRight: "10%"
   },
@@ -317,7 +323,7 @@ var localStyles = StyleSheet.create({
     justifyContent: "space-evenly",
     width: "100%",
     // height: "5%",
-    backgroundColor: "rgba(0, 0, 0, .2)",
+    backgroundColor: "rgba(0, 0, 0, .6)",
     position: "relative"
   },
   footerButtons: {
@@ -327,21 +333,19 @@ var localStyles = StyleSheet.create({
     paddingBottom: 10,
     paddingTop: 10,
     marginRight: 5,
-    marginLeft: 5,
-    // marginTop: 10,
-    // marginBottom: 10,
-
-    backgroundColor: "rgba(255, 198, 0, 0.8)",
-    borderRadius: 50,
-    borderWidth: 3,
-    borderColor: "rgba(83, 102, 38, 1)"
+    marginLeft: 5
   },
   footerText: {
-    color: "rgba(300, 300, 300, 1)",
+    color: "rgba(300, 300, 300, .6)",
+    // backgroundColor: "rgba(0, 0, 0, .6)",
     // color: "rgba(43, 80, 38, 1)",
     textAlign: "center",
     fontSize: 20,
-    textDecorationLine: "underline"
+    textDecorationLine: "underline",
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: "rgba(300, 300, 300, .6)",
+    padding: 8
   },
   exitButton: {
     height: 50,
