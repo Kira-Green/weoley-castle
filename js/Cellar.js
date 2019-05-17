@@ -16,7 +16,7 @@ import {
   ViroAnimations
 } from "react-viro";
 
-export default class HelloSceneThree extends Component {
+export default class CellarScene extends Component {
   constructor() {
     super();
 
@@ -29,29 +29,25 @@ export default class HelloSceneThree extends Component {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  sceneFour = () => {
+  toGreatHall = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
-  };
-
-  cellarScene = () => {
-    this.props.sceneNavigator.push({ scene: require("./Cellar.js") });
   };
 
   render() {
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
-        <Viro360Image source={require("./res/greatchamber.JPG")} />
+        <Viro360Image source={require("./res/cellar1.JPG")} />
         <ViroText
-          text="To the Great Hall..."
+          text="To the Great Hall"
           width={1.5}
           height={1.5}
-          position={[-3, 0.5, 1]}
+          position={[-3, 0.5, 0]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
-          <ViroPortal position={[-6, 0, 2]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[-6, 0, 0]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -59,7 +55,7 @@ export default class HelloSceneThree extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneFour, timeToFuse: 1500 }}
+              onFuse={{ callback: this.toGreatHall, timeToFuse: 1500 }}
               type="VRX"
               rotation={[0, 160, 0]}
               transformBehaviors={["billboard"]}
@@ -69,23 +65,14 @@ export default class HelloSceneThree extends Component {
         </ViroPortalScene>
 
         <ViroText
-          text="Here is where the great chamber used to be"
+          text="You are now in the cellar & toilet"
           width={1}
           height={1}
-          position={[0, 0, -4]}
+          position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
         />
 
-        <ViroText
-          text="Gaze here to enter the cellar"
-          width={1}
-          height={1}
-          position={[3.5, 0.2, -0.8]}
-          transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.cellarScene, timeToFuse: 1500 }}
-          style={styles.redTextStyle}
-        />
         <ViroText
           text="Return to start scene"
           width={1.5}
@@ -107,14 +94,14 @@ export default class HelloSceneThree extends Component {
           text="Return to main menu"
           width={2}
           height={2}
-          position={[-2.5, 1, -3]}
+          position={[3.5, 0, 1.2]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          style={styles.helloWorldTextStyle}
         />
 
         <ViroButton
           source={require("./res/weoleyface.png")}
-          position={[-2.5, 0, -3]}
+          position={[3.5, -0.8, 1.2]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
@@ -152,14 +139,7 @@ var styles = StyleSheet.create({
     color: "red",
     textAlignVertical: "center",
     textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
   }
 });
 
-module.exports = HelloSceneThree;
+module.exports = CellarScene;
