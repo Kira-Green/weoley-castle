@@ -9,7 +9,8 @@ import {
   Viro360Image,
   ViroText,
   ViroBox,
-  ViroAnimations
+  ViroAnimations,
+  ViroButton
 } from "react-viro";
 
 export default class HelloSceneSix extends Component {
@@ -25,9 +26,13 @@ export default class HelloSceneSix extends Component {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
+  returnToMenu = () => {
+    this.props.sceneNavigator.push();
+  };
+
   render() {
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene hdrEnabled={true} shadowsEnabled={true}>
         <Viro360Image source={require("./res/bakehouse.JPG")} />
         <ViroText
           text="Last one"
@@ -41,17 +46,28 @@ export default class HelloSceneSix extends Component {
           text="Gaze on the back to go back to the beach"
           width={1}
           height={1}
-          position={[5, 0.5, -2]}
+          position={[4, 1.5, -5]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
-        <ViroBox
-          position={[5, 0, -2]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+        <ViroButton
+          source={require("./res/knight.png")}
+          position={[4, 0, -5]}
+          width={1}
+          height={1}
+          transformBehaviors={["billboard"]}
           animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+        />
+        <ViroButton
+          source={require("./res/weoleyface.png")}
+          animation={{ name: "rotate2", run: true, loop: true }}
+          position={[10, 0, 10]}
+          width={1}
+          height={1}
+          transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.returnToMenu, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
@@ -68,6 +84,12 @@ ViroAnimations.registerAnimations({
       rotateY: "+=90"
     },
     duration: 250 //.25 seconds
+  },
+  rotate2: {
+    properties: {
+      rotateX: "+=40"
+    },
+    duration: 300 //.25 seconds
   }
 });
 
@@ -80,5 +102,11 @@ var styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+// ViroMaterials.createMaterials({
+//   grid: {
+//     diffuseTexture: require("./res/knight.png")
+//   }
+// });
 
 module.exports = HelloSceneSix;

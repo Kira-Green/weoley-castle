@@ -8,12 +8,13 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
-  ViroButton,
   ViroAnimations,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
-  ViroPortalScene
+  ViroPortalScene,
+  ViroImage,
+  ViroButton
 } from "react-viro";
 
 export default class HelloSceneFour extends Component {
@@ -38,7 +39,7 @@ export default class HelloSceneFour extends Component {
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/greathall1.JPG")} />
         <ViroText
-          text="This is Olivia! Say Hi"
+          text="Gaze at the Knights Helmet to return to the platform"
           width={1}
           height={1}
           position={[-2, 1, -0]}
@@ -72,37 +73,31 @@ export default class HelloSceneFour extends Component {
           <Viro360Image source={require("./res/kitchen.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="Return to main menu!"
-          width={2}
-          height={2}
-          position={[-3, 1, 1]}
+          text="Gaze on the weird pic man, to go back to the beach"
+          width={1}
+          height={1}
+          position={[2, 0.5, 5]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        />
-        <ViroText
-          text="Return to start scene"
-          width={1.5}
-          height={2}
-          position={[2, 0.5, 2]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          style={styles.blackTextStyle}
         />
 
-        <ViroButton
-          source={require("./res/knight.png")}
-          position={[2, 0, 2]}
-          width={0.8}
-          height={0.8}
+        <ViroImage
+          source={require("./res/castlelogo.png")}
+          position={[2, 2, 20]}
+          height={8}
+          width={8}
           transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
           // animation={{ name: "rotate", run: true, loop: true }}
         />
         <ViroButton
-          source={require("./res/weoleyface.png")}
-          position={[-3, -0, 1]}
+          source={require("./res/knight.png")}
+          position={[-5, 0, 1]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
