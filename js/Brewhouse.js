@@ -22,7 +22,7 @@ export default class HelloSceneSix extends Component {
   }
 
   backToBeach = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloWorldScene.js") });
+    this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
   render() {

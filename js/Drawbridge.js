@@ -10,7 +10,6 @@ import {
   ViroText,
   ViroBox,
   ViroButton,
-  ViroMaterials,
   ViroPortal,
   ViroPortalScene,
   Viro3DObject,
@@ -42,11 +41,11 @@ export default class HelloBeachScene extends Component {
   };
 
   backToBeach = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloWorldScene.js") });
+    this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
   sceneTwo = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloSceneTwo.js") });
+    this.props.sceneNavigator.push({ scene: require("./Chambers.js") });
   };
 
   render() {
@@ -99,15 +98,6 @@ export default class HelloBeachScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
         />
-        {/* <ViroButton
-          source={require("./res/archway.png")}
-          position={[5, 0, -2]}
-          width={1}
-          height={1}
-          opacity={0.4}
-          onFuse={{ callback: this.sceneTwo, timeToFuse: 1500 }}
-          transformBehaviors={["billboard"]}
-        /> */}
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
           <ViroPortal position={[5, 0, -2]} scale={[0.5, 0.5, 0.5]}>

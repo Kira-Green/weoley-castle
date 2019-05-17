@@ -9,16 +9,14 @@ import {
   Viro360Image,
   ViroText,
   ViroBox,
-  ViroButton,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
   ViroPortalScene,
-  ViroImage,
   ViroAnimations
 } from "react-viro";
 
-export default class HelloSceneFive extends Component {
+export default class HelloSceneTwo extends Component {
   constructor() {
     super();
 
@@ -28,46 +26,36 @@ export default class HelloSceneFive extends Component {
   }
 
   backToBeach = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloWorldScene.js") });
+    this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  sceneSix = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloSceneSix.js") });
+  sceneThree = () => {
+    this.props.sceneNavigator.push({ scene: require("./GreatChambers.js") });
   };
 
   render() {
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
-        <Viro360Image source={require("./res/kitchen.JPG")} />
+        <Viro360Image source={require("./res/chambers2.JPG")} />
         <ViroText
-          text="The Castle again"
+          text="Welcome to School of Code"
           width={1}
           height={1}
-          position={[-2, 0.8, 0.3]}
+          position={[1, 0, -0.9]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
         <ViroText
-          text="Another one"
+          text="Meet Giant Rhys"
           width={1}
           height={1}
-          position={[1, 0, -2]}
+          position={[0, 0, -3]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-
-        {/* <ViroButton
-          source={require("./res/archway.png")}
-          position={[-6, 0, 1]}
-          width={1}
-          height={1}
-          opacity={0.4}
-          transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.sceneSix, timeToFuse: 1500 }}
-        /> */}
-        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={500} />
+        <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
-          <ViroPortal position={[-6, 0, 1]} scale={[1, 1, 1]}>
+          <ViroPortal position={[0, 0, -5]} scale={[1, 1, 1]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -75,24 +63,24 @@ export default class HelloSceneFive extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneSix, timeToFuse: 1500 }}
+              onFuse={{ callback: this.sceneThree, timeToFuse: 1500 }}
               type="VRX"
               transformBehaviors={["billboard"]}
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/bakehouse.JPG")} />
+          <Viro360Image source={require("./res/cellar1.JPG")} />
         </ViroPortalScene>
         <ViroText
           text="Gaze on the box to go back to the beach"
-          width={1}
-          height={1}
-          position={[5, 0.5, -2]}
+          width={1.5}
+          height={2}
+          position={[2, 0.5, 2]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
         <ViroBox
-          position={[5, 0, -2]}
+          position={[2, 0, 2]}
           scale={[0.5, 0.5, 0.2]}
           materials={["grid"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
@@ -126,4 +114,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = HelloSceneFive;
+module.exports = HelloSceneTwo;

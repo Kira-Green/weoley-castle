@@ -22,7 +22,7 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require("./js/HelloWorldSceneAR");
-var InitialVRScene = require("./js/HelloWorldScene");
+var InitialVRScene = require("./js/WelcomeSceneVR.js");
 
 var MAIN = "MAIN";
 var VR_NAVIGATOR_TYPE = "VR";

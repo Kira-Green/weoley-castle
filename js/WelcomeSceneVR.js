@@ -24,7 +24,7 @@ export default class HelloWorldScene extends Component {
   }
 
   sceneOne = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloSceneOne.js") });
+    this.props.sceneNavigator.push({ scene: require("./Drawbridge.js") });
   };
   render() {
     return (
@@ -70,7 +70,7 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
   grid: {
-    diffuseTexture: require("./res/castlelogo.png")
+    diffuseTexture: require("./res/knight.png")
   }
 });
 module.exports = HelloWorldScene;

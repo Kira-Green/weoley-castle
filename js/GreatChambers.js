@@ -8,15 +8,16 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
-  ViroAnimations,
+  ViroBox,
+  ViroButton,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
   ViroPortalScene,
-  ViroImage
+  ViroAnimations
 } from "react-viro";
 
-export default class HelloSceneFour extends Component {
+export default class HelloSceneThree extends Component {
   constructor() {
     super();
 
@@ -26,37 +27,45 @@ export default class HelloSceneFour extends Component {
   }
 
   backToBeach = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloWorldScene.js") });
+    this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  sceneFive = () => {
-    this.props.sceneNavigator.push({ scene: require("./HelloSceneFive.js") });
+  sceneFour = () => {
+    this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
   };
 
   render() {
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
-        <Viro360Image source={require("./res/greathall1.JPG")} />
+        <Viro360Image source={require("./res/greatchamber.JPG")} />
         <ViroText
-          text="This is Olivia! Say Hi"
-          width={1}
-          height={1}
-          position={[-2, 1, -0]}
+          text="See Giant Rhys on the right!"
+          width={1.5}
+          height={1.5}
+          position={[-3, 0.5, 1]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-        <ViroText
-          text="Back to Weoley"
+        <ViroButton
+          source={require("./res/arrow.png")}
+          position={[-3, 0, 1]}
           width={1}
           height={1}
-          position={[0.2, 2, -8]}
+          opacity={0.4}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
         />
 
+        <ViroText
+          text="Let's go and see Olivia"
+          width={1}
+          height={1}
+          position={[3, 0.2, 2.1]}
+          transformBehaviors={["billboard"]}
+          style={styles.helloWorldTextStyle}
+        />
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
-          <ViroPortal position={[0.2, 0, -8]} scale={[1, 1, 1]}>
+          <ViroPortal position={[4, -1, 3]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -64,30 +73,27 @@ export default class HelloSceneFour extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneFive, timeToFuse: 1500 }}
+              onFuse={{ callback: this.sceneFour, timeToFuse: 1500 }}
               type="VRX"
               transformBehaviors={["billboard"]}
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/kitchen.JPG")} />
+          <Viro360Image source={require("./res/greathall1.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="Gaze on the weird pic man, to go back to the beach"
-          width={1}
-          height={1}
-          position={[2, 0.5, 5]}
+          text="Gaze on the box to go back to the beach"
+          width={1.5}
+          height={1.5}
+          position={[0, 0.5, 3]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          style={styles.helloWorldTextStyle}
         />
-
-        <ViroImage
-          source={require("./res/castlelogo.png")}
-          position={[2, 2, 20]}
-          height={8}
-          width={8}
-          transformBehaviors={["billboard"]}
+        <ViroBox
+          position={[0, 0, 3]}
+          scale={[0.5, 0.5, 0.2]}
+          materials={["grid"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -114,14 +120,7 @@ var styles = StyleSheet.create({
     color: "#ffff",
     textAlignVertical: "center",
     textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
   }
 });
 
-module.exports = HelloSceneFour;
+module.exports = HelloSceneThree;
