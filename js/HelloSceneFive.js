@@ -38,7 +38,7 @@ export default class HelloSceneFive extends Component {
   render() {
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
-        <Viro360Image source={require("./res/360_0111_Stitch_XHC.JPG")} />
+        <Viro360Image source={require("./res/kitchen.JPG")} />
         <ViroText
           text="The Castle again"
           width={1}
@@ -80,7 +80,7 @@ export default class HelloSceneFive extends Component {
               transformBehaviors={["billboard"]}
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/360_0116_Stitch_XHC.JPG")} />
+          <Viro360Image source={require("./res/bakehouse.JPG")} />
         </ViroPortalScene>
         <ViroText
           text="Gaze on the box to go back to the beach"
