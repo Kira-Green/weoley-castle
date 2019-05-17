@@ -8,7 +8,7 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
-  ViroBox,
+  ViroButton,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
@@ -38,16 +38,16 @@ export default class HelloSceneFive extends Component {
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/kitchen.JPG")} />
         <ViroText
-          text="The Castle again"
+          text="Continue on to the Brewery!"
           width={1}
           height={1}
-          position={[-2, 0.8, 0.3]}
+          position={[-0.75, 1.5, 5]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
         <ViroText
-          text="Another one"
-          width={1}
+          text="Various stories of the kitchen being set on fire by splashing fat."
+          width={1.5}
           height={1}
           position={[1, 0, -2]}
           transformBehaviors={["billboard"]}
@@ -55,7 +55,7 @@ export default class HelloSceneFive extends Component {
         />
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={500} />
         <ViroPortalScene>
-          <ViroPortal position={[-6, 0, 1]} scale={[1, 1, 1]}>
+          <ViroPortal position={[-1, 0, 7]} scale={[1, 1, 1]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -71,20 +71,22 @@ export default class HelloSceneFive extends Component {
           <Viro360Image source={require("./res/bakehouse.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="Gaze on the box to go back to the beach"
+          text="Gaze on the Knight's Helmet to go back to the platform!"
           width={1}
           height={1}
-          position={[5, 0.5, -2]}
+          position={[-2, 1, 0.4]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
-        <ViroBox
-          position={[5, 0, -2]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
+        <ViroButton
+          source={require("./res/knight.png")}
+          position={[-5, 0, 1]}
+          width={1}
+          height={1}
+          transformBehaviors={["billboard"]}
           animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );

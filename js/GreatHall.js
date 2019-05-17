@@ -13,7 +13,8 @@ import {
   Viro3DObject,
   ViroPortal,
   ViroPortalScene,
-  ViroImage
+  ViroImage,
+  ViroButton
 } from "react-viro";
 
 export default class HelloSceneFour extends Component {
@@ -38,7 +39,7 @@ export default class HelloSceneFour extends Component {
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/greathall1.JPG")} />
         <ViroText
-          text="This is Olivia! Say Hi"
+          text="Gaze at the Knights Helmet to return to the platform"
           width={1}
           height={1}
           position={[-2, 1, -0]}
@@ -88,6 +89,15 @@ export default class HelloSceneFour extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
           // animation={{ name: "rotate", run: true, loop: true }}
+        />
+        <ViroButton
+          source={require("./res/knight.png")}
+          position={[-5, 0, 1]}
+          width={1}
+          height={1}
+          transformBehaviors={["billboard"]}
+          animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );

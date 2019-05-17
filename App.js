@@ -22,7 +22,7 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require("./js/HelloWorldSceneAR");
-var InitialVRScene = require("./js/WelcomeSceneVR.js");
+var InitialVRScene = require("./js/GreatHall.js");
 
 var MAIN = "MAIN";
 var VR_NAVIGATOR_TYPE = "VR";
@@ -211,6 +211,7 @@ export default class ViroSample extends Component {
       <ViroVRSceneNavigator
         {...this.state.sharedProps}
         initialScene={{ scene: InitialVRScene }}
+        goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
         onExitViro={this._exitViro}
       />
     );
