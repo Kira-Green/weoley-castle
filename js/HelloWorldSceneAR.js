@@ -164,7 +164,7 @@ export default class HelloWorldSceneAR extends Component {
               type="VRX"
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/platform2.JPG")} />
+          <Viro360Image source={require("./res/ruinsWithText.jpg")} />
           <ViroSound
             source={require("./res/ruinsInformal.mp3")}
             loop={false}
@@ -206,11 +206,11 @@ export default class HelloWorldSceneAR extends Component {
               source={require("./res/WCreconstruction6.mp4")}
               loop={false}
               paused={this.state.pauseVideo}
-              position={[8000, 500, -500]}
-              scale={[6000, 3750, 2250]}
+              position={[15000, 1200, -500]}
+              scale={[16000, 10000, 6000]}
               rotationPivot={[-1, 0, 2]}
               rotation={[0, -90, 0]}
-              transformBehaviors={"billboard"}
+              transformBehaviors={"billboardY"}
             />
           </ViroPortalScene>
         </ViroPortalScene>
