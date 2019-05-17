@@ -8,7 +8,6 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
-  ViroBox,
   ViroButton,
   ViroPortal,
   ViroPortalScene,
@@ -32,7 +31,7 @@ export default class HelloBeachScene extends Component {
 
   changeText = isChanging => {
     let text = isChanging
-      ? "On this self guided tour, we will highlight some points of interest! Have a look around!"
+      ? "This is where the drawbridge and entrance used to be, surrounded by a moat!"
       : "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle";
     this.setState({
       text,
@@ -75,23 +74,9 @@ export default class HelloBeachScene extends Component {
         ) : (
           <ViroButton source={require("./res/down.png")} visible={false} />
         )}
+
         <ViroText
-          text="Gaze on the box to go back to the beach"
-          width={1}
-          height={0.5}
-          position={[-3, 1, 3]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        />
-        <ViroBox
-          position={[-3, 0.5, 3]}
-          scale={[0.5, 0.5, 0.2]}
-          materials={["grid"]}
-          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
-          animation={{ name: "rotate", run: true, loop: true }}
-        />
-        <ViroText
-          text="Go to the classroom"
+          text="To the chambers"
           width={1}
           height={1}
           position={[2, 0.5, -0.8]}
@@ -116,12 +101,37 @@ export default class HelloBeachScene extends Component {
           <Viro360Image source={require("./res/chambers1.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="This is where the drawbridge and entrance used to be, surrounded by a moat"
-          position={[2.5, 0.5, 2]}
+          text="Return to start scene"
+          position={[1.5, 0.5, 1]}
           height={2}
           width={1.5}
-          style={styles.helloWorldTextStyle}
           transformBehaviors={["billboard"]}
+          style={styles.blackTextStyle}
+        />
+        <ViroButton
+          source={require("./res/knight.png")}
+          position={[3, 0, 2]}
+          width={0.8}
+          height={0.8}
+          transformBehaviors={["billboard"]}
+          // animation={{ name: "rotate", run: true, loop: true }}
+        />
+        <ViroText
+          text="Return to main menu"
+          width={2}
+          height={2}
+          position={[-3, 1, 1]}
+          transformBehaviors={["billboard"]}
+          style={styles.helloWorldTextStyle}
+        />
+
+        <ViroButton
+          source={require("./res/weoleyface.png")}
+          position={[-3, -0, 1]}
+          width={1}
+          height={1}
+          transformBehaviors={["billboard"]}
+          // animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
