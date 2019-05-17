@@ -18,7 +18,8 @@ import {
   ViroPortalScene,
   ViroPortal,
   Viro360Image,
-  ViroVideo
+  ViroVideo,
+  
 } from "react-viro";
 
 export default class HelloWorldSceneAR extends Component {
@@ -33,7 +34,8 @@ export default class HelloWorldSceneAR extends Component {
       image2: false,
       sound2: false,
       pauseVideo: true,
-      ruinsPause: true
+	  ruinsPause: true,
+	  introPause: false
     };
 
     // bind 'this' to functions
@@ -44,7 +46,7 @@ export default class HelloWorldSceneAR extends Component {
     this._onPortalEnter = this._onPortalEnter.bind(this);
     this._onPortalExit = this._onPortalExit.bind(this);
     this._onPortalEnterRuins = this._onPortalEnterRuins.bind(this);
-    this._onPortalExitRuins = this._onPortalExitRuins.bind(this);
+	this._onPortalExitRuins = this._onPortalExitRuins.bind(this);
   }
 
   render() {
@@ -55,9 +57,10 @@ export default class HelloWorldSceneAR extends Component {
           source={require("./res/intro.mp3")}
           loop={false}
           // muted={!this.state.sound1}
-          paused={false}
+          paused={this.state.introPause}
           volume={1}
         />
+				
         <ViroText
           text={this.state.text}
           scale={[0.5, 0.5, 0.5]}
@@ -164,7 +167,7 @@ export default class HelloWorldSceneAR extends Component {
               type="VRX"
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/platform2.JPG")} />
+          <Viro360Image source={require("./res/ruinsWithText.jpg")} />
           <ViroSound
             source={require("./res/ruinsInformal.mp3")}
             loop={false}
@@ -206,12 +209,13 @@ export default class HelloWorldSceneAR extends Component {
               source={require("./res/WCreconstruction6.mp4")}
               loop={false}
               paused={this.state.pauseVideo}
-              position={[8000, 500, -500]}
-              scale={[6000, 3750, 2250]}
+              position={[15000, 1200, -500]}
+              scale={[16000, 10000, 6000]}
               rotationPivot={[-1, 0, 2]}
               rotation={[0, -90, 0]}
-              transformBehaviors={"billboard"}
+              transformBehaviors={"billboardY"}
             />
+
           </ViroPortalScene>
         </ViroPortalScene>
       </ViroARScene>
@@ -223,7 +227,8 @@ export default class HelloWorldSceneAR extends Component {
       text: "",
       sound1: true,
       image1: true,
-      sound2: false
+	  sound2: false,
+	  introPause: true
     });
   }
 
@@ -232,7 +237,8 @@ export default class HelloWorldSceneAR extends Component {
       text: "In the Great Hall amazing feasts were held for visitors",
       sound1: false,
       image1: false,
-      sound2: true
+	  sound2: true,
+	  introPause: true
     });
   }
 
@@ -242,13 +248,15 @@ export default class HelloWorldSceneAR extends Component {
         "A range of artefacts were found at WC. Many are kept at Birmingham Museum",
       sound1: false,
       image1: false,
-      sound2: false
+	  sound2: false,
+	  introPause: true
     });
   }
 
   _onPortalEnter() {
     this.setState({
-      pauseVideo: false
+	  pauseVideo: false,
+	  introPause: true
     });
   }
 
@@ -260,7 +268,8 @@ export default class HelloWorldSceneAR extends Component {
 
   _onPortalEnterRuins() {
     this.setState({
-      ruinsPause: false
+	  ruinsPause: false,
+	  introPause: true
     });
   }
 
@@ -269,6 +278,7 @@ export default class HelloWorldSceneAR extends Component {
       ruinsPause: true
     });
   }
+
 
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
