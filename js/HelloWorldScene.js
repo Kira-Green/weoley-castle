@@ -29,7 +29,7 @@ export default class HelloWorldScene extends Component {
   render() {
     return (
       <ViroScene>
-        <Viro360Image source={require("./res/guadalupe_360.jpg")} />
+        <Viro360Image source={require("./res/platform2.JPG")} />
         <ViroText
           text="Look at the archways to find new places!"
           width={2}
@@ -51,7 +51,7 @@ export default class HelloWorldScene extends Component {
               type="VRX"
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/1_Stitch_XHC.JPG")} />
+          <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
         </ViroPortalScene>
       </ViroScene>
     );

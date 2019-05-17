@@ -37,7 +37,7 @@ export default class HelloSceneTwo extends Component {
   render() {
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
-        <Viro360Image source={require("./res/360_0082_Stitch_XHC.JPG")} />
+        <Viro360Image source={require("./res/chambers1.JPG")} />
         <ViroText
           text="Welcome to School of Code"
           width={1}
@@ -79,7 +79,7 @@ export default class HelloSceneTwo extends Component {
               transformBehaviors={["billboard"]}
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/rhys.JPG")} />
+          <Viro360Image source={require("./res/cellar1.JPG")} />
         </ViroPortalScene>
         <ViroText
           text="Gaze on the box to go back to the beach"

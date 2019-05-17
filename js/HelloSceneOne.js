@@ -53,7 +53,7 @@ export default class HelloBeachScene extends Component {
     const { text, showImage } = this.state;
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
-        <Viro360Image source={require("./res/1_Stitch_XHC.JPG")} />
+        <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
         <ViroText
           text={text}
           width={1.5}
@@ -123,7 +123,7 @@ export default class HelloBeachScene extends Component {
               transformBehaviors={["billboard"]}
             />
           </ViroPortal>
-          <Viro360Image source={require("./res/360_0082_Stitch_XHC.JPG")} />
+          <Viro360Image source={require("./res/chambers1.JPG")} />
         </ViroPortalScene>
         <ViroText
           text="This is where the drawbridge and entrance used to be, surrounded by a moat"
