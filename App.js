@@ -25,7 +25,7 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require("./js/HelloWorldSceneAR");
-var InitialVRScene = require("./js/WelcomeSceneVR.js");
+var InitialVRScene = require("./js/WelcomeSceneVR");
 
 var MAIN = "MAIN";
 var VR_NAVIGATOR_TYPE = "VR";
@@ -247,10 +247,37 @@ export default class ViroSample extends Component {
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
     return (
-      <ViroARSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialARScene }}
-      />
+      <View style={{ flex: 1 }}>
+        <ViroARSceneNavigator
+          {...this.state.sharedProps}
+          initialScene={{ scene: InitialARScene }}
+        />
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 20,
+            width: 80,
+            alignItems: "center"
+          }}
+        >
+          <TouchableHighlight onPress={this._exitViro}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: "white",
+                borderWidth: 1,
+                borderColor: "white",
+                padding: 5,
+                borderRadius: 5
+              }}
+            >
+              &#60;&nbsp;Back
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
 
@@ -309,22 +336,6 @@ export default class ViroSample extends Component {
       });
     };
   }
-
-  animate(easing) {
-    this.animatedValue.setValue(0);
-    Animated.timing(this.animatedValue, {
-      toValue: 1,
-      duration: 1000,
-      easing
-    }).start();
-  }
-
-  exitVR = () => {
-    this.setState({
-      navigatorType: MAIN
-    });
-    <ViroButton exitV={this._exitViro} />;
-  };
 }
 
 var localStyles = StyleSheet.create({
