@@ -88,7 +88,7 @@ export default class HelloWorldScene extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -108,9 +108,9 @@ var styles = StyleSheet.create({
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateX: "+=90"
     },
-    duration: 500 //.25 seconds
+    duration: 2500 //.25 seconds
   }
 });
 

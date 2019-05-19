@@ -39,7 +39,7 @@ export default class HelloBeachScene extends Component {
     });
   };
 
-  backToBeach = () => {
+  backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
@@ -114,24 +114,25 @@ export default class HelloBeachScene extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           // animation={{ name: "rotate", run: true, loop: true }}
         />
         <ViroText
           text="Return to main menu"
           width={2}
           height={2}
-          position={[-3, 1, 1]}
+          position={[-3, 0.7, 0.8]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
 
         <ViroButton
           source={require("./res/weoleyface.png")}
-          position={[-3, -0, 1]}
+          position={[-4, -0, 1]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -145,9 +146,9 @@ export default class HelloBeachScene extends Component {
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateX: "+=90"
     },
-    duration: 250 //.25 seconds
+    duration: 2500 //.25 seconds
   }
 });
 

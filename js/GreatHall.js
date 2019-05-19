@@ -26,7 +26,7 @@ export default class HelloSceneFour extends Component {
     this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
-  backToBeach = () => {
+  backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
@@ -39,25 +39,34 @@ export default class HelloSceneFour extends Component {
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/greathall1.JPG")} />
         <ViroText
-          text="Gaze at the Knights Helmet to return to the platform"
+          text="Return to start scene"
           width={1}
           height={1}
-          position={[-2, 1, -0]}
+          position={[-2, 1, 2]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
+        <ViroButton
+          source={require("./res/knight.png")}
+          position={[-2, 0.2, 2]}
+          width={0.8}
+          height={0.8}
+          transformBehaviors={["billboard"]}
+          // animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
+        />
         <ViroText
-          text="Back to Weoley"
+          text="To the kitchen"
           width={1}
           height={1}
-          position={[0.2, 2, -8]}
+          position={[3, 1, 3.5]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          style={styles.blackTextStyle}
         />
 
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
-          <ViroPortal position={[0.2, 0, -8]} scale={[1, 1, 1]}>
+          <ViroPortal position={[3, 0, 3.5]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -73,31 +82,21 @@ export default class HelloSceneFour extends Component {
           <Viro360Image source={require("./res/kitchen.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="Gaze on the weird pic man, to go back to the beach"
+          text="Return to main menu"
           width={1}
           height={1}
-          position={[2, 0.5, 5]}
+          position={[0.2, 1, -4]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          style={styles.redTextStyle}
         />
 
-        <ViroImage
-          source={require("./res/castlelogo.png")}
-          position={[2, 2, 20]}
-          height={8}
-          width={8}
-          transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
-          // animation={{ name: "rotate", run: true, loop: true }}
-        />
         <ViroButton
-          source={require("./res/knight.png")}
-          position={[-5, 0, 1]}
+          source={require("./res/weoleyface.png")}
+          position={[0.2, -0.2, -4.5]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
           animation={{ name: "rotate", run: true, loop: true }}
-          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
       </ViroScene>
     );
@@ -111,17 +110,23 @@ export default class HelloSceneFour extends Component {
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateX: "+=90"
     },
-    duration: 250 //.25 seconds
+    duration: 2500 //.25 seconds
   }
 });
-
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 15,
     color: "#ffff",
+    textAlignVertical: "center",
+    textAlign: "center"
+  },
+  redTextStyle: {
+    fontFamily: "Arial",
+    fontSize: 15,
+    color: "red",
     textAlignVertical: "center",
     textAlign: "center"
   },

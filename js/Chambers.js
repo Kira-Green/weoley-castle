@@ -26,7 +26,7 @@ export default class HelloSceneTwo extends Component {
     this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
-  backToBeach = () => {
+  backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
@@ -86,6 +86,7 @@ export default class HelloSceneTwo extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           // animation={{ name: "rotate", run: true, loop: true }}
         />
         <ViroText
@@ -99,11 +100,11 @@ export default class HelloSceneTwo extends Component {
 
         <ViroButton
           source={require("./res/weoleyface.png")}
-          position={[-3, -0.5, 0]}
+          position={[-3.5, -0, 0]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -117,12 +118,13 @@ export default class HelloSceneTwo extends Component {
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateX: "+=90"
     },
-    duration: 250 //.25 seconds
+    duration: 2500 //.25 seconds
   }
 });
 
+var styl;
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",
