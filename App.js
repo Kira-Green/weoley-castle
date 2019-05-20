@@ -157,7 +157,7 @@ export default class ViroSample extends Component {
                 }}
               />
             </TouchableHighlight>
-            <Text>Tap</Text>
+            <Text>Tap on the face to enter</Text>
           </View>
         </View>
       );
@@ -373,6 +373,7 @@ var localStyles = StyleSheet.create({
   buttonText: {
     color: "rgba(43, 80, 38, .8)",
     textAlign: "center",
+    fontFamily: "Farah",
     fontSize: 20
   },
   buttons: {
@@ -380,8 +381,6 @@ var localStyles = StyleSheet.create({
     width: 110,
     paddingTop: 5,
     paddingBottom: 5,
-    // marginTop: 10,
-    // marginBottom: 10,
     margin: "10%",
     backgroundColor: "rgba(255, 198, 0, 0.8)",
     borderRadius: 50,

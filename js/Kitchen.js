@@ -37,7 +37,7 @@ export default class KitchenScene extends Component {
 
   render() {
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/kitchen.JPG")} />
         <ViroText
           text="Various stories of the kitchen being set on fire by splashing fat."

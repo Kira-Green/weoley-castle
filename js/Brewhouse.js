@@ -8,7 +8,6 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
-  ViroBox,
   ViroAnimations,
   ViroButton
 } from "react-viro";

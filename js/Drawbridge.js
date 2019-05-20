@@ -25,8 +25,6 @@ export default class DrawbridgeScene extends Component {
         "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
       showImage: true
     };
-
-    // this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
   changeText = isChanging => {
@@ -54,7 +52,7 @@ export default class DrawbridgeScene extends Component {
   render() {
     const { text, showImage } = this.state;
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
         <ViroText
           text={text}

@@ -9,7 +9,6 @@ import {
   ViroText,
   Viro360Image,
   ViroButton,
-  ViroMaterials,
   Viro3DObject,
   ViroPortalScene,
   ViroAmbientLight,

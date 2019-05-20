@@ -37,7 +37,7 @@ export default class CellarScene extends Component {
 
   render() {
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/cellar1.JPG")} />
         <ViroText
           text="To the Great Hall"
