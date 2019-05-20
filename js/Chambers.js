@@ -27,7 +27,6 @@ export default class ChambersScene extends Component {
     this.state = {
       artVisible: false
     }; // initialize state
-
   }
 
   backToPlatform = () => {
@@ -42,6 +41,7 @@ export default class ChambersScene extends Component {
     this.setState({
       artVisible: true
     });
+  };
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
   };

@@ -27,7 +27,6 @@ export default class GreatHallScene extends Component {
     this.state = {
       artVisible: false
     }; // initialize state
-
   }
 
   backToPlatform = () => {
@@ -40,6 +39,12 @@ export default class GreatHallScene extends Component {
 
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
+  };
+
+  showArt = () => {
+    this.setState({
+      artVisible: true
+    });
   };
 
   render() {
@@ -131,12 +136,6 @@ export default class GreatHallScene extends Component {
     );
   }
 }
-
-showArt = () => {
-  this.setState({
-    artVisible: true
-  });
-};
 
 ViroMaterials.createMaterials({
   spherematerial: {

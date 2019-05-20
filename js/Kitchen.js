@@ -24,9 +24,8 @@ export default class KitchenScene extends Component {
     super();
 
     this.state = {
-        artVisible : false
+      artVisible: false
     }; // initialize state
-
   }
 
   backToPlatform = () => {
@@ -39,6 +38,12 @@ export default class KitchenScene extends Component {
 
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
+  };
+
+  showArt = () => {
+    this.setState({
+      artVisible: true
+    });
   };
 
   render() {
@@ -125,30 +130,25 @@ export default class KitchenScene extends Component {
             />
           </ViroNode>
         ) : (
-            <ViroSphere
-              heightSegmentCount={20}
-              widthSegmentCount={20}
-              radius={0.1}
-              position={[0, 0, 5]}
-              materials={["spherematerial"]}
-              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-            />
-          )}
+          <ViroSphere
+            heightSegmentCount={20}
+            widthSegmentCount={20}
+            radius={0.1}
+            position={[0, 0, 5]}
+            materials={["spherematerial"]}
+            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+          />
+        )}
       </ViroScene>
     );
   }
 }
 
-showArt = () => {
-  this.setState({
-    artVisible: true
-  });
-
-  ViroMaterials.createMaterials({
-    spherematerial: {
-      diffuseTexture: require("./res/grid_bg.jpg")
-    }
-  });
+ViroMaterials.createMaterials({
+  spherematerial: {
+    diffuseTexture: require("./res/grid_bg.jpg")
+  }
+});
 
 ViroAnimations.registerAnimations({
   rotate: {
