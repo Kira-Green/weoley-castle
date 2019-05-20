@@ -34,7 +34,8 @@ export default class HelloWorldSceneAR extends Component {
 			sound2: false,
 			pauseVideo: true,
 			ruinsPause: true,
-			introPause: false
+			introPause: false,
+			funFactVisible: false
 		};
 
 		// bind 'this' to functions
@@ -46,6 +47,7 @@ export default class HelloWorldSceneAR extends Component {
 		this._onPortalExit = this._onPortalExit.bind(this);
 		this._onPortalEnterRuins = this._onPortalEnterRuins.bind(this);
 		this._onPortalExitRuins = this._onPortalExitRuins.bind(this);
+		this._funFactFound = this._funFactFound.bind(this);
 	}
 
 	render() {
@@ -213,7 +215,7 @@ export default class HelloWorldSceneAR extends Component {
 					>
 						<ViroPortal
 							position={[1, 0, -1]}
-							scale={[0.15, 0.15, 0.15]}
+							scale={[0.5, 0.5, 0.5]}
 						>
 							<Viro3DObject
 								source={require("./res/portal_archway.vrx")}
@@ -228,6 +230,44 @@ export default class HelloWorldSceneAR extends Component {
 						<Viro360Image source={require("./res/BmInside1.JPG")} />
 					</ViroPortalScene>
 				</ViroARImageMarker>
+
+				{/* <ViroImage
+					height={0.2}
+					width={0.2}
+					position={[0.5, -0.3, -0.2]}
+					source={require("./res/targetTwo.jpg")}
+					onClick={this._funFactFound}
+				/> */}
+
+				<ViroAmbientLight color="#ffffff" />
+
+				<Viro3DObject
+					source={require("./res/object_star_anim/object_star_anim.vrx")}
+					resources={[
+						require("./res/object_star_anim/object_star_diffuse.png"),
+						require("./res/object_star_anim/object_star_specular.png")
+					]}
+					highAccuracyEvents={true}
+					position={[0.5, -0.3, -0.2]}
+					scale={[0.2, 0.2, 0.2]}
+					rotation={[45, 0, 0]}
+					type="VRX"
+					onClick={this._funFactFound}
+					transformBehaviors={["billboard"]}
+				/>
+
+				<ViroText
+					text="It is not a real castle"
+					scale={[0.5, 0.5, 0.5]}
+					position={[0.5, -0.5, -0.2]}
+					style={styles.helloWorldTextStyle}
+					outerStroke={{
+						type: "Outline",
+						width: 1,
+						color: "orange"
+					}}
+					visible={this.state.funFactVisible}
+				/>
 			</ViroARScene>
 		);
 	}
@@ -286,6 +326,11 @@ export default class HelloWorldSceneAR extends Component {
 	_onPortalExitRuins() {
 		this.setState({
 			ruinsPause: true
+		});
+	}
+	_funFactFound() {
+		this.setState({
+			funFactVisible: !this.state.funFactVisible
 		});
 	}
 
