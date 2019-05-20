@@ -41,7 +41,7 @@ export default class GreatChambersScene extends Component {
 
   render() {
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/greatchamber.JPG")} />
         <ViroText
           text="To the Great Hall..."

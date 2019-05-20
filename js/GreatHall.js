@@ -38,7 +38,7 @@ export default class GreatHallScene extends Component {
 
   render() {
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/greathall1.JPG")} />
         <ViroText
           text="Return to previous scene"

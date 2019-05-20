@@ -8,7 +8,6 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
-  ViroBox,
   ViroButton,
   ViroAmbientLight,
   Viro3DObject,
@@ -38,7 +37,7 @@ export default class ChambersScene extends Component {
 
   render() {
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/chambers2.JPG")} />
         <ViroText
           text="Welcome to the chambers and stables"
