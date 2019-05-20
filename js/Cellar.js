@@ -21,11 +21,9 @@ export default class CellarScene extends Component {
     super();
 
     this.state = {}; // initialize state
-
-    this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
-  backToBeach = () => {
+  backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
@@ -33,9 +31,13 @@ export default class CellarScene extends Component {
     this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
   };
 
+  showPrevScene = () => {
+    this.props.sceneNavigator.pop();
+  };
+
   render() {
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/cellar1.JPG")} />
         <ViroText
           text="To the Great Hall"
@@ -74,7 +76,7 @@ export default class CellarScene extends Component {
         />
 
         <ViroText
-          text="Return to start scene"
+          text="Return to previous scene"
           width={1.5}
           height={1.5}
           position={[0, 0.5, 3]}
@@ -87,11 +89,11 @@ export default class CellarScene extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
 
         <ViroText
-          text="Return to main menu"
+          text="Return to start scene"
           width={2}
           height={2}
           position={[3.5, 0, 1.2]}
@@ -105,26 +107,22 @@ export default class CellarScene extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
-  }
-
-  _showHelloWorldScene() {
-    this.props.sceneNavigator.pop();
   }
 }
 
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateX: "+=90"
     },
-    duration: 250 //.25 seconds
+    duration: 2500 //.25 seconds
   }
 });
-
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: "Arial",

@@ -19,7 +19,7 @@ import {
   ViroMaterials
 } from "react-viro";
 
-export default class HelloSceneThree extends Component {
+export default class GreatChambersScene extends Component {
   constructor() {
     super();
 
@@ -27,14 +27,13 @@ export default class HelloSceneThree extends Component {
       artVisible = false
     }; // initialize state
 
-    this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
-  backToBeach = () => {
+  backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  sceneFour = () => {
+  toGreatHall = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
   };
 
@@ -42,10 +41,14 @@ export default class HelloSceneThree extends Component {
     this.props.sceneNavigator.push({ scene: require("./Cellar.js") });
   };
 
+  showPrevScene = () => {
+    this.props.sceneNavigator.pop();
+  };
+
   render() {
     const { artVisible } = this.state;
     return (
-      <ViroScene onClick={this._showHelloWorldScene}>
+      <ViroScene>
         <Viro360Image source={require("./res/greatchamber.JPG")} />
         <ViroText
           text="To the Great Hall..."
@@ -65,7 +68,7 @@ export default class HelloSceneThree extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneFour, timeToFuse: 1500 }}
+              onFuse={{ callback: this.toGreatHall, timeToFuse: 1500 }}
               type="VRX"
               rotation={[0, 160, 0]}
               transformBehaviors={["billboard"]}
@@ -84,7 +87,7 @@ export default class HelloSceneThree extends Component {
         />
 
         <ViroText
-          text="Gaze here to enter the cellar"
+          text="Gaze at this text to enter the cellar"
           width={1}
           height={1}
           position={[3.5, 0.2, -0.8]}
@@ -93,7 +96,7 @@ export default class HelloSceneThree extends Component {
           style={styles.redTextStyle}
         />
         <ViroText
-          text="Return to start scene"
+          text="Return to previous scene"
           width={1.5}
           height={1.5}
           position={[0, 0.5, 3]}
@@ -106,11 +109,11 @@ export default class HelloSceneThree extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
 
         <ViroText
-          text="Return to main menu"
+          text="Return to start scene"
           width={2}
           height={2}
           position={[-2.5, 1, -3]}
@@ -144,14 +147,11 @@ export default class HelloSceneThree extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
-  }
-
-  _showHelloWorldScene() {
-    this.props.sceneNavigator.pop();
   }
 }
 
@@ -171,9 +171,9 @@ ViroMaterials.createMaterials({
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateX: "+=90"
     },
-    duration: 250 //.25 seconds
+    duration: 2500 //.25 seconds
   }
 });
 
@@ -201,4 +201,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = HelloSceneThree;
+module.exports = GreatChambersScene;

@@ -9,32 +9,34 @@ import {
   ViroText,
   Viro360Image,
   ViroButton,
-  ViroMaterials,
   Viro3DObject,
   ViroPortalScene,
   ViroAmbientLight,
   ViroAnimations,
-  ViroPortal
+  ViroPortal,
+  ViroDirectionalLight,
+  ViroSpotLight
 } from "react-viro";
 
-export default class HelloWorldScene extends Component {
+export default class WelcomeSceneVR extends Component {
   constructor() {
     super();
 
     this.state = {}; // Set initial state here
   }
 
-  sceneOne = () => {
+  toDrawbridge = () => {
     this.props.sceneNavigator.push({ scene: require("./Drawbridge.js") });
   };
+
   render() {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/platform2.JPG")} />
         <ViroText
-          text="The helmet returns you to this scene!"
-          width={2}
-          height={2}
+          text="The helmet will return you to the previous scene!"
+          width={2.5}
+          height={2.5}
           position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
@@ -45,7 +47,6 @@ export default class HelloWorldScene extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
         />
         <ViroText
           text="Look at the archway to enter the ruins!"
@@ -56,6 +57,16 @@ export default class HelloWorldScene extends Component {
           style={styles.helloWorldTextStyle}
         />
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
+        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
+        <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, 1, 0]}
+          position={[-3, -2, 6]}
+          color="#000"
+          intensity={250}
+        />
+
         <ViroPortalScene>
           <ViroPortal position={[-3, -1, 6]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
@@ -65,7 +76,7 @@ export default class HelloWorldScene extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneOne, timeToFuse: 1500 }}
+              onFuse={{ callback: this.toDrawbridge, timeToFuse: 1500 }}
               rotation={[0, 160, 0]}
               type="VRX"
             />
@@ -74,7 +85,7 @@ export default class HelloWorldScene extends Component {
         </ViroPortalScene>
 
         <ViroText
-          text="The logo returns you to the main menu!"
+          text="The logo returns you to this scene!"
           width={2}
           height={2}
           position={[-6, 1, -2]}
@@ -88,7 +99,7 @@ export default class HelloWorldScene extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
@@ -108,15 +119,10 @@ var styles = StyleSheet.create({
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateX: "+=90"
     },
-    duration: 500 //.25 seconds
+    duration: 2500 //.25 seconds
   }
 });
 
-ViroMaterials.createMaterials({
-  grid: {
-    diffuseTexture: require("./res/knight.png")
-  }
-});
-module.exports = HelloWorldScene;
+module.exports = WelcomeSceneVR;
