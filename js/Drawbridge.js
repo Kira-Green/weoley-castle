@@ -130,7 +130,7 @@ export default class DrawbridgeScene extends Component {
           <ViroSphere
             heightSegmentCount={20}
             widthSegmentCount={20}
-            radius={0.1}
+            radius={0.3}
             position={[0, 0, 5]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
@@ -187,9 +187,9 @@ ViroAnimations.registerAnimations({
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/artifacts/ironKey.jpg")
   }
-  
+});
 ViroAnimations.registerAnimations({
   moveUp: { properties: { positionY: "+=0.1" }, duration: 1000 },
   moveDown: {

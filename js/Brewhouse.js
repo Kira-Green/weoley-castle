@@ -22,7 +22,6 @@ export default class BrewhouseScene extends Component {
     this.state = {
       artVisible: false
     }; // initialize state
-
   }
 
   backToPlatform = () => {
@@ -31,6 +30,12 @@ export default class BrewhouseScene extends Component {
 
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
+  };
+
+  showArt = () => {
+    this.setState({
+      artVisible: true
+    });
   };
 
   render() {
@@ -111,12 +116,6 @@ export default class BrewhouseScene extends Component {
   }
 }
 
-showArt = () => {
-  this.setState({
-    artVisible: true
-  });
-};
-
 ViroMaterials.createMaterials({
   spherematerial: {
     diffuseTexture: require("./res/grid_bg.jpg")
@@ -155,11 +154,5 @@ var styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-// ViroMaterials.createMaterials({
-//   grid: {
-//     diffuseTexture: require("./res/knight.png")
-//   }
-// });
 
 module.exports = BrewhouseScene;

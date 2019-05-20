@@ -14,7 +14,7 @@ import {
   ViroPortal,
   ViroPortalScene,
   ViroAnimations,
-  ViroNode, 
+  ViroNode,
   ViroSphere,
   ViroMaterials
 } from "react-viro";
@@ -24,9 +24,8 @@ export default class GreatChambersScene extends Component {
     super();
 
     this.state = {
-      artVisible = false
+      artVisible: false
     }; // initialize state
-
   }
 
   backToPlatform = () => {
@@ -39,6 +38,12 @@ export default class GreatChambersScene extends Component {
 
   cellarScene = () => {
     this.props.sceneNavigator.push({ scene: require("./Cellar.js") });
+  };
+
+  showArt = () => {
+    this.setState({
+      artVisible: true
+    });
   };
 
   showPrevScene = () => {
@@ -131,15 +136,15 @@ export default class GreatChambersScene extends Component {
             />
           </ViroNode>
         ) : (
-            <ViroSphere
-              heightSegmentCount={20}
-              widthSegmentCount={20}
-              radius={0.1}
-              position={[0, 0, 5]}
-              materials={["spherematerial"]}
-              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-            />
-          )}
+          <ViroSphere
+            heightSegmentCount={20}
+            widthSegmentCount={20}
+            radius={0.1}
+            position={[0, 0, 5]}
+            materials={["spherematerial"]}
+            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+          />
+        )}
 
         <ViroButton
           source={require("./res/weoleyface.png")}
@@ -154,13 +159,6 @@ export default class GreatChambersScene extends Component {
     );
   }
 }
-
-
-showArt = () => {
-  this.setState({
-    artVisible: true
-  });
-};
 
 ViroMaterials.createMaterials({
   spherematerial: {
