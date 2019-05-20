@@ -9,14 +9,20 @@ import {
   Viro360Image,
   ViroText,
   ViroAnimations,
-  ViroButton
+  ViroButton,
+  ViroMaterials,
+  ViroSphere,
+  ViroNode
 } from "react-viro";
 
 export default class BrewhouseScene extends Component {
   constructor() {
     super();
 
-    this.state = {}; // initialize state
+    this.state = {
+      artVisible: false
+    }; // initialize state
+
   }
 
   backToPlatform = () => {
@@ -28,6 +34,7 @@ export default class BrewhouseScene extends Component {
   };
 
   render() {
+    const { artVisible } = this.state;
     return (
       <ViroScene hdrEnabled={true} shadowsEnabled={true}>
         <Viro360Image source={require("./res/bakehouse.JPG")} />
@@ -80,10 +87,41 @@ export default class BrewhouseScene extends Component {
           animation={{ name: "rotate", run: true, loop: true }}
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
         />
+        {artVisible ? (
+          <ViroNode>
+            <ViroImage
+              source={require("./res/artifacts/hare.jpg")}
+              position={[0, 0, 2]}
+              transformBehaviors={["billboard"]}
+              visible={true}
+            />
+          </ViroNode>
+        ) : (
+          <ViroSphere
+            heightSegmentCount={20}
+            widthSegmentCount={20}
+            radius={0.1}
+            position={[0, 0, 5]}
+            materials={["spherematerial"]}
+            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+          />
+        )}
       </ViroScene>
     );
   }
 }
+
+showArt = () => {
+  this.setState({
+    artVisible: true
+  });
+};
+
+ViroMaterials.createMaterials({
+  spherematerial: {
+    diffuseTexture: require("./res/grid_bg.jpg")
+  }
+});
 
 ViroAnimations.registerAnimations({
   rotate: {

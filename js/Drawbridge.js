@@ -13,7 +13,11 @@ import {
   ViroPortalScene,
   Viro3DObject,
   ViroAmbientLight,
-  ViroAnimations
+  ViroAnimations,
+  ViroImage,
+  ViroSphere,
+  ViroMaterials,
+  ViroNode
 } from "react-viro";
 
 export default class DrawbridgeScene extends Component {
@@ -23,7 +27,8 @@ export default class DrawbridgeScene extends Component {
     this.state = {
       text:
         "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
-      showImage: true
+      showImage: true,
+      artVisible: false
     };
   }
 
@@ -34,6 +39,12 @@ export default class DrawbridgeScene extends Component {
     this.setState({
       text,
       showImage: false
+    });
+  };
+
+  showArt = () => {
+    this.setState({
+      artVisible: true
     });
   };
 
@@ -50,7 +61,7 @@ export default class DrawbridgeScene extends Component {
   };
 
   render() {
-    const { text, showImage } = this.state;
+    const { text, showImage, artVisible } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
@@ -103,6 +114,29 @@ export default class DrawbridgeScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/chambers1.JPG")} />
         </ViroPortalScene>
+
+        {artVisible ? (
+          <ViroNode>
+            <ViroImage
+              source={require("./res/artifacts/ironKey.jpg")}
+              position={[0, 0, 2]}
+              height={1}
+              width={2}
+              transformBehaviors={["billboard"]}
+              visible={true}
+            />
+          </ViroNode>
+        ) : (
+          <ViroSphere
+            heightSegmentCount={20}
+            widthSegmentCount={20}
+            radius={0.1}
+            position={[0, 0, 5]}
+            materials={["spherematerial"]}
+            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+          />
+        )}
+
         <ViroText
           text="Return to previous scene"
           position={[1.5, 0.5, 1]}
@@ -151,6 +185,11 @@ ViroAnimations.registerAnimations({
   }
 });
 
+ViroMaterials.createMaterials({
+  spherematerial: {
+    diffuseTexture: require("./res/grid_bg.jpg")
+  }
+  
 ViroAnimations.registerAnimations({
   moveUp: { properties: { positionY: "+=0.1" }, duration: 1000 },
   moveDown: {

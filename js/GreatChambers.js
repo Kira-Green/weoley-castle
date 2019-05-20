@@ -13,14 +13,20 @@ import {
   Viro3DObject,
   ViroPortal,
   ViroPortalScene,
-  ViroAnimations
+  ViroAnimations,
+  ViroNode, 
+  ViroSphere,
+  ViroMaterials
 } from "react-viro";
 
 export default class GreatChambersScene extends Component {
   constructor() {
     super();
 
-    this.state = {}; // initialize state
+    this.state = {
+      artVisible = false
+    }; // initialize state
+
   }
 
   backToPlatform = () => {
@@ -40,6 +46,7 @@ export default class GreatChambersScene extends Component {
   };
 
   render() {
+    const { artVisible } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/greatchamber.JPG")} />
@@ -114,6 +121,26 @@ export default class GreatChambersScene extends Component {
           style={styles.blackTextStyle}
         />
 
+        {artVisible ? (
+          <ViroNode>
+            <ViroImage
+              source={require("./res/artifacts/hare.jpg")}
+              position={[0, 0, 2]}
+              transformBehaviors={["billboard"]}
+              visible={true}
+            />
+          </ViroNode>
+        ) : (
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          )}
+
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[-2.5, 0, -3]}
@@ -127,6 +154,19 @@ export default class GreatChambersScene extends Component {
     );
   }
 }
+
+
+showArt = () => {
+  this.setState({
+    artVisible: true
+  });
+};
+
+ViroMaterials.createMaterials({
+  spherematerial: {
+    diffuseTexture: require("./res/grid_bg.jpg")
+  }
+});
 
 ViroAnimations.registerAnimations({
   rotate: {

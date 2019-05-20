@@ -13,14 +13,20 @@ import {
   Viro3DObject,
   ViroPortal,
   ViroPortalScene,
-  ViroAnimations
+  ViroAnimations,
+  ViroMaterials,
+  ViroSphere,
+  ViroNode
 } from "react-viro";
 
 export default class KitchenScene extends Component {
   constructor() {
     super();
 
-    this.state = {}; // initialize state
+    this.state = {
+        artVisible : false
+    }; // initialize state
+
   }
 
   backToPlatform = () => {
@@ -36,6 +42,7 @@ export default class KitchenScene extends Component {
   };
 
   render() {
+    const { artVisible } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/kitchen.JPG")} />
@@ -107,10 +114,41 @@ export default class KitchenScene extends Component {
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
+
+        {artVisible ? (
+          <ViroNode>
+            <ViroImage
+              source={require("./res/artifacts/hare.jpg")}
+              position={[0, 0, 2]}
+              transformBehaviors={["billboard"]}
+              visible={true}
+            />
+          </ViroNode>
+        ) : (
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          )}
       </ViroScene>
     );
   }
 }
+
+showArt = () => {
+  this.setState({
+    artVisible: true
+  });
+
+  ViroMaterials.createMaterials({
+    spherematerial: {
+      diffuseTexture: require("./res/grid_bg.jpg")
+    }
+  });
 
 ViroAnimations.registerAnimations({
   rotate: {

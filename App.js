@@ -33,7 +33,7 @@ var AR_NAVIGATOR_TYPE = "AR";
 
 // This determines which type of experience to launch in, or MAIN, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
-var defaultNavigatorType = MAIN;
+var defaultNavigatorType = "MAIN";
 
 export default class ViroSample extends Component {
   constructor() {
@@ -284,14 +284,13 @@ export default class ViroSample extends Component {
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
-      <View style={{ flex: 1 }}>
-        <ViroVRSceneNavigator
-          {...this.state.sharedProps}
-          initialScene={{ scene: InitialVRScene }}
-          goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
-          onExitViro={this._exitViro}
-        />
-      </View>
+      <ViroVRSceneNavigator
+        {...this.state.sharedProps}
+        initialScene={{ scene: InitialVRScene }}
+        goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
+        onExitViro={this._exitViro}
+      />
+
     );
   }
 
