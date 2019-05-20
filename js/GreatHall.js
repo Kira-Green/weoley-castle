@@ -17,21 +17,23 @@ import {
   ViroButton
 } from "react-viro";
 
-export default class HelloSceneFour extends Component {
+export default class GreatHallScene extends Component {
   constructor() {
     super();
 
     this.state = {}; // initialize state
-
-    this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
   backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  sceneFive = () => {
+  toKitchen = () => {
     this.props.sceneNavigator.push({ scene: require("./Kitchen.js") });
+  };
+
+  showPrevScene = () => {
+    this.props.sceneNavigator.pop();
   };
 
   render() {
@@ -39,7 +41,7 @@ export default class HelloSceneFour extends Component {
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/greathall1.JPG")} />
         <ViroText
-          text="Return to start scene"
+          text="Return to previous scene"
           width={1}
           height={1}
           position={[-2, 1, 2]}
@@ -52,8 +54,7 @@ export default class HelloSceneFour extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
-          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
         <ViroText
           text="To the kitchen"
@@ -74,7 +75,7 @@ export default class HelloSceneFour extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneFive, timeToFuse: 1500 }}
+              onFuse={{ callback: this.toKitchen, timeToFuse: 1500 }}
               type="VRX"
               transformBehaviors={["billboard"]}
             />
@@ -82,7 +83,7 @@ export default class HelloSceneFour extends Component {
           <Viro360Image source={require("./res/kitchen.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="Return to main menu"
+          text="Return to start scene"
           width={1}
           height={1}
           position={[0.2, 1, -4]}
@@ -96,14 +97,11 @@ export default class HelloSceneFour extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
-  }
-
-  _showHelloWorldScene() {
-    this.props.sceneNavigator.pop();
   }
 }
 
@@ -139,4 +137,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = HelloSceneFour;
+module.exports = GreatHallScene;

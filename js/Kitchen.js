@@ -16,21 +16,23 @@ import {
   ViroAnimations
 } from "react-viro";
 
-export default class HelloSceneFive extends Component {
+export default class KitchenScene extends Component {
   constructor() {
     super();
 
     this.state = {}; // initialize state
-
-    this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
   backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  sceneSix = () => {
+  toBrewhouse = () => {
     this.props.sceneNavigator.push({ scene: require("./Brewhouse.js") });
+  };
+
+  showPrevScene = () => {
+    this.props.sceneNavigator.pop();
   };
 
   render() {
@@ -63,7 +65,7 @@ export default class HelloSceneFive extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneSix, timeToFuse: 1500 }}
+              onFuse={{ callback: this.toBrewhouse, timeToFuse: 1500 }}
               type="VRX"
               transformBehaviors={["billboard"]}
             />
@@ -71,7 +73,7 @@ export default class HelloSceneFive extends Component {
           <Viro360Image source={require("./res/bakehouse.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="Return to start scene!"
+          text="Return to previous scene"
           width={1}
           height={1}
           position={[-2, 1, 0.4]}
@@ -85,11 +87,10 @@ export default class HelloSceneFive extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          // animation={{ name: "rotate", run: true, loop: true }}
-          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
         <ViroText
-          text="Return to main menu"
+          text="Return to start scene"
           width={1}
           height={1}
           position={[3, 1, 2]}
@@ -103,14 +104,11 @@ export default class HelloSceneFive extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
-  }
-
-  _showHelloWorldScene() {
-    this.props.sceneNavigator.pop();
   }
 }
 
@@ -146,4 +144,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = HelloSceneFive;
+module.exports = KitchenScene;

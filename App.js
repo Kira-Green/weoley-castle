@@ -291,23 +291,6 @@ export default class ViroSample extends Component {
           goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
           onExitViro={this._exitViro}
         />
-
-        <View
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            top: 20,
-            width: 80,
-            alignItems: "center"
-          }}
-        >
-          <TouchableHighlight onPress={this._exitViro}>
-            <Text style={{ fontSize: 18, color: "white" }}>
-              &#60;&nbsp;Back
-            </Text>
-          </TouchableHighlight>
-        </View>
       </View>
     );
   }
