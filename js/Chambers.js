@@ -17,21 +17,23 @@ import {
   ViroAnimations
 } from "react-viro";
 
-export default class HelloSceneTwo extends Component {
+export default class ChambersScene extends Component {
   constructor() {
     super();
 
     this.state = {}; // initialize state
-
-    this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
   backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  sceneThree = () => {
+  toGreatChambers = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatChambers.js") });
+  };
+
+  showPrevScene = () => {
+    this.props.sceneNavigator.pop();
   };
 
   render() {
@@ -64,7 +66,7 @@ export default class HelloSceneTwo extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.sceneThree, timeToFuse: 1500 }}
+              onFuse={{ callback: this.toGreatChambers, timeToFuse: 1500 }}
               type="VRX"
               transformBehaviors={["billboard"]}
             />
@@ -72,7 +74,7 @@ export default class HelloSceneTwo extends Component {
           <Viro360Image source={require("./res/cellar1.JPG")} />
         </ViroPortalScene>
         <ViroText
-          text="Return to start scene"
+          text="Return to previous scene"
           width={1.5}
           height={2}
           position={[2, 0.5, 2]}
@@ -86,11 +88,10 @@ export default class HelloSceneTwo extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
-          // animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
         <ViroText
-          text="Return to main menu"
+          text="Return to start scene"
           width={2}
           height={2}
           position={[-3, 1, 0]}
@@ -104,14 +105,11 @@ export default class HelloSceneTwo extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
-  }
-
-  _showHelloWorldScene() {
-    this.props.sceneNavigator.pop();
   }
 }
 
@@ -142,4 +140,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = HelloSceneTwo;
+module.exports = ChambersScene;

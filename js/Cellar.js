@@ -21,8 +21,6 @@ export default class CellarScene extends Component {
     super();
 
     this.state = {}; // initialize state
-
-    this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
   backToPlatform = () => {
@@ -31,6 +29,10 @@ export default class CellarScene extends Component {
 
   toGreatHall = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
+  };
+
+  showPrevScene = () => {
+    this.props.sceneNavigator.pop();
   };
 
   render() {
@@ -74,7 +76,7 @@ export default class CellarScene extends Component {
         />
 
         <ViroText
-          text="Return to start scene"
+          text="Return to previous scene"
           width={1.5}
           height={1.5}
           position={[0, 0.5, 3]}
@@ -87,13 +89,11 @@ export default class CellarScene extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
-
-          // animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
 
         <ViroText
-          text="Return to main menu"
+          text="Return to start scene"
           width={2}
           height={2}
           position={[3.5, 0, 1.2]}
@@ -107,14 +107,11 @@ export default class CellarScene extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>
     );
-  }
-
-  _showHelloWorldScene() {
-    this.props.sceneNavigator.pop();
   }
 }
 

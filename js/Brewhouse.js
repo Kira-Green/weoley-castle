@@ -13,21 +13,19 @@ import {
   ViroButton
 } from "react-viro";
 
-export default class HelloSceneSix extends Component {
+export default class BrewhouseScene extends Component {
   constructor() {
     super();
 
     this.state = {}; // initialize state
-
-    this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
 
   backToPlatform = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
 
-  returnToMenu = () => {
-    this.props.sceneNavigator.push();
+  showPrevScene = () => {
+    this.props.sceneNavigator.pop();
   };
 
   render() {
@@ -43,15 +41,7 @@ export default class HelloSceneSix extends Component {
           style={styles.helloWorldTextStyle}
         />
         <ViroText
-          text="Here is where the well used to be"
-          width={1}
-          height={1}
-          position={[-1.8, -0.4, -2]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        />
-        <ViroText
-          text="Return to start scene"
+          text="Return to previous scene"
           width={1}
           height={1}
           position={[1.7, 0.5, -2]}
@@ -64,8 +54,7 @@ export default class HelloSceneSix extends Component {
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
-          animation={{ name: "rotate2", run: true, loop: true }}
-          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
         <ViroText
           text="The brewhouse"
@@ -76,7 +65,7 @@ export default class HelloSceneSix extends Component {
           style={styles.helloWorldTextStyle}
         />
         <ViroText
-          text="Return to main menu"
+          text="Return to start scene"
           width={1}
           height={1}
           position={[-2, 1, 2]}
@@ -85,19 +74,15 @@ export default class HelloSceneSix extends Component {
         />
         <ViroButton
           source={require("./res/weoleyface.png")}
-          animation={{ name: "rotate", run: true, loop: true }}
           position={[-2, 0, 2]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.returnToMenu, timeToFuse: 1500 }}
+          animation={{ name: "rotate", run: true, loop: true }}
+          onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
         />
       </ViroScene>
     );
-  }
-
-  _showHelloWorldScene() {
-    this.props.sceneNavigator.pop();
   }
 }
 
@@ -107,12 +92,6 @@ ViroAnimations.registerAnimations({
       rotateX: "+=90"
     },
     duration: 2500 //.25 seconds
-  },
-  rotate2: {
-    properties: {
-      rotateX: "+=40"
-    },
-    duration: 300 //.25 seconds
   }
 });
 
@@ -146,4 +125,4 @@ var styles = StyleSheet.create({
 //   }
 // });
 
-module.exports = HelloSceneSix;
+module.exports = BrewhouseScene;
