@@ -14,7 +14,9 @@ import {
   ViroPortalScene,
   ViroAmbientLight,
   ViroAnimations,
-  ViroPortal
+  ViroPortal,
+  ViroDirectionalLight,
+  ViroSpotLight
 } from "react-viro";
 
 export default class HelloWorldScene extends Component {
@@ -27,6 +29,12 @@ export default class HelloWorldScene extends Component {
   sceneOne = () => {
     this.props.sceneNavigator.push({ scene: require("./Drawbridge.js") });
   };
+
+  leaveHere = () => {
+    // this.props.exitVR();
+    this.props.exitV;
+  };
+
   render() {
     return (
       <ViroScene>
@@ -56,6 +64,16 @@ export default class HelloWorldScene extends Component {
           style={styles.helloWorldTextStyle}
         />
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
+        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
+        <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, 1, 0]}
+          position={[-3, -2, 6]}
+          color="#000"
+          intensity={250}
+        />
+
         <ViroPortalScene>
           <ViroPortal position={[-3, -1, 6]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
@@ -88,6 +106,7 @@ export default class HelloWorldScene extends Component {
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
+          onClick={this._exitViro}
           // animation={{ name: "rotate", run: true, loop: true }}
         />
       </ViroScene>

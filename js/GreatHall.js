@@ -14,7 +14,8 @@ import {
   ViroPortal,
   ViroPortalScene,
   ViroImage,
-  ViroButton
+  ViroButton,
+  ViroDirectionalLight
 } from "react-viro";
 
 export default class HelloSceneFour extends Component {
@@ -34,6 +35,10 @@ export default class HelloSceneFour extends Component {
     this.props.sceneNavigator.push({ scene: require("./Kitchen.js") });
   };
 
+  cellarScene = () => {
+    this.props.sceneNavigator.push({ scene: require("./Cellar.js") });
+  };
+
   render() {
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
@@ -42,7 +47,7 @@ export default class HelloSceneFour extends Component {
           text="Gaze at the Knights Helmet to return to the platform"
           width={1}
           height={1}
-          position={[-2, 1, -0]}
+          position={[-2, 0.8, 0.4]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
@@ -57,7 +62,7 @@ export default class HelloSceneFour extends Component {
 
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
-          <ViroPortal position={[0.2, 0, -8]} scale={[1, 1, 1]}>
+          <ViroPortal position={[-0.8, 0, 10]} scale={[1, 1, 1]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -72,24 +77,36 @@ export default class HelloSceneFour extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/kitchen.JPG")} />
         </ViroPortalScene>
-        <ViroText
-          text="Gaze on the weird pic man, to go back to the beach"
-          width={1}
-          height={1}
-          position={[2, 0.5, 5]}
-          transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
-        />
 
-        <ViroImage
-          source={require("./res/castlelogo.png")}
-          position={[2, 2, 20]}
-          height={8}
-          width={8}
-          transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
-          // animation={{ name: "rotate", run: true, loop: true }}
+        <ViroAmbientLight
+          color="#ffffff"
+          intensity={200}
+          temperature={(8.0, 4.0, 80.0)}
         />
+        <ViroDirectionalLight
+          color="#1099"
+          direction={[0.8, -2, -11]}
+          castsShadow={true}
+          intensity={200}
+        />
+        <ViroPortalScene>
+          <ViroPortal position={[0.8, -0.5, -10]} scale={[1, 1, 1]}>
+            <Viro3DObject
+              source={require("./res/portal_archway.vrx")}
+              resources={[
+                require("./res/portal_archway_diffuse.png"),
+                require("./res/portal_archway_normal.png"),
+                require("./res/portal_archway_specular.png")
+              ]}
+              onFuse={{ callback: this.cellarScene, timeToFuse: 1500 }}
+              type="VRX"
+              transformBehaviors={["billboard"]}
+              renderingOrder={1}
+            />
+          </ViroPortal>
+          <Viro360Image source={require("./res/cellar1.JPG")} />
+        </ViroPortalScene>
+
         <ViroButton
           source={require("./res/knight.png")}
           position={[-5, 0, 1]}
@@ -111,7 +128,7 @@ export default class HelloSceneFour extends Component {
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: "+=90"
+      rotateY: "+90"
     },
     duration: 250 //.25 seconds
   }

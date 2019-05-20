@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   AppRegistry,
+  ViroButton,
   Text,
   Image,
   ImageBackground,
@@ -8,6 +9,8 @@ import {
   StyleSheet,
   Linking,
   PixelRatio,
+  Animated,
+  Easing,
   TouchableHighlight
 } from "react-native";
 
@@ -22,7 +25,7 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require("./js/HelloWorldSceneAR");
-var InitialVRScene = require("./js/WelcomeSceneVR.js");
+var InitialVRScene = require("./js/WelcomeSceneVR");
 
 var MAIN = "MAIN";
 var VR_NAVIGATOR_TYPE = "VR";
@@ -38,8 +41,10 @@ export default class ViroSample extends Component {
 
     this.state = {
       navigatorType: defaultNavigatorType,
-      sharedProps: sharedProps
+      sharedProps: sharedProps,
+      splash: true
     };
+    this.animatedValue = new Animated.Value(0);
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._goToAWS = this._goToAWS.bind(this);
     this._goToWeoleyWebsite = this._goToWeoleyWebsite.bind(this);
@@ -50,6 +55,7 @@ export default class ViroSample extends Component {
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
       this
     );
+    this.splashToggle = this.splashToggle.bind(this);
     this._exitViro = this._exitViro.bind(this);
   }
 
@@ -114,80 +120,160 @@ export default class ViroSample extends Component {
   }
   // Presents the user with a choice of an AR or VR experience/go to link in footer
   _getExperienceSelector() {
-    return (
-      <View style={localStyles.container}>
-        <Image
-          source={require("./js/res/WeoleyCastle-19.jpg")}
-          flex={1}
-          style={{
-            height: "100%"
-          }}
-          resizeMode={"contain"}
-          position={"absolute"}
-        />
-        <View style={localStyles.header}>
-          <Image
-            source={require("./js/res/weoley.png")}
-            resizeMode="contain"
-            style={{ width: "80%", height: "40%" }}
-          />
-          <Image
-            resizeMode="contain"
-            source={require("./js/res/weoleyface.png")}
-            style={{ height: "70%", bottom: "10%" }}
-          />
-        </View>
-        <View style={localStyles.textContainer}>
-          <Text style={localStyles.titleText}>
-            Welcome to the{"\n"}Weoley Experience!
-          </Text>
-        </View>
-        <View style={localStyles.experiences}>
-          <TouchableHighlight
-            style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
-            underlayColor={"rgba(43, 80, 38, .8)"}
+    if (this.state.splash) {
+      return (
+        <View style={localStyles.container}>
+          <View
+            style={{
+              flex: 1,
+              // width: "100%",
+              height: "100%",
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              position: "relative"
+            }}
           >
-            <Text style={localStyles.buttonText}>VR</Text>
-          </TouchableHighlight>
+            <TouchableHighlight
+              onPress={this.splashToggle()}
+              // style={{
+              //   shadowColor: "#000",
+              //   shadowOffset: {
+              //     width: 0,
+              //     height: 2
+              //   },
+              //   shadowOpacity: 0.37,
+              //   shadowRadius: 7.49,
 
-          <TouchableHighlight
-            style={localStyles.buttons}
-            onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-            underlayColor={"rgba(280, 220, 0, 0.8)"}
-          >
+              //   elevation: 12
+              // }}
+            >
+              <Image
+                resizeMode="contain"
+                source={require("./js/res/weoleyface.png")}
+                style={{
+                  height: "70%"
+                }}
+              />
+            </TouchableHighlight>
+            <Text>Tap</Text>
+          </View>
+        </View>
+      );
+    } else {
+      return (
+        <View style={localStyles.container}>
+          <Image
+            source={require("./js/res/WeoleyCastle-19.jpg")}
+            flex={1}
+            style={{
+              height: "100%"
+            }}
+            resizeMode={"contain"}
+            position={"absolute"}
+          />
+          <View style={localStyles.header}>
+            <Image
+              source={require("./js/res/weoley.png")}
+              resizeMode="contain"
+              style={{ width: "80%", height: "40%" }}
+            />
+            <Image
+              resizeMode="contain"
+              source={require("./js/res/weoleyface.png")}
+              style={{ height: "70%", bottom: "10%" }}
+            />
+          </View>
+          <View style={localStyles.textContainer}>
+            <Text style={localStyles.titleText}>
+              Welcome to the{"\n"}Weoley Experience!
+            </Text>
+          </View>
+          <View style={localStyles.experiences}>
+            <TouchableHighlight
+              style={localStyles.buttons}
+              onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
+              underlayColor={"rgba(43, 80, 38, .8)"}
+            >
+              <Text style={localStyles.buttonText}>VR</Text>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+              style={localStyles.buttons}
+              onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
+              underlayColor={"rgba(280, 220, 0, 0.8)"}
+            >
+              <Text
+                style={{
+                  color: "rgba(83, 102, 38, 1)",
+                  textAlign: "center",
+                  fontSize: 20
+                }}
+              >
+                AR
+              </Text>
+            </TouchableHighlight>
+          </View>
+
+          <View style={localStyles.footer}>
+            <TouchableHighlight
+              // style={localStyles.footerButtons}
+              onPress={this._goToWeoleyWebsite}
+            >
+              <Text style={localStyles.footerText}>Weoley {"\n"}website</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              // style={localStyles.footerButtons}
+              onPress={this._goToEvents}
+            >
+              <Text style={localStyles.footerText}>Upcoming{"\n"}Events</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              // style={localStyles.footerButtons}
+              onPress={this._goToFeedback}
+            >
+              <Text style={localStyles.footerText}>
+                Give {"\n"}
+                Feedback
+              </Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      );
+    }
+  }
+
+  // Returns the ViroARSceneNavigator which will start the AR experience
+  _getARNavigator() {
+    return (
+      <View style={{ flex: 1 }}>
+        <ViroARSceneNavigator
+          {...this.state.sharedProps}
+          initialScene={{ scene: InitialARScene }}
+        />
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 20,
+            width: 80,
+            alignItems: "center"
+          }}
+        >
+          <TouchableHighlight onPress={this._exitViro}>
             <Text
               style={{
-                color: "rgba(83, 102, 38, 1)",
-                textAlign: "center",
-                fontSize: 20
+                fontSize: 18,
+                color: "white",
+                borderWidth: 1,
+                borderColor: "white",
+                padding: 5,
+                borderRadius: 5
               }}
             >
-              AR
-            </Text>
-          </TouchableHighlight>
-        </View>
-
-        <View style={localStyles.footer}>
-          <TouchableHighlight
-            // style={localStyles.footerButtons}
-            onPress={this._goToWeoleyWebsite}
-          >
-            <Text style={localStyles.footerText}>Weoley {"\n"}website</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            // style={localStyles.footerButtons}
-            onPress={this._goToEvents}
-          >
-            <Text style={localStyles.footerText}>Upcoming{"\n"}Events</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            // style={localStyles.footerButtons}
-            onPress={this._goToFeedback}
-          >
-            <Text style={localStyles.footerText}>
-              Give {"\n"}
-              Feedback
+              &#60;&nbsp;Back
             </Text>
           </TouchableHighlight>
         </View>
@@ -195,24 +281,34 @@ export default class ViroSample extends Component {
     );
   }
 
-  // Returns the ViroARSceneNavigator which will start the AR experience
-  _getARNavigator() {
-    return (
-      <ViroARSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialARScene }}
-      />
-    );
-  }
-
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
-      <ViroVRSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialVRScene }}
-        onExitViro={this._exitViro}
-      />
+      <View style={{ flex: 1 }}>
+        <ViroVRSceneNavigator
+          {...this.state.sharedProps}
+          initialScene={{ scene: InitialVRScene }}
+          goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
+          onExitViro={this._exitViro}
+        />
+
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 20,
+            width: 80,
+            alignItems: "center"
+          }}
+        >
+          <TouchableHighlight onPress={this._exitViro}>
+            <Text style={{ fontSize: 18, color: "white" }}>
+              &#60;&nbsp;Back
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
 
@@ -231,6 +327,14 @@ export default class ViroSample extends Component {
     this.setState({
       navigatorType: MAIN
     });
+  }
+
+  splashToggle() {
+    return () => {
+      this.setState({
+        splash: false
+      });
+    };
   }
 }
 
