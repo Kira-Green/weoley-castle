@@ -13,7 +13,11 @@ import {
   ViroPortalScene,
   Viro3DObject,
   ViroAmbientLight,
-  ViroAnimations
+  ViroAnimations,
+  ViroImage,
+  ViroSphere,
+  ViroMaterials,
+  ViroNode
 } from "react-viro";
 
 export default class HelloBeachScene extends Component {
@@ -23,7 +27,8 @@ export default class HelloBeachScene extends Component {
     this.state = {
       text:
         "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
-      showImage: true
+      showImage: true,
+      artVisible: false
     };
 
     this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
@@ -39,6 +44,12 @@ export default class HelloBeachScene extends Component {
     });
   };
 
+  showArt = () => {
+    this.setState({
+      artVisible: true
+    });
+  };
+
   backToBeach = () => {
     this.props.sceneNavigator.push({ scene: require("./WelcomeSceneVR.js") });
   };
@@ -48,7 +59,7 @@ export default class HelloBeachScene extends Component {
   };
 
   render() {
-    const { text, showImage } = this.state;
+    const { text, showImage, artVisible } = this.state;
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
@@ -100,6 +111,29 @@ export default class HelloBeachScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/chambers1.JPG")} />
         </ViroPortalScene>
+
+        {artVisible ? (
+          <ViroNode>
+            <ViroImage
+              source={require("./res/artifacts/ironKey.jpg")}
+              position={[0, 0, 2]}
+              height={1}
+              width={2}
+              transformBehaviors={["billboard"]}
+              visible={true}
+            />
+          </ViroNode>
+        ) : (
+          <ViroSphere
+            heightSegmentCount={20}
+            widthSegmentCount={20}
+            radius={0.1}
+            position={[0, 0, 5]}
+            materials={["spherematerial"]}
+            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+          />
+        )}
+
         <ViroText
           text="Return to start scene"
           position={[1.5, 0.5, 1]}
@@ -148,6 +182,12 @@ ViroAnimations.registerAnimations({
       rotateY: "+=90"
     },
     duration: 250 //.25 seconds
+  }
+});
+
+ViroMaterials.createMaterials({
+  spherematerial: {
+    diffuseTexture: require("./res/grid_bg.jpg")
   }
 });
 

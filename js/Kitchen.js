@@ -13,14 +13,19 @@ import {
   Viro3DObject,
   ViroPortal,
   ViroPortalScene,
-  ViroAnimations
+  ViroAnimations,
+  ViroMaterials,
+  ViroSphere,
+  ViroNode
 } from "react-viro";
 
 export default class HelloSceneFive extends Component {
   constructor() {
     super();
 
-    this.state = {}; // initialize state
+    this.state = {
+        artVisible : false
+    }; // initialize state
 
     this._showHelloWorldScene = this._showHelloWorldScene.bind(this);
   }
@@ -34,6 +39,7 @@ export default class HelloSceneFive extends Component {
   };
 
   render() {
+    const { artVisible } = this.state;
     return (
       <ViroScene onClick={this._showHelloWorldScene}>
         <Viro360Image source={require("./res/kitchen.JPG")} />
@@ -88,6 +94,26 @@ export default class HelloSceneFive extends Component {
           animation={{ name: "rotate", run: true, loop: true }}
           onFuse={{ callback: this.backToBeach, timeToFuse: 1500 }}
         />
+
+        {artVisible ? (
+          <ViroNode>
+            <ViroImage
+              source={require("./res/artifacts/hare.jpg")}
+              position={[0, 0, 2]}
+              transformBehaviors={["billboard"]}
+              visible={true}
+            />
+          </ViroNode>
+        ) : (
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          )}
       </ViroScene>
     );
   }
@@ -96,6 +122,17 @@ export default class HelloSceneFive extends Component {
     this.props.sceneNavigator.pop();
   }
 }
+
+showArt = () => {
+  this.setState({
+    artVisible: true
+  });
+
+  ViroMaterials.createMaterials({
+    spherematerial: {
+      diffuseTexture: require("./res/grid_bg.jpg")
+    }
+  });
 
 ViroAnimations.registerAnimations({
   rotate: {
