@@ -48,14 +48,14 @@ export default class WelcomeSceneVR extends Component {
           height={0.8}
           transformBehaviors={["billboard"]}
         />
-        <ViroText
-          text="Look at the archway to enter the ruins!"
-          width={2}
-          height={2}
-          position={[-2, 1, 4]}
+        <ViroImage
+          source={require("./res/welcomeVRruins.png")}
+          position={[-1.8, 1.5, 4]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          // opacity={0.6}
+          scale={[2, 2, 2]}
         />
+
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
         <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
         <ViroSpotLight
@@ -68,7 +68,7 @@ export default class WelcomeSceneVR extends Component {
         />
 
         <ViroPortalScene>
-          <ViroPortal position={[-3, -1, 6]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[-4, -1, 9]} scale={[1, 1, 1]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -84,13 +84,12 @@ export default class WelcomeSceneVR extends Component {
           <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
         </ViroPortalScene>
 
-        <ViroText
-          text="The logo returns you to this scene!"
-          width={2}
-          height={2}
+        <ViroImage
+          source={require("./res/welcomeVRreturntext.png")}
           position={[-6, 1, -2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          // opacity={0.6}
+          scale={[2, 2, 2]}
         />
 
         <ViroButton
