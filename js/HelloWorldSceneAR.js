@@ -33,7 +33,7 @@ export default class HelloWorldSceneAR extends Component {
 			image2: false,
 			sound2: false,
 			psalterImage1: false,
-
+			trumpetPause: true,
 			pauseVideo: true,
 			ruinsPause: true,
 			introPause: false,
@@ -273,6 +273,12 @@ export default class HelloWorldSceneAR extends Component {
 					source={require("./res/redShield.png")}
 					onClick={this._funFactFound}
 				/>
+				<ViroSound
+					source={require("./res/fanfare.mp3")}
+					loop={false}
+					paused={this.state.trumpetPause}
+					volume={1}
+				/>
 
 				<ViroText
 					text="In the 1600s the castle became a ruin"
@@ -378,12 +384,14 @@ export default class HelloWorldSceneAR extends Component {
 	}
 	_funFactFound() {
 		this.setState({
-			funFactVisible: !this.state.funFactVisible
+			funFactVisible: !this.state.funFactVisible,
+			trumpetPause: false
 		});
 	}
 	_funFactFound2() {
 		this.setState({
-			funFactVisible2: !this.state.funFactVisible2
+			funFactVisible2: !this.state.funFactVisible2,
+			trumpetPause: false
 		});
 	}
 
