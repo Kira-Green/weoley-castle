@@ -31,7 +31,8 @@ export default class DrawbridgeScene extends Component {
       showImage: true,
       artVisible: false,
       drawbridgeAudio: false,
-      moreInfo: false
+      moreInfo: false,
+      artifactPaused: false
     };
   }
 
@@ -67,8 +68,12 @@ export default class DrawbridgeScene extends Component {
     this.setState(state => ({ moreInfo: !this.state.moreInfo }));
   };
 
+  // muteArtifact = () => {
+  //   this.setState(state => ({ artifactPaused: true }));
+  // };
+
   render() {
-    const { text, showImage, artVisible } = this.state;
+    const { text, showImage, artVisible, alreadyVisited } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
@@ -104,19 +109,7 @@ export default class DrawbridgeScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
         />
-        <ViroSound
-          source={require("./res/audio/Drawbridge.mp3")}
-          loop={false}
-          paused={this.state.drawbridgeAudio}
-          volume={1}
-          onFinish={this.drawbridgeFinished}
-        />
-        <ViroSound
-          source={require("./res/audio/LookAtArrow.mp3")}
-          loop={false}
-          paused={!this.state.moreInfo}
-          volume={1}
-        />
+
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
           <ViroPortal position={[5, 0, -2]} scale={[0.5, 0.5, 0.5]}>
@@ -160,6 +153,19 @@ export default class DrawbridgeScene extends Component {
               position={[0, 0, 5]}
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+            <ViroSound
+              source={require("./res/audio/Drawbridge.mp3")}
+              loop={false}
+              paused={this.state.drawbridgeAudio}
+              volume={1}
+              onFinish={this.drawbridgeFinished}
+            />
+            <ViroSound
+              source={require("./res/audio/LookAtArrow.mp3")}
+              loop={false}
+              paused={!this.state.moreInfo}
+              volume={1}
             />
           </ViroNode>
         )}
