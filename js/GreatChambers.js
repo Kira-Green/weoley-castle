@@ -26,7 +26,9 @@ export default class GreatChambersScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -36,15 +38,25 @@ export default class GreatChambersScene extends Component {
 
   toGreatHall = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   cellarScene = () => {
     this.props.sceneNavigator.push({ scene: require("./Cellar.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showArt = () => {
     this.setState({
-      artVisible: true
+      artVisible: true,
+      artifactPaused: false,
+      description: true
     });
   };
 
@@ -110,6 +122,18 @@ export default class GreatChambersScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
+        <ViroSound
+          source={require("./res/audio/GreatChambers.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A1_HareFound.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         <ViroButton
           source={require("./res/knight.png")}
           position={[0, 0, 3]}
@@ -135,11 +159,6 @@ export default class GreatChambersScene extends Component {
               position={[3, -0.6, 1.4]}
               transformBehaviors={["billboard"]}
               visible={true}
-            />
-            <ViroSound
-              source={require("./res/audio/A1_HareFound.mp3")}
-              loop={false}
-              volume={1}
             />
           </ViroNode>
         ) : (

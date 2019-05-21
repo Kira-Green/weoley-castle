@@ -28,11 +28,11 @@ export default class DrawbridgeScene extends Component {
     this.state = {
       text:
         "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
-      showImage: true,
+      showArrow: true,
       artVisible: false,
       drawbridgeAudio: false,
       moreInfo: false,
-      artifactPaused: false
+      artifactPaused: true
     };
   }
 
@@ -42,13 +42,16 @@ export default class DrawbridgeScene extends Component {
       : "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle";
     this.setState({
       text,
-      showImage: false
+      showArrow: false
     });
   };
 
   showArt = () => {
     this.setState({
-      artVisible: true
+      artVisible: !this.state.artVisible,
+      artifactPaused: false,
+      drawbridgeAudio: true,
+      moreInfo: false
     });
   };
 
@@ -58,6 +61,10 @@ export default class DrawbridgeScene extends Component {
 
   toChambers = () => {
     this.props.sceneNavigator.push({ scene: require("./Chambers.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      drawbridgeAudio: false
+    }));
   };
 
   showPrevScene = () => {
@@ -68,12 +75,12 @@ export default class DrawbridgeScene extends Component {
     this.setState(state => ({ moreInfo: !this.state.moreInfo }));
   };
 
-  // muteArtifact = () => {
-  //   this.setState(state => ({ artifactPaused: true }));
-  // };
+  muteArtifact = () => {
+    this.setState(state => ({ artifactPaused: true }));
+  };
 
   render() {
-    const { text, showImage, artVisible, alreadyVisited } = this.state;
+    const { text, showArrow, artVisible } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
@@ -85,7 +92,7 @@ export default class DrawbridgeScene extends Component {
           style={styles.helloWorldTextStyle}
           transformBehaviors={["billboard"]}
         />
-        {showImage ? (
+        {showArrow ? (
           <ViroButton
             source={require("./res/down.png")}
             position={[0, -0.5, -1.9]}
@@ -109,7 +116,25 @@ export default class DrawbridgeScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
         />
-
+        <ViroSound
+          source={require("./res/audio/Drawbridge.mp3")}
+          loop={false}
+          paused={this.state.drawbridgeAudio}
+          volume={1}
+          onFinish={this.drawbridgeFinished}
+        />
+        <ViroSound
+          source={require("./res/audio/LookAtArrow.mp3")}
+          loop={false}
+          paused={!this.state.moreInfo}
+          volume={1}
+        />
+        <ViroSound
+          source={require("./res/audio/A3_FoundKey.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
           <ViroPortal position={[5, 0, -2]} scale={[0.5, 0.5, 0.5]}>
@@ -120,7 +145,10 @@ export default class DrawbridgeScene extends Component {
                 require("./res/portal_archway_normal.png"),
                 require("./res/portal_archway_specular.png")
               ]}
-              onFuse={{ callback: this.toChambers, timeToFuse: 1500 }}
+              onFuse={{
+                callback: this.toChambers,
+                timeToFuse: 1500
+              }}
               type="VRX"
               transformBehaviors={["billboard"]}
             />
@@ -138,11 +166,6 @@ export default class DrawbridgeScene extends Component {
               transformBehaviors={["billboard"]}
               visible={true}
             />
-            <ViroSound
-              source={require("./res/audio/A3_FoundKey.mp3")}
-              loop={false}
-              volume={1}
-            />
           </ViroNode>
         ) : (
           <ViroNode>
@@ -154,7 +177,7 @@ export default class DrawbridgeScene extends Component {
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
             />
-            <ViroSound
+            {/* <ViroSound
               source={require("./res/audio/Drawbridge.mp3")}
               loop={false}
               paused={this.state.drawbridgeAudio}
@@ -166,7 +189,7 @@ export default class DrawbridgeScene extends Component {
               loop={false}
               paused={!this.state.moreInfo}
               volume={1}
-            />
+            /> */}
           </ViroNode>
         )}
         <ViroText

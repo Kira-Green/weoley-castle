@@ -290,7 +290,6 @@ export default class ViroSample extends Component {
         goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
         onExitViro={this._exitViro}
       />
-
     );
   }
 

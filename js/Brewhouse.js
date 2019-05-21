@@ -24,7 +24,7 @@ export default class BrewhouseScene extends Component {
     this.state = {
       artVisible: false,
       description: false,
-      artifact: false
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -38,7 +38,9 @@ export default class BrewhouseScene extends Component {
 
   showArt = () => {
     this.setState({
-      artVisible: true
+      artVisible: true,
+      artifactPaused: false,
+      description: true
     });
   };
 
@@ -97,6 +99,14 @@ export default class BrewhouseScene extends Component {
           animation={{ name: "rotate", run: true, loop: true }}
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
         />
+        <ViroSound
+          source={require("./res/audio/A6_FoundArrow.mp3")}
+          loop={false}
+          paused={this.state.artifact}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
+
         {artVisible ? (
           <ViroNode>
             <ViroImage
@@ -104,12 +114,6 @@ export default class BrewhouseScene extends Component {
               position={[0, 0, 2]}
               transformBehaviors={["billboard"]}
               visible={true}
-            />
-            <ViroSound
-              source={require("./res/audio/A6_FoundArrow.mp3")}
-              loop={false}
-              paused={this.state.artifact}
-              volume={1}
             />
           </ViroNode>
         ) : (

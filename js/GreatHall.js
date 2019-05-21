@@ -26,7 +26,9 @@ export default class GreatHallScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -36,6 +38,10 @@ export default class GreatHallScene extends Component {
 
   toKitchen = () => {
     this.props.sceneNavigator.push({ scene: require("./Kitchen.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showPrevScene = () => {
@@ -44,7 +50,9 @@ export default class GreatHallScene extends Component {
 
   showArt = () => {
     this.setState({
-      artVisible: true
+      artVisible: true,
+      artifactPaused: false,
+      description: true
     });
   };
 
@@ -113,7 +121,18 @@ export default class GreatHallScene extends Component {
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
-
+        <ViroSound
+          source={require("./res/audio/GreatHall.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A4_FoundTile.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         {artVisible ? (
           <ViroNode>
             <ViroImage
@@ -121,11 +140,6 @@ export default class GreatHallScene extends Component {
               position={[0, 0, 2]}
               transformBehaviors={["billboard"]}
               visible={true}
-            />
-            <ViroSound
-              source={require("./res/audio/A4_FoundTile.mp3")}
-              loop={false}
-              volume={1}
             />
           </ViroNode>
         ) : (
@@ -137,11 +151,6 @@ export default class GreatHallScene extends Component {
               position={[0, 0, 5]}
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-            />
-            <ViroSound
-              source={require("./res/audio/GreatHall.mp3")}
-              loop={false}
-              volume={1}
             />
           </ViroNode>
         )}

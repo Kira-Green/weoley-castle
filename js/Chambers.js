@@ -27,7 +27,8 @@ export default class ChambersScene extends Component {
 
     this.state = {
       artVisible: false,
-      description: false
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -37,24 +38,23 @@ export default class ChambersScene extends Component {
 
   toGreatChambers = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatChambers.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showArt = () => {
     this.setState({
-      artVisible: true
+      artVisible: !this.state.artVisible,
+      artifactPaused: false,
+      description: true
     });
   };
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
   };
 
-  playArtifact = () => {
-    <ViroSound
-      source={require("./res/audio/A2_FoundGlass.mp3")}
-      loop={false}
-      volume={1}
-    />;
-  };
   render() {
     const { artVisible } = this.state;
     return (
@@ -76,6 +76,14 @@ export default class ChambersScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
         />
+
+        <ViroSound
+          source={require("./res/audio/A2_FoundGlass.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
+
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
           <ViroPortal position={[0, 0, -4]} scale={[0.5, 0.5, 0.5]}>
@@ -97,7 +105,7 @@ export default class ChambersScene extends Component {
           source={require("./res/audio/Chambers.mp3")}
           loop={false}
           volume={1}
-          paused={false}
+          paused={this.state.description}
         />
         <ViroText
           text="Return to previous scene"
@@ -132,12 +140,6 @@ export default class ChambersScene extends Component {
               position={[0, 0, 2]}
               transformBehaviors={["billboard"]}
               visible={true}
-            />
-            <ViroSound
-              source={require("./res/audio/A2_FoundGlass.mp3")}
-              loop={false}
-              volume={1}
-              paused={false}
             />
           </ViroNode>
         ) : (
