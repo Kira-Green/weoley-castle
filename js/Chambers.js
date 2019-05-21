@@ -59,6 +59,13 @@ export default class ChambersScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
+        <ViroImage
+          source={require("./res/chambersStables.png")}
+          position={[2.8, 0, -0.9]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
+        />
         <ViroText
           text="To the the great chambers"
           width={1}
@@ -66,6 +73,13 @@ export default class ChambersScene extends Component {
           position={[0, 1, -3]}
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
+        />
+        <ViroImage
+          source={require("./res/returnStart.png")}
+          position={[0, 1, -3]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>

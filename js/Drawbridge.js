@@ -89,13 +89,12 @@ export default class DrawbridgeScene extends Component {
           <ViroButton source={require("./res/down.png")} visible={false} />
         )}
 
-        <ViroText
-          text="To the chambers"
-          width={1}
-          height={1}
-          position={[2, 0.5, -0.8]}
+        <ViroImage
+          source={require("./res/returnHelmet.png")}
+          position={[1.5, 0.6, 1]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          // opacity={0.6}
+          scale={[0.6, 0.6, 0.6]}
         />
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
@@ -137,14 +136,6 @@ export default class DrawbridgeScene extends Component {
           />
         )}
 
-        <ViroText
-          text="Return to previous scene"
-          position={[1.5, 0.5, 1]}
-          height={2}
-          width={1.5}
-          transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
-        />
         <ViroButton
           source={require("./res/knight.png")}
           position={[3, 0, 2]}
@@ -153,13 +144,13 @@ export default class DrawbridgeScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
-          text="Return to start scene"
-          width={2}
-          height={2}
-          position={[-3, 0.7, 0.8]}
+
+        <ViroImage
+          source={require("./res/returnStart.png")}
+          position={[-3, 1, 0.75]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
 
         <ViroButton

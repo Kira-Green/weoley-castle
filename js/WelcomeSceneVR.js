@@ -15,7 +15,8 @@ import {
   ViroAnimations,
   ViroPortal,
   ViroDirectionalLight,
-  ViroSpotLight
+  ViroSpotLight,
+  ViroImage
 } from "react-viro";
 
 export default class WelcomeSceneVR extends Component {
@@ -33,13 +34,12 @@ export default class WelcomeSceneVR extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/platform2.JPG")} />
-        <ViroText
-          text="The helmet will return you to the previous scene!"
-          width={2.5}
-          height={2.5}
+        <ViroImage
+          source={require("./res/returnHelmet.png")}
           position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroButton
           source={require("./res/knight.png")}
@@ -86,7 +86,7 @@ export default class WelcomeSceneVR extends Component {
 
         <ViroImage
           source={require("./res/welcomeVRreturntext.png")}
-          position={[-6, 1, -2]}
+          position={[-6, 1.2, -2]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
           scale={[2, 2, 2]}
