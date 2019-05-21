@@ -9,6 +9,7 @@ import {
   Viro360Image,
   ViroText,
   ViroButton,
+  ViroSound,
   ViroPortal,
   ViroPortalScene,
   Viro3DObject,
@@ -28,7 +29,9 @@ export default class DrawbridgeScene extends Component {
       text:
         "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
       showImage: true,
-      artVisible: false
+      artVisible: false,
+      drawbridgeAudio: false,
+      moreInfo: false
     };
   }
 
@@ -58,6 +61,10 @@ export default class DrawbridgeScene extends Component {
 
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
+  };
+
+  drawbridgeFinished = () => {
+    this.setState(state => ({ moreInfo: !this.state.moreInfo }));
   };
 
   render() {
@@ -90,12 +97,25 @@ export default class DrawbridgeScene extends Component {
         )}
 
         <ViroText
-          text="To the chambers"
+          text="To the stables"
           width={1}
           height={1}
           position={[2, 0.5, -0.8]}
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
+        />
+        <ViroSound
+          source={require("./res/audio/Drawbridge.mp3")}
+          loop={false}
+          paused={this.state.drawbridgeAudio}
+          volume={1}
+          onFinish={this.drawbridgeFinished}
+        />
+        <ViroSound
+          source={require("./res/audio/LookAtArrow.mp3")}
+          loop={false}
+          paused={!this.state.moreInfo}
+          volume={1}
         />
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
@@ -125,34 +145,24 @@ export default class DrawbridgeScene extends Component {
               transformBehaviors={["billboard"]}
               visible={true}
             />
+            <ViroSound
+              source={require("./res/audio/A3_FoundKey.mp3")}
+              loop={false}
+              volume={1}
+            />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.3}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.3}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          </ViroNode>
         )}
-
-        <ViroText
-          text="Return to previous scene"
-          position={[1.5, 0.5, 1]}
-          height={2}
-          width={1.5}
-          transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
-        />
-        <ViroButton
-          source={require("./res/knight.png")}
-          position={[3, 0, 2]}
-          width={0.8}
-          height={0.8}
-          transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
-        />
         <ViroText
           text="Return to start scene"
           width={2}
@@ -161,7 +171,6 @@ export default class DrawbridgeScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[-4, -0, 1]}

@@ -12,6 +12,7 @@ import {
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroSound,
   ViroPortalScene,
   ViroImage,
   ViroButton,
@@ -116,21 +117,33 @@ export default class GreatHallScene extends Component {
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
+              source={require("./res/artifacts/floorTile.jpg")}
               position={[0, 0, 2]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
+            <ViroSound
+              source={require("./res/audio/A4_FoundTile.mp3")}
+              loop={false}
+              volume={1}
+            />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+            <ViroSound
+              source={require("./res/audio/GreatHall.mp3")}
+              loop={false}
+              volume={1}
+            />
+          </ViroNode>
         )}
       </ViroScene>
     );

@@ -14,6 +14,8 @@ import {
   ViroPortal,
   ViroPortalScene,
   ViroAnimations,
+  ViroImage,
+  ViroSound,
   ViroNode,
   ViroSphere,
   ViroMaterials
@@ -130,9 +132,14 @@ export default class GreatChambersScene extends Component {
           <ViroNode>
             <ViroImage
               source={require("./res/artifacts/hare.jpg")}
-              position={[0, 0, 2]}
+              position={[3, -0.6, 1.4]}
               transformBehaviors={["billboard"]}
               visible={true}
+            />
+            <ViroSound
+              source={require("./res/audio/A1_HareFound.mp3")}
+              loop={false}
+              volume={1}
             />
           </ViroNode>
         ) : (
@@ -140,7 +147,7 @@ export default class GreatChambersScene extends Component {
             heightSegmentCount={20}
             widthSegmentCount={20}
             radius={0.1}
-            position={[0, 0, 5]}
+            position={[4.5, -0.6, 2.1]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
           />

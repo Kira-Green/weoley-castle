@@ -12,7 +12,9 @@ import {
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroImage,
   ViroPortalScene,
+  ViroSound,
   ViroAnimations,
   ViroMaterials,
   ViroSphere,
@@ -92,7 +94,11 @@ export default class KitchenScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-
+        {/* <ViroSound
+          source={require("./res/audio/Kitchen.mp3")}
+          loop={false}
+          volume={1}
+        /> */}
         <ViroButton
           source={require("./res/knight.png")}
           position={[-5, 0.8, 1]}
@@ -123,21 +129,33 @@ export default class KitchenScene extends Component {
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
-              position={[0, 0, 2]}
+              source={require("./res/artifacts/dogSkull.jpg")}
+              position={[-2.8, -0.2, -2.5]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
+            <ViroSound
+              source={require("./res/audio/A5_FoundDog.mp3")}
+              loop={false}
+              volume={1}
+            />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[-2.8, -0.2, -2.5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+            <ViroSound
+              source={require("./res/audio/Kitchen.mp3")}
+              loop={false}
+              volume={1}
+            />
+          </ViroNode>
         )}
       </ViroScene>
     );

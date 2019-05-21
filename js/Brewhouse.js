@@ -10,6 +10,8 @@ import {
   ViroText,
   ViroAnimations,
   ViroButton,
+  ViroImage,
+  ViroSound,
   ViroMaterials,
   ViroSphere,
   ViroNode
@@ -20,7 +22,9 @@ export default class BrewhouseScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifact: false
     }; // initialize state
   }
 
@@ -59,6 +63,7 @@ export default class BrewhouseScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
         />
+
         <ViroButton
           source={require("./res/knight.png")}
           position={[2.5, 0, -3]}
@@ -95,21 +100,34 @@ export default class BrewhouseScene extends Component {
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
+              source={require("./res/artifacts/arrowHead.jpg")}
               position={[0, 0, 2]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
+            <ViroSound
+              source={require("./res/audio/A6_FoundArrow.mp3")}
+              loop={false}
+              paused={this.state.artifact}
+              volume={1}
+            />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[4, -0.2, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+            <ViroSound
+              source={require("./res/audio/Brewhouse.mp3")}
+              loop={false}
+              volume={1}
+            />
+          </ViroNode>
         )}
       </ViroScene>
     );

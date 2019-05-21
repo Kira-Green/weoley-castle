@@ -14,6 +14,7 @@ import {
   ViroAmbientLight,
   ViroAnimations,
   ViroPortal,
+  ViroSound,
   ViroDirectionalLight,
   ViroSpotLight
 } from "react-viro";
@@ -22,11 +23,18 @@ export default class WelcomeSceneVR extends Component {
   constructor() {
     super();
 
-    this.state = {}; // Set initial state here
+    this.state = {
+      intro: false,
+      gaze: false
+    }; // Set initial state here
   }
 
   toDrawbridge = () => {
     this.props.sceneNavigator.push({ scene: require("./Drawbridge.js") });
+  };
+
+  introFinished = () => {
+    this.setState(state => ({ gaze: !this.state.gaze }));
   };
 
   render() {
@@ -92,7 +100,19 @@ export default class WelcomeSceneVR extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-
+        <ViroSound
+          source={require("./res/audio/Intro1.mp3")}
+          loop={false}
+          paused={this.state.intro}
+          volume={1}
+          onFinish={this.introFinished}
+        />
+        <ViroSound
+          source={require("./res/audio/GazeFunny.mp3")}
+          loop={false}
+          paused={!this.state.gaze}
+          volume={1}
+        />
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[-6, -0.5, -2]}

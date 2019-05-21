@@ -9,6 +9,7 @@ import {
   Viro360Image,
   ViroText,
   ViroButton,
+  ViroSound,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
@@ -25,7 +26,8 @@ export default class ChambersScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false
     }; // initialize state
   }
 
@@ -46,13 +48,20 @@ export default class ChambersScene extends Component {
     this.props.sceneNavigator.pop();
   };
 
+  playArtifact = () => {
+    <ViroSound
+      source={require("./res/audio/A2_FoundGlass.mp3")}
+      loop={false}
+      volume={1}
+    />;
+  };
   render() {
     const { artVisible } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/chambers2.JPG")} />
         <ViroText
-          text="Welcome to the chambers and stables"
+          text="Welcome to the stables and chambers"
           width={1}
           height={1}
           position={[2.8, 0, -0.9]}
@@ -84,6 +93,12 @@ export default class ChambersScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/cellar1.JPG")} />
         </ViroPortalScene>
+        <ViroSound
+          source={require("./res/audio/Chambers.mp3")}
+          loop={false}
+          volume={1}
+          paused={false}
+        />
         <ViroText
           text="Return to previous scene"
           width={1.5}
@@ -118,16 +133,24 @@ export default class ChambersScene extends Component {
               transformBehaviors={["billboard"]}
               visible={true}
             />
+            <ViroSound
+              source={require("./res/audio/A2_FoundGlass.mp3")}
+              loop={false}
+              volume={1}
+              paused={false}
+            />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          </ViroNode>
         )}
 
         <ViroButton
