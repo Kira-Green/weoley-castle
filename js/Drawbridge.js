@@ -173,36 +173,23 @@ export default class DrawbridgeScene extends Component {
               heightSegmentCount={20}
               widthSegmentCount={20}
               radius={0.3}
-              position={[0, 0, 5]}
+              position={[0, -0.6, 5.5]}
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
             />
-            {/* <ViroSound
-              source={require("./res/audio/Drawbridge.mp3")}
-              loop={false}
-              paused={this.state.drawbridgeAudio}
-              volume={1}
-              onFinish={this.drawbridgeFinished}
-            />
-            <ViroSound
-              source={require("./res/audio/LookAtArrow.mp3")}
-              loop={false}
-              paused={!this.state.moreInfo}
-              volume={1}
-            /> */}
           </ViroNode>
         )}
         <ViroText
           text="Return to start scene"
           width={2}
           height={2}
-          position={[-3, 0.7, 0.8]}
+          position={[1.5, 0.5, 1]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
         <ViroButton
           source={require("./res/weoleyface.png")}
-          position={[-4, -0, 1]}
+          position={[3, 0, 2]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}

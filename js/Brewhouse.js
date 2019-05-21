@@ -39,8 +39,8 @@ export default class BrewhouseScene extends Component {
   showArt = () => {
     this.setState({
       artVisible: true,
-      artifactPaused: false,
-      description: true
+      description: true,
+      artifactPaused: false
     });
   };
 
@@ -65,7 +65,6 @@ export default class BrewhouseScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
         />
-
         <ViroButton
           source={require("./res/knight.png")}
           position={[2.5, 0, -3]}
@@ -90,6 +89,19 @@ export default class BrewhouseScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
         />
+        <ViroSound
+          source={require("./res/audio/Brewhouse.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A6_FoundArrow.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
+
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[-2, 0, 2]}
@@ -99,39 +111,24 @@ export default class BrewhouseScene extends Component {
           animation={{ name: "rotate", run: true, loop: true }}
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
         />
-        <ViroSound
-          source={require("./res/audio/A6_FoundArrow.mp3")}
-          loop={false}
-          paused={this.state.artifact}
-          volume={1}
-          paused={this.state.artifactPaused}
-        />
-
         {artVisible ? (
           <ViroNode>
             <ViroImage
               source={require("./res/artifacts/arrowHead.jpg")}
-              position={[0, 0, 2]}
+              position={[4, -0.2, 4]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
           </ViroNode>
         ) : (
-          <ViroNode>
-            <ViroSphere
-              heightSegmentCount={20}
-              widthSegmentCount={20}
-              radius={0.1}
-              position={[4, -0.2, 5]}
-              materials={["spherematerial"]}
-              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-            />
-            <ViroSound
-              source={require("./res/audio/Brewhouse.mp3")}
-              loop={false}
-              volume={1}
-            />
-          </ViroNode>
+          <ViroSphere
+            heightSegmentCount={20}
+            widthSegmentCount={20}
+            radius={0.1}
+            position={[4, -0.2, 5]}
+            materials={["spherematerial"]}
+            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+          />
         )}
       </ViroScene>
     );
