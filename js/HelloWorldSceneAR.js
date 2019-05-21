@@ -276,7 +276,7 @@ export default class HelloWorldSceneAR extends Component {
 
 				<ViroText
 					text="In the 1600s the castle became a ruin"
-					scale={[0.5, 0.5, 0.5]}
+					scale={[0.7, 0.7, 0.7]}
 					position={[-2, -0.5, -2]}
 					style={styles.helloWorldTextStyle}
 					outerStroke={{
@@ -298,7 +298,7 @@ export default class HelloWorldSceneAR extends Component {
 
 				<ViroText
 					text="In 1272 some knights were caught illegally hunting deer"
-					scale={[0.5, 0.5, 0.5]}
+					scale={[0.7, 0.7, 0.7]}
 					position={[2, -1.3, 2]}
 					transformBehaviors={"billboard"}
 					style={styles.helloWorldTextStyle}
