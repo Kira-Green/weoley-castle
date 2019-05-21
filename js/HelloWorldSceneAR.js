@@ -59,7 +59,7 @@ export default class HelloWorldSceneAR extends Component {
 			<ViroARScene onTrackingUpdated={this._onInitialized}>
 				<ViroAmbientLight color="#ffffff" intensity={200} />
 				<ViroSound
-					source={require("./res/intro.mp3")}
+					source={require("./res/AR_intro.mp3")}
 					loop={false}
 					paused={this.state.introPause}
 					volume={1}
