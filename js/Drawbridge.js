@@ -31,7 +31,8 @@ export default class DrawbridgeScene extends Component {
       image: (
         <ViroImage
           source={require("./res/text/drawbridgeWelcome.png")}
-          position={[0, 0.2, -2]}
+          position={[0, 0.8, -2]}
+          transformBehaviors={["billboard"]}
         />
       ),
       showArrow: true,
@@ -56,12 +57,14 @@ export default class DrawbridgeScene extends Component {
     let image = isChanging ? (
       <ViroImage
         source={require("./res/text/drawbridgeWelcome2.png")}
-        position={[0, 0.3, -2]}
+        position={[0, 0.8, -2]}
+        transformBehaviors={["billboard"]}
       />
     ) : (
       <ViroImage
         source={require("./res/text/drawbridgeWelcome.png")}
-        position={[0, 0.3, -2]}
+        position={[0, 0.8, -2]}
+        transformBehaviors={["billboard"]}
       />
     );
     this.setState({
@@ -112,14 +115,6 @@ export default class DrawbridgeScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
-        {/* <ViroText
-          text={text}
-          width={1.5}
-          height={2}
-          position={[0, 0.5, -2]}
-          style={styles.helloWorldTextStyle}
-          transformBehaviors={["billboard"]}
-        /> */}
         {image}
         {showArrow ? (
           <ViroButton

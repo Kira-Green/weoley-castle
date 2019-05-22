@@ -315,7 +315,7 @@ export default class ViroSample extends Component {
             left: 3,
             right: 0,
             bottom: 20,
-            width: 130,
+            width: 350,
             alignItems: "center"
           }}
         >
