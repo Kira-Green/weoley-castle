@@ -12,7 +12,9 @@ import {
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroImage,
   ViroPortalScene,
+  ViroSound,
   ViroAnimations,
   ViroMaterials,
   ViroSphere,
@@ -25,7 +27,9 @@ export default class KitchenScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -35,6 +39,10 @@ export default class KitchenScene extends Component {
 
   toBrewhouse = () => {
     this.props.sceneNavigator.push({ scene: require("./Brewhouse.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showPrevScene = () => {
@@ -42,9 +50,16 @@ export default class KitchenScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
@@ -95,6 +110,8 @@ export default class KitchenScene extends Component {
           <Viro360Image source={require("./res/bakehouse.JPG")} />
         </ViroPortalScene>
         {/* <ViroText
+
+
           text="Return to previous scene"
           width={1}
           height={1}
@@ -110,7 +127,6 @@ export default class KitchenScene extends Component {
           // opacity={0.6}
           scale={[0.6, 0.6, 0.6]}
         />
-
         <ViroButton
           source={require("./res/knight.png")}
           position={[-5, 0.8, 1]}
@@ -134,7 +150,12 @@ export default class KitchenScene extends Component {
           // opacity={0.6}
           scale={[1, 1, 1]}
         />
-
+        <ViroSound
+          source={require("./res/audio/Kitchen.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[3, 0, 2]}
@@ -144,25 +165,32 @@ export default class KitchenScene extends Component {
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
-
+        <ViroSound
+          source={require("./res/audio/A5_FoundDog.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
-              position={[0, 0, 2]}
+              source={require("./res/artifacts/dogSkull.jpg")}
+              position={[-2.8, -0.2, -2.5]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[-2.8, -0.2, -2.5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          </ViroNode>
         )}
       </ViroScene>
     );

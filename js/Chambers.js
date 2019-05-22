@@ -9,6 +9,7 @@ import {
   Viro360Image,
   ViroText,
   ViroButton,
+  ViroSound,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
@@ -25,7 +26,9 @@ export default class ChambersScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -35,13 +38,24 @@ export default class ChambersScene extends Component {
 
   toGreatChambers = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatChambers.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+    this.setState(
+      {
+        artVisible: !this.state.artVisible,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
+
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
   };
@@ -51,7 +65,6 @@ export default class ChambersScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/chambers2.JPG")} />
-
         <ViroImage
           source={require("./res/text/chambersStables.png")}
           position={[2.8, 0, -0.9]}
@@ -74,6 +87,14 @@ export default class ChambersScene extends Component {
           // opacity={0.6}
           scale={[1, 1, 1]}
         />
+
+        <ViroSound
+          source={require("./res/audio/A2_FoundGlass.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
+
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
           <ViroPortal position={[0, 0, -4]} scale={[0.5, 0.5, 0.5]}>
@@ -91,6 +112,20 @@ export default class ChambersScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/cellar1.JPG")} />
         </ViroPortalScene>
+        <ViroSound
+          source={require("./res/audio/Chambers.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroText
+          text="Return to previous scene"
+          width={1.5}
+          height={2}
+          position={[2, 0.5, 2]}
+          transformBehaviors={["billboard"]}
+          style={styles.helloWorldTextStyle}
+        />
 
         <ViroButton
           source={require("./res/knight.png")}
@@ -119,14 +154,16 @@ export default class ChambersScene extends Component {
             />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          </ViroNode>
         )}
 
         <ViroButton

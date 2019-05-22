@@ -14,6 +14,8 @@ import {
   ViroPortal,
   ViroPortalScene,
   ViroAnimations,
+  ViroImage,
+  ViroSound,
   ViroNode,
   ViroSphere,
   ViroMaterials,
@@ -25,7 +27,9 @@ export default class GreatChambersScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -35,16 +39,31 @@ export default class GreatChambersScene extends Component {
 
   toGreatHall = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   cellarScene = () => {
     this.props.sceneNavigator.push({ scene: require("./Cellar.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
 
   showPrevScene = () => {
@@ -137,6 +156,18 @@ export default class GreatChambersScene extends Component {
           // opacity={0.6}
           scale={[1, 1, 1]}
         />
+        <ViroSound
+          source={require("./res/audio/GreatChambers.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A1_HareFound.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         <ViroButton
           source={require("./res/knight.png")}
           position={[0, 0, 3]}
@@ -166,7 +197,7 @@ export default class GreatChambersScene extends Component {
           <ViroNode>
             <ViroImage
               source={require("./res/artifacts/hare.jpg")}
-              position={[0, 0, 2]}
+              position={[3, -0.6, 1.4]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
@@ -176,7 +207,7 @@ export default class GreatChambersScene extends Component {
             heightSegmentCount={20}
             widthSegmentCount={20}
             radius={0.1}
-            position={[0, 0, 5]}
+            position={[4.5, -0.6, 2.1]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
           />

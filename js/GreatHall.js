@@ -12,6 +12,7 @@ import {
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroSound,
   ViroPortalScene,
   ViroImage,
   ViroButton,
@@ -25,7 +26,9 @@ export default class GreatHallScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -35,6 +38,10 @@ export default class GreatHallScene extends Component {
 
   toKitchen = () => {
     this.props.sceneNavigator.push({ scene: require("./Kitchen.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showPrevScene = () => {
@@ -42,9 +49,16 @@ export default class GreatHallScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
@@ -128,25 +142,38 @@ export default class GreatHallScene extends Component {
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
-
+        <ViroSound
+          source={require("./res/audio/GreatHall.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A4_FoundTile.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
+              source={require("./res/artifacts/floorTile.jpg")}
               position={[0, 0, 2]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            />
+          </ViroNode>
         )}
       </ViroScene>
     );

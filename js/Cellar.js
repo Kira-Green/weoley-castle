@@ -8,6 +8,7 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
+  ViroSound,
   ViroButton,
   ViroAmbientLight,
   Viro3DObject,
@@ -90,6 +91,12 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         /> */}
+        />
+        <ViroSound
+          source={require("./res/audio/Cellar.mp3")}
+          loop={false}
+          volume={1}
+        />
         <ViroButton
           source={require("./res/knight.png")}
           position={[0, 0, 3]}

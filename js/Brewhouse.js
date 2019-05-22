@@ -10,6 +10,8 @@ import {
   ViroText,
   ViroAnimations,
   ViroButton,
+  ViroImage,
+  ViroSound,
   ViroMaterials,
   ViroSphere,
   ViroNode,
@@ -21,7 +23,9 @@ export default class BrewhouseScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
+      artVisible: false,
+      description: false,
+      artifactPaused: true
     }; // initialize state
   }
 
@@ -34,13 +38,20 @@ export default class BrewhouseScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        description: true,
+        artifactPaused: false
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
-    const { artVisible } = this.state;
+    const { artVisible, numFound } = this.state;
     return (
       <ViroScene hdrEnabled={true} shadowsEnabled={true}>
         <Viro360Image source={require("./res/bakehouse.JPG")} />
@@ -115,6 +126,18 @@ export default class BrewhouseScene extends Component {
           // opacity={0.6}
           scale={[1, 1, 1]}
         />
+        <ViroSound
+          source={require("./res/audio/Brewhouse.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A6_FoundArrow.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
 
         <ViroButton
           source={require("./res/weoleyface.png")}
@@ -128,8 +151,8 @@ export default class BrewhouseScene extends Component {
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
-              position={[0, 0, 2]}
+              source={require("./res/artifacts/arrowHead.jpg")}
+              position={[4, -0.2, 4]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
@@ -139,7 +162,7 @@ export default class BrewhouseScene extends Component {
             heightSegmentCount={20}
             widthSegmentCount={20}
             radius={0.1}
-            position={[0, 0, 5]}
+            position={[4, -0.2, 5]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
           />

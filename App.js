@@ -14,7 +14,11 @@ import {
   TouchableHighlight
 } from "react-native";
 
-import { ViroVRSceneNavigator, ViroARSceneNavigator } from "react-viro";
+import {
+  ViroVRSceneNavigator,
+  ViroARSceneNavigator,
+  ViroSound
+} from "react-viro";
 
 /*
  TODO: Insert your API key below
@@ -42,7 +46,9 @@ export default class ViroSample extends Component {
     this.state = {
       navigatorType: defaultNavigatorType,
       sharedProps: sharedProps,
-      splash: true
+      splash: true,
+      numFound: 0,
+      playCongrats: false
     };
     this.animatedValue = new Animated.Value(0);
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
@@ -118,6 +124,14 @@ export default class ViroSample extends Component {
       }
     );
   }
+
+  numArtifactsFound = () => {
+    const { numFound } = this.state;
+    this.setState(state => ({
+      numFound: numFound + 1
+    }));
+  };
+
   // Presents the user with a choice of an AR or VR experience/go to link in footer
   _getExperienceSelector() {
     if (this.state.splash) {
@@ -202,7 +216,7 @@ export default class ViroSample extends Component {
             <TouchableHighlight
               style={localStyles.buttons}
               onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-              underlayColor={"rgba(280, 220, 0, 0.8)"}
+              underlayColor="rgba(280, 220, 0, 0.8)"
             >
               <Text
                 style={{
@@ -284,12 +298,57 @@ export default class ViroSample extends Component {
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
-      <ViroVRSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialVRScene }}
-        goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
-        onExitViro={this._exitViro}
-      />
+      <View style={{ flex: 1 }}>
+        <ViroVRSceneNavigator
+          {...this.state.sharedProps}
+          initialScene={{ scene: InitialVRScene }}
+          viroAppProps={{
+            numArtifactsFound: this.numArtifactsFound
+          }}
+          goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
+          onExitViro={this._exitViro}
+        />
+
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 20,
+            width: 150,
+            alignItems: "center"
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              color: "white",
+              borderWidth: 1,
+              borderColor: "white",
+              padding: 5,
+              textAlign: "center",
+              borderRadius: 5,
+              opacity: 0.5
+            }}
+          >
+            No. artifacts found: {"\n "}
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "yellow",
+                borderWidth: 1,
+                borderColor: "white",
+                padding: 5,
+                textAlign: "center",
+                borderRadius: 5
+              }}
+            >
+              {this.state.numFound}
+            </Text>
+          </Text>
+        </View>
+      </View>
     );
   }
 
@@ -333,7 +392,6 @@ var localStyles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, .2)",
     alignItems: "center",
     flexDirection: "column"
-    // position: "absolute"
   },
 
   textContainer: {
@@ -343,11 +401,9 @@ var localStyles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, .2)",
     flexDirection: "row",
     fontWeight: "600",
-    // height: "20%",
     width: "100%"
   },
   titleText: {
-    // width: "100%",
     color: "rgba(300, 300, 300, .8)",
     textAlign: "center",
     fontSize: 22,
@@ -356,8 +412,6 @@ var localStyles = StyleSheet.create({
     borderColor: "rgba(300, 300, 300, .6)",
     padding: 10,
     backgroundColor: "rgba(0, 0, 0, .5)"
-    // marginLeft: "10%"
-    // marginRight: "10%"
   },
   experiences: {
     flex: 1,
@@ -406,7 +460,6 @@ var localStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "100%",
-    // height: "5%",
     backgroundColor: "rgba(0, 0, 0, .6)",
     position: "relative"
   },
@@ -421,8 +474,6 @@ var localStyles = StyleSheet.create({
   },
   footerText: {
     color: "rgba(300, 300, 300, .6)",
-    // backgroundColor: "rgba(0, 0, 0, .6)",
-    // color: "rgba(43, 80, 38, 1)",
     textAlign: "center",
     fontSize: 20,
     textDecorationLine: "underline",
