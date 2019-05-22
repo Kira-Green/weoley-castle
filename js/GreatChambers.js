@@ -7,8 +7,9 @@ import { StyleSheet } from "react-native";
 import {
   ViroScene,
   Viro360Image,
-  ViroText,
   ViroButton,
+  ViroDirectionalLight,
+  ViroSpotLight,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
@@ -112,7 +113,17 @@ export default class GreatChambersScene extends Component {
           transformBehaviors={["billboard"]}
           scale={[1.5, 1.5, 1.5]}
         />
-        <ViroAmbientLight color="#ffffff" />
+
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
+        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
+        <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, 1, 0]}
+          position={[-3, -2, 6]}
+          color="#000"
+          intensity={250}
+        />
         <ViroPortalScene>
           <ViroPortal position={[3.5, -0.6, 3.5]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject

@@ -16,6 +16,8 @@ import {
   ViroAmbientLight,
   ViroAnimations,
   ViroImage,
+  ViroDirectionalLight,
+  ViroSpotLight,
   ViroSphere,
   ViroMaterials,
   ViroNode
@@ -165,7 +167,16 @@ export default class DrawbridgeScene extends Component {
           volume={1}
           paused={this.state.artifactPaused}
         />
-        <ViroAmbientLight color="#ffffff" />
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
+        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
+        <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, 1, 0]}
+          position={[-3, -2, 6]}
+          color="#000"
+          intensity={250}
+        />
         <ViroPortalScene>
           <ViroPortal position={[5, 0, -2]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject

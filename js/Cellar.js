@@ -49,9 +49,10 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-        <ViroAmbientLight color="#ffffff" intensity={800} />
+
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={800} />
         <ViroPortalScene>
-          <ViroPortal position={[-3, -1, -0.3]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[-3.5, -1, -0.3]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -61,12 +62,13 @@ export default class CellarScene extends Component {
               ]}
               onFuse={{ callback: this.toGreatHall, timeToFuse: 1500 }}
               type="VRX"
-              rotation={[4, 270, 4]}
-              // transformBehaviors={["billboard"]}
+              transformBehaviors={["billboard"]}
+              rotation={[12, 0, 4]}
             />
           </ViroPortal>
           <Viro360Image source={require("./res/greathall1.JPG")} />
         </ViroPortalScene>
+
         <ViroText
           text="You are now in the cellar & toilet(swap with image)"
           width={1}

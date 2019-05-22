@@ -89,7 +89,7 @@ export default class GreatHallScene extends Component {
           scale={[1.5, 1.5, 1.5]}
         />
 
-        <ViroAmbientLight color="#ffffff" />
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={500} />
         <ViroPortalScene>
           <ViroPortal position={[3, 0, 3.5]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject

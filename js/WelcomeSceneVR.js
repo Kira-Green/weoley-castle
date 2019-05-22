@@ -6,7 +6,6 @@ import { StyleSheet } from "react-native";
 
 import {
   ViroScene,
-  ViroText,
   Viro360Image,
   ViroButton,
   Viro3DObject,
@@ -28,7 +27,7 @@ export default class WelcomeSceneVR extends Component {
       intro: false,
       artifacts: false,
       gaze: false
-    }; // Set initial state here
+    };
   }
 
   toDrawbridge = () => {
@@ -51,7 +50,6 @@ export default class WelcomeSceneVR extends Component {
           source={require("./res/text/returnHelmet.png")}
           position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[1, 1, 1]}
         />
         <ViroButton
