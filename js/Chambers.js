@@ -72,19 +72,10 @@ export default class ChambersScene extends Component {
           // opacity={0.6}
           scale={[1, 1, 1]}
         />
-        <ViroText
-          text="To the the great chambers"
-          width={1}
-          height={1}
-          position={[0, 1, -3]}
-          transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
-        />
         <ViroImage
           source={require("./res/text/returnStart.png")}
           position={[-3.5, 1, 0]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[1, 1, 1]}
         />
 
@@ -97,7 +88,7 @@ export default class ChambersScene extends Component {
 
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
-          <ViroPortal position={[0, 0, -4]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[0, 0, 5]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -118,18 +109,10 @@ export default class ChambersScene extends Component {
           volume={1}
           paused={this.state.description}
         />
-        <ViroText
-          text="Return to previous scene"
-          width={1.5}
-          height={2}
-          position={[2, 0.5, 2]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        />
 
         <ViroButton
           source={require("./res/knight.png")}
-          position={[2, 0, 2]}
+          position={[0, 0, -3]}
           width={0.8}
           height={0.8}
           transformBehaviors={["billboard"]}
@@ -137,10 +120,9 @@ export default class ChambersScene extends Component {
         />
 
         <ViroImage
-          source={require("./res/text/returnHelmet.png")}
-          position={[2, 1, 2]}
+          source={require("./res/text/returnScene.png")}
+          position={[0, 1, -3]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[0.6, 0.6, 0.6]}
         />
 
@@ -148,7 +130,7 @@ export default class ChambersScene extends Component {
           <ViroNode>
             <ViroImage
               source={require("./res/artifacts/syrianGlass.jpg")}
-              position={[0, 0, 2]}
+              position={[3, 0, 3]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
@@ -159,7 +141,7 @@ export default class ChambersScene extends Component {
               heightSegmentCount={20}
               widthSegmentCount={20}
               radius={0.1}
-              position={[0, 0, 5]}
+              position={[3, 0, 3]}
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
             />

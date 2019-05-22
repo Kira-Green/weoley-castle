@@ -26,6 +26,7 @@ export default class WelcomeSceneVR extends Component {
 
     this.state = {
       intro: false,
+      artifacts: false,
       gaze: false
     }; // Set initial state here
   }
@@ -35,6 +36,10 @@ export default class WelcomeSceneVR extends Component {
   };
 
   introFinished = () => {
+    this.setState(state => ({ artifacts: !this.state.artifacts }));
+  };
+
+  artefactsExplained = () => {
     this.setState(state => ({ gaze: !this.state.gaze }));
   };
 
@@ -60,7 +65,6 @@ export default class WelcomeSceneVR extends Component {
           source={require("./res/text/welcomeVRruins.png")}
           position={[-1.8, 1.5, 4]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[2, 2, 2]}
         />
 
@@ -105,6 +109,13 @@ export default class WelcomeSceneVR extends Component {
           paused={this.state.intro}
           volume={1}
           onFinish={this.introFinished}
+        />
+        <ViroSound
+          source={require("./res/audio/SixHiddenArtefacts.mp3")}
+          loop={false}
+          paused={!this.state.artifacts}
+          volume={1}
+          onFinish={this.artefactsExplained}
         />
         <ViroSound
           source={require("./res/audio/GazeFunny.mp3")}

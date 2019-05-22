@@ -68,10 +68,9 @@ export default class GreatHallScene extends Component {
         <Viro360Image source={require("./res/greathall1.JPG")} />
 
         <ViroImage
-          source={require("./res/text/returnHelmet.png")}
+          source={require("./res/text/returnScene.png")}
           position={[-2, 1.3, 2]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[1, 1, 1]}
         />
         <ViroButton
@@ -82,20 +81,11 @@ export default class GreatHallScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        {/* <ViroText
-          text="To the kitchen"
-          width={1}
-          height={1}
-          position={[3, 1, 3.5]}
-          transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
-        /> */}
 
         <ViroImage
           source={require("./res/text/onToKitchen.png")}
           position={[3, 2, 3.5]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[1.5, 1.5, 1.5]}
         />
 
@@ -116,20 +106,11 @@ export default class GreatHallScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/kitchen.JPG")} />
         </ViroPortalScene>
-        {/* <ViroText
-          text="Return to start scene"
-          width={1}
-          height={1}
-          position={[0.2, 1, -4]}
-          transformBehaviors={["billboard"]}
-          style={styles.redTextStyle}
-        /> */}
 
         <ViroImage
           source={require("./res/text/returnStart.png")}
           position={[0.2, 1, -4]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[1, 1, 1]}
         />
 
