@@ -14,8 +14,7 @@ import {
   ViroSound,
   ViroMaterials,
   ViroSphere,
-  ViroNode,
-  ViroImage
+  ViroNode
 } from "react-viro";
 
 export default class BrewhouseScene extends Component {

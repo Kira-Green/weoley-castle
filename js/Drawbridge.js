@@ -115,7 +115,7 @@ export default class DrawbridgeScene extends Component {
         <ViroImage
           source={require("./res/text/returnHelmet.png")}
           position={[1.5, 0.6, 1]}
-
+        />
         <ViroText
           text="To the stables"
           width={1}
@@ -190,15 +190,6 @@ export default class DrawbridgeScene extends Component {
           </ViroNode>
         )}
 
-        <ViroButton
-          source={require("./res/knight.png")}
-          position={[3, 0, 2]}
-          width={0.8}
-          height={0.8}
-          transformBehaviors={["billboard"]}
-          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
-        />
-
         <ViroImage
           source={require("./res/text/returnStart.png")}
           position={[-3, 1, 0.75]}
@@ -231,7 +222,7 @@ ViroAnimations.registerAnimations({
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/artifacts/ironKey.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 ViroAnimations.registerAnimations({

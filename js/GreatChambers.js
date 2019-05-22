@@ -18,8 +18,7 @@ import {
   ViroSound,
   ViroNode,
   ViroSphere,
-  ViroMaterials,
-  ViroImage
+  ViroMaterials
 } from "react-viro";
 
 export default class GreatChambersScene extends Component {
@@ -229,7 +228,7 @@ export default class GreatChambersScene extends Component {
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 

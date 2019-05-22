@@ -18,8 +18,7 @@ import {
   ViroAnimations,
   ViroMaterials,
   ViroSphere,
-  ViroNode,
-  ViroImage
+  ViroNode
 } from "react-viro";
 
 export default class KitchenScene extends Component {
@@ -199,7 +198,7 @@ export default class KitchenScene extends Component {
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 

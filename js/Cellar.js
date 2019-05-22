@@ -13,6 +13,7 @@ import {
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroImage,
   ViroPortalScene,
   ViroAnimations
 } from "react-viro";
@@ -66,7 +67,6 @@ export default class CellarScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/greathall1.JPG")} />
         </ViroPortalScene>
-
         <ViroText
           text="You are now in the cellar & toilet(swap with image)"
           width={1}
@@ -75,7 +75,6 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
         />
-
         {/* <ViroImage
           source={require("./res/text/returnStart.png")}
           position={[-3, 1, 0.75]}
@@ -91,7 +90,6 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         /> */}
-        />
         <ViroSound
           source={require("./res/audio/Cellar.mp3")}
           loop={false}
@@ -105,7 +103,6 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-
         <ViroImage
           source={require("./res/text/returnHelmet.png")}
           position={[0, 1, 3]}
@@ -113,7 +110,6 @@ export default class CellarScene extends Component {
           // opacity={0.6}
           scale={[0.6, 0.6, 0.6]}
         />
-
         {/* <ViroText
           text="Return to start scene"
           width={2}
@@ -122,7 +118,6 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         /> */}
-
         <ViroImage
           source={require("./res/text/returnStart.png")}
           position={[3.5, 1, 1.2]}
@@ -130,7 +125,6 @@ export default class CellarScene extends Component {
           // opacity={0.6}
           scale={[1, 1, 1]}
         />
-
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[3.5, -0.8, 1.2]}

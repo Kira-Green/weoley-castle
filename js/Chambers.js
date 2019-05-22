@@ -191,7 +191,7 @@ ViroAnimations.registerAnimations({
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 
