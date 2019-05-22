@@ -50,9 +50,9 @@ export default class CellarScene extends Component {
 
         <ViroImage
           source={require("./res/text/toGH.png")}
-          position={[-3, 1, 0]}
+          position={[-3.5, 0.7, -0.3]}
           transformBehaviors={["billboard"]}
-          scale={[0.5, 0.5, 0.5]}
+          scale={[1, 1, 1]}
         />
 
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={800} />
@@ -85,9 +85,9 @@ export default class CellarScene extends Component {
 
         <ViroImage
           source={require("./res/text/cellarText2.png")}
-          position={[2, 0, -2]}
+          position={[0, 0, -2]}
           transformBehaviors={["billboard"]}
-          scale={[0.5, 0.5, 0.5]}
+          scale={[0.8, 0.8, 0.8]}
         />
 
         <ViroSound

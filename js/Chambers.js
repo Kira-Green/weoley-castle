@@ -121,7 +121,7 @@ export default class ChambersScene extends Component {
           source={require("./res/text/returnScene.png")}
           position={[0, 1, -3]}
           transformBehaviors={["billboard"]}
-          scale={[0.6, 0.6, 0.6]}
+          scale={[0.8, 0.8, 0.8]}
         />
 
         {artVisible ? (
