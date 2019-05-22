@@ -39,13 +39,20 @@ export default class CellarScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/cellar1.JPG")} />
-        <ViroText
+        {/* <ViroText
           text="To the Great Hall"
           width={1.5}
           height={1.5}
           position={[-3, 0.5, 0]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/toGH.png")}
+          position={[-3, 1, 0]}
+          transformBehaviors={["billboard"]}
+          scale={[0.5, 0.5, 0.5]}
         />
 
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={800} />
@@ -67,14 +74,22 @@ export default class CellarScene extends Component {
           <Viro360Image source={require("./res/greathall1.JPG")} />
         </ViroPortalScene>
 
-        <ViroText
+        {/* <ViroText
           text="You are now in the cellar & toilet(swap with image)"
           width={1}
           height={1}
           position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/cellarText2.png")}
+          position={[2, 0, -2]}
+          transformBehaviors={["billboard"]}
+          scale={[0.5, 0.5, 0.5]}
         />
+
         <ViroSound
           source={require("./res/audio/Cellar.mp3")}
           loop={false}

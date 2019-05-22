@@ -131,6 +131,13 @@ export default class DrawbridgeScene extends Component {
           scale={[0.6, 0.6, 0.6]}
         />
 
+        <ViroImage
+          source={require("./res/text/toStables.png")}
+          position={[2, 1, -0.8]}
+          transformBehaviors={["billboard"]}
+          scale={[1.2, 1.2, 1.2]}
+        />
+
         <ViroSound
           source={require("./res/audio/Drawbridge.mp3")}
           loop={false}
