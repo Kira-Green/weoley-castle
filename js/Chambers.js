@@ -65,13 +65,12 @@ export default class ChambersScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/chambers2.JPG")} />
-        <ViroText
-          text="Welcome to the stables and chambers"
-          width={1}
-          height={1}
+        <ViroImage
+          source={require("./res/text/chambersStables.png")}
           position={[2.8, 0, -0.9]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroText
           text="To the the great chambers"
@@ -80,6 +79,13 @@ export default class ChambersScene extends Component {
           position={[0, 1, -3]}
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
+        />
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[-3.5, 1, 0]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
 
         <ViroSound
@@ -129,13 +135,13 @@ export default class ChambersScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
-          text="Return to start scene"
-          width={2}
-          height={2}
-          position={[-3, 1, 0]}
+
+        <ViroImage
+          source={require("./res/text/returnHelmet.png")}
+          position={[2, 1, 2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          // opacity={0.6}
+          scale={[0.6, 0.6, 0.6]}
         />
 
         {artVisible ? (

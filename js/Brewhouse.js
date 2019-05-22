@@ -14,7 +14,8 @@ import {
   ViroSound,
   ViroMaterials,
   ViroSphere,
-  ViroNode
+  ViroNode,
+  ViroImage
 } from "react-viro";
 
 export default class BrewhouseScene extends Component {
@@ -54,22 +55,38 @@ export default class BrewhouseScene extends Component {
     return (
       <ViroScene hdrEnabled={true} shadowsEnabled={true}>
         <Viro360Image source={require("./res/bakehouse.JPG")} />
-        <ViroText
+        <ViroImage
+          source={require("./res/text/well.png")}
+          position={[-1.8, 0, -2]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[0.6, 0.6, 0.6]}
+        />
+        {/* <ViroText
           text="Here is where the well used to be"
           width={1}
           height={1}
           position={[-1.8, -0.4, -2]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
-        />
-        <ViroText
+        /> */}
+        {/* <ViroText
           text="Return to previous scene"
           width={1}
           height={1}
           position={[1.7, 0.5, -2]}
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/returnHelmet.png")}
+          position={[1.7, 0.7, -2]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[0.6, 0.6, 0.6]}
         />
+
         <ViroButton
           source={require("./res/knight.png")}
           position={[2.5, 0, -3]}
@@ -78,21 +95,36 @@ export default class BrewhouseScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
+        {/* <ViroText
           text="The brewhouse"
           width={1}
           height={1}
           position={[3, -0.5, 0]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/brewhouseEnd.png")}
+          position={[3, 1, 0]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1.3, 1.3, 1.3]}
         />
-        <ViroText
+
+        {/* <ViroText
           text="Return to start scene"
           width={1}
           height={1}
           position={[-2, 1, 2]}
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[-2, 1.3, 2]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroSound
           source={require("./res/audio/Brewhouse.mp3")}
@@ -142,7 +174,7 @@ export default class BrewhouseScene extends Component {
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 

@@ -112,13 +112,18 @@ export default class DrawbridgeScene extends Component {
           <ViroButton source={require("./res/down.png")} visible={false} />
         )}
 
+        <ViroImage
+          source={require("./res/text/returnHelmet.png")}
+          position={[1.5, 0.6, 1]}
+
         <ViroText
           text="To the stables"
           width={1}
           height={1}
           position={[2, 0.5, -0.8]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          // opacity={0.6}
+          scale={[0.6, 0.6, 0.6]}
         />
 
         <ViroSound
@@ -184,13 +189,22 @@ export default class DrawbridgeScene extends Component {
             />
           </ViroNode>
         )}
-        <ViroText
-          text="Return to start scene"
-          width={2}
-          height={2}
-          position={[1.5, 0.5, 1]}
+
+        <ViroButton
+          source={require("./res/knight.png")}
+          position={[3, 0, 2]}
+          width={0.8}
+          height={0.8}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
+        />
+
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[-3, 1, 0.75]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroButton
           source={require("./res/weoleyface.png")}

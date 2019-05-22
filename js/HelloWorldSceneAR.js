@@ -32,9 +32,13 @@ export default class HelloWorldSceneAR extends Component {
 			sound1: false,
 			image2: false,
 			sound2: false,
+			psalterImage1: false,
+			trumpetPause: true,
 			pauseVideo: true,
 			ruinsPause: true,
-			introPause: false
+			introPause: false,
+			funFactVisible: false,
+			funFactVisible2: false
 		};
 
 		// bind 'this' to functions
@@ -46,6 +50,8 @@ export default class HelloWorldSceneAR extends Component {
 		this._onPortalExit = this._onPortalExit.bind(this);
 		this._onPortalEnterRuins = this._onPortalEnterRuins.bind(this);
 		this._onPortalExitRuins = this._onPortalExitRuins.bind(this);
+		this._funFactFound = this._funFactFound.bind(this);
+		this._funFactFound2 = this._funFactFound2.bind(this);
 	}
 
 	render() {
@@ -53,9 +59,8 @@ export default class HelloWorldSceneAR extends Component {
 			<ViroARScene onTrackingUpdated={this._onInitialized}>
 				<ViroAmbientLight color="#ffffff" intensity={200} />
 				<ViroSound
-					source={require("./res/intro.mp3")}
+					source={require("./res/AR_intro.mp3")}
 					loop={false}
-					// muted={!this.state.sound1}
 					paused={this.state.introPause}
 					volume={1}
 				/>
@@ -194,6 +199,37 @@ export default class HelloWorldSceneAR extends Component {
 						paused={false}
 						volume={1}
 					/>
+
+					<ViroImage
+						height={0.5}
+						width={0.5}
+						source={require("./res/luttrellPsalter1.jpg")}
+						position={[0, 0, -1]}
+						transformBehaviors={["billboard"]}
+						visible={this.state.psalterImage1}
+					/>
+					<ViroImage
+						height={0.5}
+						width={0.5}
+						source={require("./res/luttrellPsalter3.png")}
+						position={[1, 0, -1]}
+						scale={[1.2, 1.2, 1.2]}
+						transformBehaviors={["billboard"]}
+						visible={this.state.psalterImage1}
+						rotation={[0, -45, 0]}
+						rotationPivot={[0, 0, 0]}
+					/>
+					<ViroImage
+						height={0.5}
+						width={0.5}
+						source={require("./res/luttrellPsalter4.jpg")}
+						position={[2, 0, -1]}
+						scale={[1.4, 1.4, 1.4]}
+						transformBehaviors={["billboard"]}
+						visible={this.state.psalterImage1}
+						rotation={[0, -45, 0]}
+						rotationPivot={[0, 0, 0]}
+					/>
 				</ViroARImageMarker>
 
 				<ViroARImageMarker
@@ -213,7 +249,7 @@ export default class HelloWorldSceneAR extends Component {
 					>
 						<ViroPortal
 							position={[1, 0, -1]}
-							scale={[0.15, 0.15, 0.15]}
+							scale={[0.5, 0.5, 0.5]}
 						>
 							<Viro3DObject
 								source={require("./res/portal_archway.vrx")}
@@ -228,6 +264,57 @@ export default class HelloWorldSceneAR extends Component {
 						<Viro360Image source={require("./res/BmInside1.JPG")} />
 					</ViroPortalScene>
 				</ViroARImageMarker>
+
+				<ViroImage
+					height={0.2}
+					width={0.2}
+					transformBehaviors={"billboard"}
+					position={[-2, -0.3, -2]}
+					source={require("./res/redShield.png")}
+					onClick={this._funFactFound}
+				/>
+				<ViroSound
+					source={require("./res/fanfare.mp3")}
+					loop={false}
+					paused={this.state.trumpetPause}
+					volume={1}
+				/>
+
+				<ViroText
+					text="In the 1600s the castle became a ruin"
+					scale={[0.7, 0.7, 0.7]}
+					position={[-2, -0.5, -2]}
+					style={styles.helloWorldTextStyle}
+					outerStroke={{
+						type: "Outline",
+						width: 1,
+						color: "orange"
+					}}
+					visible={this.state.funFactVisible}
+				/>
+
+				<ViroImage
+					height={0.2}
+					width={0.2}
+					transformBehaviors={"billboard"}
+					position={[2, -1, 2]}
+					source={require("./res/redShield.png")}
+					onClick={this._funFactFound2}
+				/>
+
+				<ViroText
+					text="In 1272 some knights were caught illegally hunting deer"
+					scale={[0.7, 0.7, 0.7]}
+					position={[2, -1.3, 2]}
+					transformBehaviors={"billboard"}
+					style={styles.helloWorldTextStyle}
+					outerStroke={{
+						type: "Outline",
+						width: 1,
+						color: "orange"
+					}}
+					visible={this.state.funFactVisible2}
+				/>
 			</ViroARScene>
 		);
 	}
@@ -238,16 +325,18 @@ export default class HelloWorldSceneAR extends Component {
 			sound1: true,
 			image1: true,
 			sound2: false,
-			introPause: true
+			introPause: true,
+			psalterImage1: false
 		});
 	}
 
 	_onAnchorFoundTwo() {
 		this.setState({
-			text: "In the Great Hall amazing feasts were held for visitors",
+			text: "Images of medieval life",
 			sound1: false,
 			image1: false,
 			sound2: true,
+			psalterImage1: true,
 			introPause: true
 		});
 	}
@@ -259,6 +348,7 @@ export default class HelloWorldSceneAR extends Component {
 			sound1: false,
 			image1: false,
 			sound2: false,
+			psalterImage1: false,
 			introPause: true
 		});
 	}
@@ -266,26 +356,42 @@ export default class HelloWorldSceneAR extends Component {
 	_onPortalEnter() {
 		this.setState({
 			pauseVideo: false,
+			psalterImage1: false,
 			introPause: true
 		});
 	}
 
 	_onPortalExit() {
 		this.setState({
-			pauseVideo: true
+			pauseVideo: true,
+			psalterImage1: false
 		});
 	}
 
 	_onPortalEnterRuins() {
 		this.setState({
 			ruinsPause: false,
-			introPause: true
+			introPause: true,
+			psalterImage1: false
 		});
 	}
 
 	_onPortalExitRuins() {
 		this.setState({
-			ruinsPause: true
+			ruinsPause: true,
+			psalterImage1: false
+		});
+	}
+	_funFactFound() {
+		this.setState({
+			funFactVisible: !this.state.funFactVisible,
+			trumpetPause: false
+		});
+	}
+	_funFactFound2() {
+		this.setState({
+			funFactVisible2: !this.state.funFactVisible2,
+			trumpetPause: false
 		});
 	}
 

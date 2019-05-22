@@ -18,7 +18,8 @@ import {
   ViroSound,
   ViroNode,
   ViroSphere,
-  ViroMaterials
+  ViroMaterials,
+  ViroImage
 } from "react-viro";
 
 export default class GreatChambersScene extends Component {
@@ -74,13 +75,20 @@ export default class GreatChambersScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/greatchamber.JPG")} />
-        <ViroText
+        {/* <ViroText
           text="To the Great Hall..."
           width={1.5}
           height={1.5}
           position={[-3, 0.5, 1]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/toGH.png")}
+          position={[-3, 1, 1]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroAmbientLight color="#ffffff" />
         <ViroPortalScene>
@@ -101,16 +109,23 @@ export default class GreatChambersScene extends Component {
           <Viro360Image source={require("./res/greathall1.JPG")} />
         </ViroPortalScene>
 
-        <ViroText
+        {/* <ViroText
           text="Here is where the great chamber used to be"
           width={1}
           height={1}
           position={[0, 0, -4]}
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/remainsGC.png")}
+          position={[0, 1, -4]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1.5, 1.5, 1.5]}
         />
 
-        <ViroText
+        {/* <ViroText
           text="Gaze at this text to enter the cellar"
           width={1}
           height={1}
@@ -118,14 +133,28 @@ export default class GreatChambersScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.cellarScene, timeToFuse: 1500 }}
           style={styles.redTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/gazeToCellar.png")}
+          position={[3.5, 1.2, -0.8]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1.5, 1.5, 1.5]}
         />
-        <ViroText
+        {/* <ViroText
           text="Return to previous scene"
           width={1.5}
           height={1.5}
           position={[0, 0.5, 3]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/returnScene.png")}
+          position={[0, 1, 3]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroSound
           source={require("./res/audio/GreatChambers.mp3")}
@@ -148,13 +177,20 @@ export default class GreatChambersScene extends Component {
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
 
-        <ViroText
+        {/* <ViroText
           text="Return to start scene"
           width={2}
           height={2}
           position={[-2.5, 1, -3]}
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[-2.5, 2, -3]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
 
         {artVisible ? (

@@ -18,7 +18,8 @@ import {
   ViroAnimations,
   ViroMaterials,
   ViroSphere,
-  ViroNode
+  ViroNode,
+  ViroImage
 } from "react-viro";
 
 export default class KitchenScene extends Component {
@@ -74,14 +75,23 @@ export default class KitchenScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
         />
-        <ViroText
+        {/* <ViroText
           text="Continue on to the Brewery!"
           width={1}
           height={1}
           position={[0, 1, 5]}
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/toBrewery.png")}
+          position={[0, 1.4, 4]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
+
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={500} />
         <ViroPortalScene>
           <ViroPortal position={[0, 0, 5]} scale={[0.5, 0.5, 0.5]}>
@@ -99,14 +109,23 @@ export default class KitchenScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/bakehouse.JPG")} />
         </ViroPortalScene>
+        {/* <ViroText
 
-        <ViroText
+
           text="Return to previous scene"
           width={1}
           height={1}
           position={[-2, 1, 0.4]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/returnHelmet.png")}
+          position={[-2, 1, 0.4]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[0.6, 0.6, 0.6]}
         />
         <ViroButton
           source={require("./res/knight.png")}
@@ -116,13 +135,20 @@ export default class KitchenScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
+        {/* <ViroText
           text="Return to start scene"
           width={1}
           height={1}
           position={[3, 1, 2]}
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
+        /> */}
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[3, 1.2, 2]}
+          transformBehaviors={["billboard"]}
+          // opacity={0.6}
+          scale={[1, 1, 1]}
         />
         <ViroSound
           source={require("./res/audio/Kitchen.mp3")}
