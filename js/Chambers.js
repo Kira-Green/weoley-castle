@@ -2,13 +2,9 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
-  ViroDirectionalLight,
-  ViroSpotLight,
   ViroButton,
   ViroSound,
   ViroAmbientLight,
@@ -30,7 +26,7 @@ export default class ChambersScene extends Component {
       artVisible: false,
       description: false,
       artifactPaused: true
-    }; // initialize state
+    };
   }
 
   backToPlatform = () => {
@@ -39,7 +35,7 @@ export default class ChambersScene extends Component {
 
   toGreatChambers = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatChambers.js") });
-    this.setState(state => ({
+    this.setState(() => ({
       artifactPaused: true,
       description: false
     }));
@@ -88,15 +84,7 @@ export default class ChambersScene extends Component {
         />
 
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
-        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
-        <ViroSpotLight
-          innerAngle={5}
-          outerAngle={90}
-          direction={[0, 1, 0]}
-          position={[-3, -2, 6]}
-          color="#000"
-          intensity={250}
-        />
+
         <ViroPortalScene>
           <ViroPortal position={[0, 0, 5]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
@@ -177,30 +165,13 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
+    duration: 2500
   }
 });
 
 ViroMaterials.createMaterials({
   spherematerial: {
     diffuseTexture: require("./res/stripetexture.jpg")
-  }
-});
-
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
   }
 });
 

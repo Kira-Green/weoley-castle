@@ -67,7 +67,7 @@ export default class WelcomeSceneVR extends Component {
         />
 
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
-        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
+        {/* <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
         <ViroSpotLight
           innerAngle={5}
           outerAngle={90}
@@ -75,7 +75,7 @@ export default class WelcomeSceneVR extends Component {
           position={[-3, -2, 6]}
           color="#000"
           intensity={250}
-        />
+        /> */}
 
         <ViroPortalScene>
           <ViroPortal position={[-4, -1, 9]} scale={[1, 1, 1]}>
@@ -98,7 +98,6 @@ export default class WelcomeSceneVR extends Component {
           source={require("./res/text/welcomeVRreturntext.png")}
           position={[-6, 1.2, -2]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[2, 2, 2]}
         />
         <ViroSound
@@ -134,22 +133,12 @@ export default class WelcomeSceneVR extends Component {
   }
 }
 
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 30,
-    color: "#ffffff",
-    textAlignVertical: "center",
-    textAlign: "center"
-  }
-});
-
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
+    duration: 2500
   }
 });
 

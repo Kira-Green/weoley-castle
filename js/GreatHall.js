@@ -2,12 +2,9 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
-  ViroText,
   ViroAnimations,
   ViroAmbientLight,
   Viro3DObject,
@@ -29,7 +26,7 @@ export default class GreatHallScene extends Component {
       artVisible: false,
       description: false,
       artifactPaused: true
-    }; // initialize state
+    };
   }
 
   backToPlatform = () => {
@@ -38,7 +35,7 @@ export default class GreatHallScene extends Component {
 
   toKitchen = () => {
     this.props.sceneNavigator.push({ scene: require("./Kitchen.js") });
-    this.setState(state => ({
+    this.setState(() => ({
       artifactPaused: true,
       description: false
     }));
@@ -172,30 +169,7 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
-  }
-});
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  redTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "red",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
+    duration: 2500
   }
 });
 

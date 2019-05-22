@@ -21,8 +21,6 @@ import {
 export default class CellarScene extends Component {
   constructor() {
     super();
-
-    this.state = {}; // initialize state
   }
 
   backToPlatform = () => {
@@ -100,7 +98,6 @@ export default class CellarScene extends Component {
           source={require("./res/text/returnStart.png")}
           position={[3.5, 0.5, 1.2]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[1, 1, 1]}
         />
         <ViroButton
@@ -122,7 +119,7 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
+    duration: 2500
   }
 });
 var styles = StyleSheet.create({

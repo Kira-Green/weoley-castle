@@ -2,12 +2,9 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
-  ViroText,
   ViroButton,
   ViroAmbientLight,
   Viro3DObject,
@@ -29,7 +26,7 @@ export default class KitchenScene extends Component {
       artVisible: false,
       description: false,
       artifactPaused: true
-    }; // initialize state
+    };
   }
 
   backToPlatform = () => {
@@ -170,29 +167,6 @@ ViroAnimations.registerAnimations({
       rotateX: "+=90"
     },
     duration: 2500
-  }
-});
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  redTextStyle: {
-    color: "red",
-    fontFamily: "Arial",
-    fontSize: 15,
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
   }
 });
 

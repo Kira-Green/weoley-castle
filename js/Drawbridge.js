@@ -2,8 +2,6 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
@@ -16,8 +14,6 @@ import {
   ViroAmbientLight,
   ViroAnimations,
   ViroImage,
-  ViroDirectionalLight,
-  ViroSpotLight,
   ViroSphere,
   ViroMaterials,
   ViroNode
@@ -28,8 +24,6 @@ export default class DrawbridgeScene extends Component {
     super(props);
 
     this.state = {
-      // text:
-      //   "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
       image: (
         <ViroImage
           source={require("./res/text/drawbridgeWelcome.png")}
@@ -44,16 +38,6 @@ export default class DrawbridgeScene extends Component {
       artifactPaused: true
     };
   }
-
-  // changeText = isChanging => {
-  //   let text = isChanging
-  //     ? "This is where the drawbridge and entrance used to be, surrounded by a moat!"
-  //     : "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle";
-  //   this.setState({
-  //     text,
-  //     showArrow: false
-  //   });
-  // };
 
   changeImg = isChanging => {
     let image = isChanging ? (
@@ -94,7 +78,7 @@ export default class DrawbridgeScene extends Component {
 
   toChambers = () => {
     this.props.sceneNavigator.push({ scene: require("./Chambers.js") });
-    this.setState(state => ({
+    this.setState(() => ({
       artifactPaused: true,
       drawbridgeAudio: false
     }));
@@ -105,15 +89,15 @@ export default class DrawbridgeScene extends Component {
   };
 
   drawbridgeFinished = () => {
-    this.setState(state => ({ moreInfo: !this.state.moreInfo }));
+    this.setState(() => ({ moreInfo: !this.state.moreInfo }));
   };
 
   muteArtifact = () => {
-    this.setState(state => ({ artifactPaused: true }));
+    this.setState(() => ({ artifactPaused: true }));
   };
 
   render() {
-    const { text, showArrow, artVisible, image } = this.state;
+    const { showArrow, artVisible, image } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
@@ -144,7 +128,6 @@ export default class DrawbridgeScene extends Component {
           height={1}
           position={[2, 0.5, -0.8]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[0.6, 0.6, 0.6]}
         />
 
@@ -168,15 +151,6 @@ export default class DrawbridgeScene extends Component {
           paused={this.state.artifactPaused}
         />
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
-        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
-        <ViroSpotLight
-          innerAngle={5}
-          outerAngle={90}
-          direction={[0, 1, 0]}
-          position={[-3, -2, 6]}
-          color="#000"
-          intensity={250}
-        />
         <ViroPortalScene>
           <ViroPortal position={[5, 0, -2]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
@@ -225,7 +199,6 @@ export default class DrawbridgeScene extends Component {
           source={require("./res/text/returnStart.png")}
           position={[6, 1.3, 2]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[1.2, 1.2, 1.2]}
         />
         <ViroButton
@@ -247,7 +220,7 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
+    duration: 2500
   }
 });
 
@@ -263,23 +236,6 @@ ViroAnimations.registerAnimations({
     duration: 1000
   },
   moveUpDown: [["moveUp", "moveDown"]]
-});
-
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 13,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
-  }
 });
 
 module.exports = DrawbridgeScene;

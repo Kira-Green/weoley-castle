@@ -2,14 +2,11 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
   ViroButton,
-  ViroDirectionalLight,
-  ViroSpotLight,
+  ViroOmniLight,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
@@ -30,7 +27,7 @@ export default class GreatChambersScene extends Component {
       artVisible: false,
       description: false,
       artifactPaused: true
-    }; // initialize state
+    };
   }
 
   backToPlatform = () => {
@@ -39,7 +36,7 @@ export default class GreatChambersScene extends Component {
 
   toGreatHall = () => {
     this.props.sceneNavigator.push({ scene: require("./GreatHall.js") });
-    this.setState(state => ({
+    this.setState(() => ({
       artifactPaused: true,
       description: false
     }));
@@ -47,7 +44,7 @@ export default class GreatChambersScene extends Component {
 
   cellarScene = () => {
     this.props.sceneNavigator.push({ scene: require("./Cellar.js") });
-    this.setState(state => ({
+    this.setState(() => ({
       artifactPaused: true,
       description: false
     }));
@@ -77,13 +74,13 @@ export default class GreatChambersScene extends Component {
         <Viro360Image source={require("./res/greatchamber.JPG")} />
         <ViroImage
           source={require("./res/text/toGH.png")}
-          position={[-3, 1, 1]}
+          position={[-5, 1.5, 0]}
           transformBehaviors={["billboard"]}
           scale={[1, 1, 1]}
         />
-        <ViroAmbientLight color="#ffffff" />
+        <ViroOmniLight color="#ffffff" castsShadow={true} intensity={1000} />
         <ViroPortalScene>
-          <ViroPortal position={[-6, 0, 2]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[-5, 0, 0]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -102,7 +99,7 @@ export default class GreatChambersScene extends Component {
 
         <ViroImage
           source={require("./res/text/remainsGC.png")}
-          position={[-0.2, 0, 4]}
+          position={[-2, 0, 4]}
           transformBehaviors={["billboard"]}
           scale={[1.5, 1.5, 1.5]}
         />
@@ -115,15 +112,7 @@ export default class GreatChambersScene extends Component {
         />
 
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
-        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
-        <ViroSpotLight
-          innerAngle={5}
-          outerAngle={90}
-          direction={[0, 1, 0]}
-          position={[-3, -2, 6]}
-          color="#000"
-          intensity={250}
-        />
+
         <ViroPortalScene>
           <ViroPortal position={[3.5, -0.6, 3.5]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
@@ -221,31 +210,7 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
-  }
-});
-
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  redTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "red",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
+    duration: 2500
   }
 });
 
