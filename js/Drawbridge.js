@@ -90,7 +90,7 @@ export default class DrawbridgeScene extends Component {
         )}
 
         <ViroImage
-          source={require("./res/returnHelmet.png")}
+          source={require("./res/text/returnHelmet.png")}
           position={[1.5, 0.6, 1]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
@@ -146,7 +146,7 @@ export default class DrawbridgeScene extends Component {
         />
 
         <ViroImage
-          source={require("./res/returnStart.png")}
+          source={require("./res/text/returnStart.png")}
           position={[-3, 1, 0.75]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}

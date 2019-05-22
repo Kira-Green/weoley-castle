@@ -51,16 +51,9 @@ export default class ChambersScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/chambers2.JPG")} />
-        <ViroText
-          text="Welcome to the chambers and stables"
-          width={1}
-          height={1}
-          position={[2.8, 0, -0.9]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        />
+
         <ViroImage
-          source={require("./res/chambersStables.png")}
+          source={require("./res/text/chambersStables.png")}
           position={[2.8, 0, -0.9]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
@@ -75,8 +68,8 @@ export default class ChambersScene extends Component {
           style={styles.blackTextStyle}
         />
         <ViroImage
-          source={require("./res/returnStart.png")}
-          position={[0, 1, -3]}
+          source={require("./res/text/returnStart.png")}
+          position={[-3.5, 1, 0]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
           scale={[1, 1, 1]}
@@ -98,14 +91,6 @@ export default class ChambersScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/cellar1.JPG")} />
         </ViroPortalScene>
-        <ViroText
-          text="Return to previous scene"
-          width={1.5}
-          height={2}
-          position={[2, 0.5, 2]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        />
 
         <ViroButton
           source={require("./res/knight.png")}
@@ -115,13 +100,13 @@ export default class ChambersScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
-          text="Return to start scene"
-          width={2}
-          height={2}
-          position={[-3, 1, 0]}
+
+        <ViroImage
+          source={require("./res/text/returnHelmet.png")}
+          position={[2, 1, 2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          // opacity={0.6}
+          scale={[0.6, 0.6, 0.6]}
         />
 
         {artVisible ? (

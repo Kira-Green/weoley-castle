@@ -35,7 +35,7 @@ export default class WelcomeSceneVR extends Component {
       <ViroScene>
         <Viro360Image source={require("./res/platform2.JPG")} />
         <ViroImage
-          source={require("./res/returnHelmet.png")}
+          source={require("./res/text/returnHelmet.png")}
           position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
@@ -49,7 +49,7 @@ export default class WelcomeSceneVR extends Component {
           transformBehaviors={["billboard"]}
         />
         <ViroImage
-          source={require("./res/welcomeVRruins.png")}
+          source={require("./res/text/welcomeVRruins.png")}
           position={[-1.8, 1.5, 4]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
@@ -85,7 +85,7 @@ export default class WelcomeSceneVR extends Component {
         </ViroPortalScene>
 
         <ViroImage
-          source={require("./res/welcomeVRreturntext.png")}
+          source={require("./res/text/welcomeVRreturntext.png")}
           position={[-6, 1.2, -2]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
