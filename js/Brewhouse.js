@@ -124,6 +124,7 @@ export default class BrewhouseScene extends Component {
             position={[4, -0.2, 5]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            animation={{ name: "rotate", run: true, loop: true }}
           />
         )}
       </ViroScene>

@@ -176,6 +176,7 @@ export default class GreatChambersScene extends Component {
             position={[3.5, -0.9, -0.5]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            animation={{ name: "rotateSphere", run: true, loop: true }}
           />
         )}
 
@@ -211,6 +212,14 @@ ViroAnimations.registerAnimations({
       rotateX: "+=90"
     },
     duration: 2500
+  },
+  rotateSphere: {
+    properties: {
+      rotateX: "+=3",
+      rotateY: "-=2"
+    },
+    easing: "Bounce",
+    duration: 30
   }
 });
 

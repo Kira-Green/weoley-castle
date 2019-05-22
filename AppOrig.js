@@ -182,7 +182,6 @@ export default class ViroSample extends Component {
             source={require("./js/res/WeoleyCastle-19.jpg")}
             flex={1}
             style={{
-              flex: 1,
               height: "100%"
             }}
             resizeMode={"contain"}
@@ -192,12 +191,12 @@ export default class ViroSample extends Component {
             <Image
               source={require("./js/res/weoley.png")}
               resizeMode="contain"
-              style={{ width: "80%", height: "40%", bottom: "5%" }}
+              style={{ width: "80%", height: "40%" }}
             />
             <Image
               resizeMode="contain"
               source={require("./js/res/weoleyface.png")}
-              style={{ height: "70%", bottom: "15%" }}
+              style={{ height: "70%", bottom: "10%" }}
             />
           </View>
           <View style={localStyles.textContainer}>
@@ -219,7 +218,15 @@ export default class ViroSample extends Component {
               onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
               underlayColor="rgba(280, 220, 0, 0.8)"
             >
-              <Text style={localStyles.buttonText}>AR</Text>
+              <Text
+                style={{
+                  color: "rgba(83, 102, 38, 1)",
+                  textAlign: "center",
+                  fontSize: 20
+                }}
+              >
+                AR
+              </Text>
             </TouchableHighlight>
           </View>
 
@@ -418,7 +425,7 @@ var localStyles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, .2)"
   },
   buttonText: {
-    color: "rgba(0, 0, 0, .8)",
+    color: "rgba(43, 80, 38, .8)",
     textAlign: "center",
     fontFamily: "Farah",
     fontSize: 20
@@ -432,7 +439,7 @@ var localStyles = StyleSheet.create({
     backgroundColor: "rgba(255, 198, 0, 0.8)",
     borderRadius: 50,
     borderWidth: 5,
-    borderColor: "rgba(0, 0, 0, .8)",
+    borderColor: "rgba(83, 102, 38, 1)",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -471,22 +478,11 @@ var localStyles = StyleSheet.create({
     color: "rgba(300, 300, 300, .6)",
     textAlign: "center",
     fontSize: 20,
-    // textDecorationLine: "underline",
-    borderRadius: 4,
+    textDecorationLine: "underline",
+    borderRadius: 2,
     borderWidth: 1,
-    width: 105,
-    padding: 2,
-    backgroundColor: "rgba(83, 102, 38, 1)",
-    margin: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 7
-    },
-    shadowOpacity: 0.41,
-    shadowRadius: 9.11,
-
-    elevation: 14
+    borderColor: "rgba(300, 300, 300, .6)",
+    padding: 8
   },
   exitButton: {
     height: 50,

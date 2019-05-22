@@ -150,6 +150,7 @@ export default class GreatHallScene extends Component {
               position={[0, 0, 5]}
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+              animation={{ name: "rotateSphere", run: true, loop: true }}
             />
           </ViroNode>
         )}
@@ -170,6 +171,14 @@ ViroAnimations.registerAnimations({
       rotateX: "+=90"
     },
     duration: 2500
+  },
+  rotateSphere: {
+    properties: {
+      rotateX: "+=3",
+      rotateY: "-=2"
+    },
+    easing: "Bounce",
+    duration: 30
   }
 });
 
