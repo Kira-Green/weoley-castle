@@ -29,7 +29,7 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require("./js/HelloWorldSceneAR");
-var InitialVRScene = require("./js/Drawbridge");
+var InitialVRScene = require("./js/WelcomeSceneVR");
 
 var MAIN = "MAIN";
 var VR_NAVIGATOR_TYPE = "VR";
@@ -312,23 +312,25 @@ export default class ViroSample extends Component {
         <View
           style={{
             position: "absolute",
-            left: 0,
+            left: 3,
             right: 0,
             bottom: 20,
-            width: 150,
+            width: 130,
             alignItems: "center"
           }}
         >
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 10,
               color: "white",
               borderWidth: 1,
               borderColor: "white",
-              padding: 5,
+              padding: 8,
+
               textAlign: "center",
-              borderRadius: 5,
-              opacity: 0.5
+              borderRadius: 30,
+              opacity: 0.5,
+              backgroundColor: "black"
             }}
           >
             No. artifacts found: {"\n "}

@@ -74,7 +74,7 @@ export default class ChambersScene extends Component {
         />
         <ViroImage
           source={require("./res/text/returnStart.png")}
-          position={[-3.5, 1, 0]}
+          position={[-3.5, 1.2, 0]}
           transformBehaviors={["billboard"]}
           scale={[1, 1, 1]}
         />
