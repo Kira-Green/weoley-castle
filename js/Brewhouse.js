@@ -37,15 +37,20 @@ export default class BrewhouseScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true,
-      description: true,
-      artifactPaused: false
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        description: true,
+        artifactPaused: false
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
-    const { artVisible } = this.state;
+    const { artVisible, numFound } = this.state;
     return (
       <ViroScene hdrEnabled={true} shadowsEnabled={true}>
         <Viro360Image source={require("./res/bakehouse.JPG")} />

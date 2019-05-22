@@ -49,11 +49,16 @@ export default class GreatHallScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true,
-      artifactPaused: false,
-      description: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
 
   render() {

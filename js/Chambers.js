@@ -45,12 +45,17 @@ export default class ChambersScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: !this.state.artVisible,
-      artifactPaused: false,
-      description: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+    this.setState(
+      {
+        artVisible: !this.state.artVisible,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
+
   showPrevScene = () => {
     this.props.sceneNavigator.pop();
   };
