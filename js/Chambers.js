@@ -82,7 +82,7 @@ export default class ChambersScene extends Component {
         />
         <ViroImage
           source={require("./res/text/returnStart.png")}
-          position={[-3.5, 1, 0]}
+          position={[-3.5, 1.2, 0]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
           scale={[1, 1, 1]}
@@ -118,14 +118,6 @@ export default class ChambersScene extends Component {
           volume={1}
           paused={this.state.description}
         />
-        <ViroText
-          text="Return to previous scene"
-          width={1.5}
-          height={2}
-          position={[2, 0.5, 2]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        />
 
         <ViroButton
           source={require("./res/knight.png")}
@@ -138,7 +130,7 @@ export default class ChambersScene extends Component {
 
         <ViroImage
           source={require("./res/text/returnHelmet.png")}
-          position={[2, 1, 2]}
+          position={[1, 0.6, 1]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
           scale={[0.6, 0.6, 0.6]}

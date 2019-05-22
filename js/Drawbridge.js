@@ -26,8 +26,14 @@ export default class DrawbridgeScene extends Component {
     super(props);
 
     this.state = {
-      text:
-        "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
+      // text:
+      //   "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle",
+      image: (
+        <ViroImage
+          source={require("./res/text/drawbridgeWelcome.png")}
+          position={[0, 0.2, -2]}
+        />
+      ),
       showArrow: true,
       artVisible: false,
       drawbridgeAudio: false,
@@ -36,12 +42,30 @@ export default class DrawbridgeScene extends Component {
     };
   }
 
-  changeText = isChanging => {
-    let text = isChanging
-      ? "This is where the drawbridge and entrance used to be, surrounded by a moat!"
-      : "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle";
+  // changeText = isChanging => {
+  //   let text = isChanging
+  //     ? "This is where the drawbridge and entrance used to be, surrounded by a moat!"
+  //     : "Welcome to Weoley Castle Ruins! Despite it's name, it's not 'Weoley' a castle";
+  //   this.setState({
+  //     text,
+  //     showArrow: false
+  //   });
+  // };
+
+  changeImg = isChanging => {
+    let image = isChanging ? (
+      <ViroImage
+        source={require("./res/text/drawbridgeWelcome2.png")}
+        position={[0, 0.3, -2]}
+      />
+    ) : (
+      <ViroImage
+        source={require("./res/text/drawbridgeWelcome.png")}
+        position={[0, 0.3, -2]}
+      />
+    );
     this.setState({
-      text,
+      image,
       showArrow: false
     });
   };
@@ -84,18 +108,19 @@ export default class DrawbridgeScene extends Component {
   };
 
   render() {
-    const { text, showArrow, artVisible } = this.state;
+    const { text, showArrow, artVisible, image } = this.state;
     return (
       <ViroScene>
         <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
-        <ViroText
+        {/* <ViroText
           text={text}
           width={1.5}
           height={2}
           position={[0, 0.5, -2]}
           style={styles.helloWorldTextStyle}
           transformBehaviors={["billboard"]}
-        />
+        /> */}
+        {image}
         {showArrow ? (
           <ViroButton
             source={require("./res/down.png")}
@@ -104,7 +129,7 @@ export default class DrawbridgeScene extends Component {
             height={2}
             visible={true}
             opacity={0.4}
-            onFuse={{ callback: this.changeText, timeToFuse: 1500 }}
+            onFuse={{ callback: this.changeImg, timeToFuse: 1500 }}
             animation={{ name: "moveUpDown", run: true, loop: true }}
             scale={[0.2, 0.2, 0.2]}
           />
@@ -192,14 +217,14 @@ export default class DrawbridgeScene extends Component {
 
         <ViroImage
           source={require("./res/text/returnStart.png")}
-          position={[-3, 1, 0.75]}
+          position={[6, 1.3, 2]}
           transformBehaviors={["billboard"]}
           // opacity={0.6}
-          scale={[1, 1, 1]}
+          scale={[1.2, 1.2, 1.2]}
         />
         <ViroButton
           source={require("./res/weoleyface.png")}
-          position={[3, 0, 2]}
+          position={[6, 0, 2]}
           width={1}
           height={1}
           transformBehaviors={["billboard"]}
