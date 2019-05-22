@@ -75,21 +75,6 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
         />
-        {/* <ViroImage
-          source={require("./res/text/returnStart.png")}
-          position={[-3, 1, 0.75]}
-          transformBehaviors={["billboard"]}
-          // opacity={0.6}
-          scale={[1, 1, 1]}
-        /> */}
-        {/* <ViroText
-          text="Return to previous scene"
-          width={1.5}
-          height={1.5}
-          position={[0, 0.5, 3]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        /> */}
         <ViroSound
           source={require("./res/audio/Cellar.mp3")}
           loop={false}
@@ -104,20 +89,11 @@ export default class CellarScene extends Component {
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
         <ViroImage
-          source={require("./res/text/returnHelmet.png")}
+          source={require("./res/text/returnScene.png")}
           position={[0, 1, 3]}
           transformBehaviors={["billboard"]}
-          // opacity={0.6}
           scale={[0.6, 0.6, 0.6]}
         />
-        {/* <ViroText
-          text="Return to start scene"
-          width={2}
-          height={2}
-          position={[3.5, 0, 1.2]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
-        /> */}
         <ViroImage
           source={require("./res/text/returnStart.png")}
           position={[3.5, 0.5, 1.2]}
