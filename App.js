@@ -14,7 +14,11 @@ import {
   TouchableHighlight
 } from "react-native";
 
-import { ViroVRSceneNavigator, ViroARSceneNavigator } from "react-viro";
+import {
+  ViroVRSceneNavigator,
+  ViroARSceneNavigator,
+  ViroSound
+} from "react-viro";
 
 /*
  TODO: Insert your API key below
@@ -42,7 +46,9 @@ export default class ViroSample extends Component {
     this.state = {
       navigatorType: defaultNavigatorType,
       sharedProps: sharedProps,
-      splash: true
+      splash: true,
+      numFound: 0,
+      playCongrats: false
     };
     this.animatedValue = new Animated.Value(0);
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
@@ -118,6 +124,14 @@ export default class ViroSample extends Component {
       }
     );
   }
+
+  numArtifactsFound = () => {
+    const { numFound } = this.state;
+    this.setState(state => ({
+      numFound: numFound + 1
+    }));
+  };
+
   // Presents the user with a choice of an AR or VR experience/go to link in footer
   _getExperienceSelector() {
     if (this.state.splash) {
@@ -202,7 +216,7 @@ export default class ViroSample extends Component {
             <TouchableHighlight
               style={localStyles.buttons}
               onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
-              underlayColor={"rgba(280, 220, 0, 0.8)"}
+              underlayColor="rgba(280, 220, 0, 0.8)"
             >
               <Text
                 style={{
@@ -284,12 +298,41 @@ export default class ViroSample extends Component {
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
-      <ViroVRSceneNavigator
-        {...this.state.sharedProps}
-        initialScene={{ scene: InitialVRScene }}
-        goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
-        onExitViro={this._exitViro}
-      />
+      <View style={{ flex: 1 }}>
+        <ViroVRSceneNavigator
+          {...this.state.sharedProps}
+          initialScene={{ scene: InitialVRScene }}
+          viroAppProps={{
+            numArtifactsFound: this.numArtifactsFound
+          }}
+          goHome={() => this.setState(() => ({ navigatorType: MAIN }))}
+          onExitViro={this._exitViro}
+        />
+
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 20,
+            width: 80,
+            alignItems: "center"
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              color: "white",
+              borderWidth: 1,
+              borderColor: "white",
+              padding: 5,
+              borderRadius: 5
+            }}
+          >
+            Number of artifacts found: {this.state.numFound}{" "}
+          </Text>
+        </View>
+      </View>
     );
   }
 

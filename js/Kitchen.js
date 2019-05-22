@@ -49,11 +49,16 @@ export default class KitchenScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true,
-      artifactPaused: false,
-      description: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
@@ -95,7 +100,6 @@ export default class KitchenScene extends Component {
           <Viro360Image source={require("./res/bakehouse.JPG")} />
         </ViroPortalScene>
 
-    
         <ViroText
           text="Return to previous scene"
           width={1}
@@ -125,7 +129,6 @@ export default class KitchenScene extends Component {
           loop={false}
           volume={1}
           paused={this.state.description}
-
         />
         <ViroButton
           source={require("./res/weoleyface.png")}
@@ -141,7 +144,6 @@ export default class KitchenScene extends Component {
           loop={false}
           volume={1}
           paused={this.state.artifactPaused}
-
         />
         {artVisible ? (
           <ViroNode>
@@ -151,7 +153,6 @@ export default class KitchenScene extends Component {
               transformBehaviors={["billboard"]}
               visible={true}
             />
-       
           </ViroNode>
         ) : (
           <ViroNode>
@@ -163,7 +164,6 @@ export default class KitchenScene extends Component {
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
             />
-         
           </ViroNode>
         )}
       </ViroScene>

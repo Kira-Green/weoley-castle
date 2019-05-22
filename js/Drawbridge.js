@@ -22,8 +22,8 @@ import {
 } from "react-viro";
 
 export default class DrawbridgeScene extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       text:
@@ -47,12 +47,16 @@ export default class DrawbridgeScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: !this.state.artVisible,
-      artifactPaused: false,
-      drawbridgeAudio: true,
-      moreInfo: false
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+    this.setState(
+      {
+        artVisible: !this.state.artVisible,
+        artifactPaused: false,
+        drawbridgeAudio: true,
+        moreInfo: false
+      },
+      numArtifactsFound
+    );
   };
 
   backToPlatform = () => {
@@ -116,6 +120,7 @@ export default class DrawbridgeScene extends Component {
           transformBehaviors={["billboard"]}
           style={styles.blackTextStyle}
         />
+
         <ViroSound
           source={require("./res/audio/Drawbridge.mp3")}
           loop={false}
