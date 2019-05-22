@@ -315,7 +315,7 @@ export default class ViroSample extends Component {
             left: 0,
             right: 0,
             bottom: 20,
-            width: 80,
+            width: 150,
             alignItems: "center"
           }}
         >
@@ -326,10 +326,26 @@ export default class ViroSample extends Component {
               borderWidth: 1,
               borderColor: "white",
               padding: 5,
-              borderRadius: 5
+              textAlign: "center",
+              borderRadius: 5,
+              opacity: 0.5
             }}
           >
-            Number of artifacts found: {this.state.numFound}{" "}
+            No. artifacts found: {"\n "}
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "yellow",
+                borderWidth: 1,
+                borderColor: "white",
+                padding: 5,
+                textAlign: "center",
+                borderRadius: 5
+              }}
+            >
+              {this.state.numFound}
+            </Text>
           </Text>
         </View>
       </View>
@@ -376,7 +392,6 @@ var localStyles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, .2)",
     alignItems: "center",
     flexDirection: "column"
-    // position: "absolute"
   },
 
   textContainer: {
@@ -386,11 +401,9 @@ var localStyles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, .2)",
     flexDirection: "row",
     fontWeight: "600",
-    // height: "20%",
     width: "100%"
   },
   titleText: {
-    // width: "100%",
     color: "rgba(300, 300, 300, .8)",
     textAlign: "center",
     fontSize: 22,
@@ -399,8 +412,6 @@ var localStyles = StyleSheet.create({
     borderColor: "rgba(300, 300, 300, .6)",
     padding: 10,
     backgroundColor: "rgba(0, 0, 0, .5)"
-    // marginLeft: "10%"
-    // marginRight: "10%"
   },
   experiences: {
     flex: 1,
@@ -449,7 +460,6 @@ var localStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "100%",
-    // height: "5%",
     backgroundColor: "rgba(0, 0, 0, .6)",
     position: "relative"
   },
@@ -464,8 +474,6 @@ var localStyles = StyleSheet.create({
   },
   footerText: {
     color: "rgba(300, 300, 300, .6)",
-    // backgroundColor: "rgba(0, 0, 0, .6)",
-    // color: "rgba(43, 80, 38, 1)",
     textAlign: "center",
     fontSize: 20,
     textDecorationLine: "underline",
