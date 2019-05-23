@@ -27,7 +27,7 @@ export default class DrawbridgeScene extends Component {
       image: (
         <ViroImage
           source={require("./res/text/drawbridgeWelcome.png")}
-          position={[0, 0.8, -2]}
+          position={[0, 0.6, -2]}
           transformBehaviors={["billboard"]}
         />
       ),
@@ -43,13 +43,13 @@ export default class DrawbridgeScene extends Component {
     let image = isChanging ? (
       <ViroImage
         source={require("./res/text/drawbridgeWelcome2.png")}
-        position={[0, 0.8, -2]}
+        position={[0, 0.6, -2]}
         transformBehaviors={["billboard"]}
       />
     ) : (
       <ViroImage
         source={require("./res/text/drawbridgeWelcome.png")}
-        position={[0, 0.8, -2]}
+        position={[0, 0.6, -2]}
         transformBehaviors={["billboard"]}
       />
     );
@@ -122,13 +122,20 @@ export default class DrawbridgeScene extends Component {
           source={require("./res/text/returnHelmet.png")}
           position={[1.5, 0.6, 1]}
         />
-        <ViroText
+        {/* <ViroText
           text="To the stables"
           width={1}
           height={1}
           position={[2, 0.5, -0.8]}
           transformBehaviors={["billboard"]}
           scale={[0.6, 0.6, 0.6]}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/toStables.png")}
+          position={[2, 0.8, -0.8]}
+          transformBehaviors={["billboard"]}
+          scale={[0.7, 0.7, 0.7]}
         />
 
         <ViroSound
@@ -152,7 +159,7 @@ export default class DrawbridgeScene extends Component {
         />
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
         <ViroPortalScene>
-          <ViroPortal position={[5, 0, -2]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[5, -0.16, -2]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -191,6 +198,7 @@ export default class DrawbridgeScene extends Component {
               position={[0, -0.6, 5.5]}
               materials={["spherematerial"]}
               onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+              animation={{ name: "rotateSphere", run: true, loop: true }}
             />
           </ViroNode>
         )}
@@ -221,6 +229,14 @@ ViroAnimations.registerAnimations({
       rotateX: "+=90"
     },
     duration: 2500
+  },
+  rotateSphere: {
+    properties: {
+      rotateX: "+=3",
+      rotateY: "-=2"
+    },
+    easing: "Bounce",
+    duration: 30
   }
 });
 
