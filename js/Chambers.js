@@ -101,6 +101,14 @@ export default class ChambersScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/cellar1.JPG")} />
         </ViroPortalScene>
+
+        <ViroImage
+          source={require("./res/text/toGH.png")}
+          position={[0, 1.5, 5]}
+          transformBehaviors={["billboard"]}
+          scale={[1, 1, 1]}
+        />
+
         <ViroSound
           source={require("./res/audio/Chambers.mp3")}
           loop={false}

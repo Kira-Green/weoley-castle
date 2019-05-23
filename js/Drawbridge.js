@@ -27,7 +27,7 @@ export default class DrawbridgeScene extends Component {
       image: (
         <ViroImage
           source={require("./res/text/drawbridgeWelcome.png")}
-          position={[0, 0.6, -2]}
+          position={[0, 0.8, -2]}
           transformBehaviors={["billboard"]}
         />
       ),
@@ -43,13 +43,13 @@ export default class DrawbridgeScene extends Component {
     let image = isChanging ? (
       <ViroImage
         source={require("./res/text/drawbridgeWelcome2.png")}
-        position={[0, 0.6, -2]}
+        position={[0, 0.8, -2]}
         transformBehaviors={["billboard"]}
       />
     ) : (
       <ViroImage
         source={require("./res/text/drawbridgeWelcome.png")}
-        position={[0, 0.6, -2]}
+        position={[0, 0.8, -2]}
         transformBehaviors={["billboard"]}
       />
     );
@@ -122,15 +122,6 @@ export default class DrawbridgeScene extends Component {
           source={require("./res/text/returnHelmet.png")}
           position={[1.5, 0.6, 1]}
         />
-        {/* <ViroText
-          text="To the stables"
-          width={1}
-          height={1}
-          position={[2, 0.5, -0.8]}
-          transformBehaviors={["billboard"]}
-          scale={[0.6, 0.6, 0.6]}
-        /> */}
-
         <ViroImage
           source={require("./res/text/toStables.png")}
           position={[2, 0.8, -0.8]}
