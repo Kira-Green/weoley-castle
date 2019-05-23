@@ -2,17 +2,16 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
-  ViroText,
   ViroButton,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroImage,
   ViroPortalScene,
+  ViroSound,
   ViroAnimations,
   ViroMaterials,
   ViroSphere,
@@ -24,8 +23,10 @@ export default class KitchenScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
-    }; // initialize state
+      artVisible: false,
+      description: false,
+      artifactPaused: true
+    };
   }
 
   backToPlatform = () => {
@@ -34,6 +35,10 @@ export default class KitchenScene extends Component {
 
   toBrewhouse = () => {
     this.props.sceneNavigator.push({ scene: require("./Brewhouse.js") });
+    this.setState(state => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showPrevScene = () => {
@@ -41,9 +46,16 @@ export default class KitchenScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
@@ -51,22 +63,13 @@ export default class KitchenScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/kitchen.JPG")} />
-        <ViroText
-          text="Various stories of the kitchen being set on fire by splashing fat."
-          width={1.5}
-          height={1}
-          position={[1, 0, -2]}
+        <ViroImage
+          source={require("./res/text/toBrewery.png")}
+          position={[0, 1.4, 4]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[1, 1, 1]}
         />
-        <ViroText
-          text="Continue on to the Brewery!"
-          width={1}
-          height={1}
-          position={[0, 1, 5]}
-          transformBehaviors={["billboard"]}
-          style={styles.redTextStyle}
-        />
+
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={500} />
         <ViroPortalScene>
           <ViroPortal position={[0, 0, 5]} scale={[0.5, 0.5, 0.5]}>
@@ -84,15 +87,13 @@ export default class KitchenScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/bakehouse.JPG")} />
         </ViroPortalScene>
-        <ViroText
-          text="Return to previous scene"
-          width={1}
-          height={1}
+
+        <ViroImage
+          source={require("./res/text/returnScene.png")}
           position={[-2, 1, 0.4]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[0.6, 0.6, 0.6]}
         />
-
         <ViroButton
           source={require("./res/knight.png")}
           position={[-5, 0.8, 1]}
@@ -101,15 +102,18 @@ export default class KitchenScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
-          text="Return to start scene"
-          width={1}
-          height={1}
-          position={[3, 1, 2]}
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[3, 1.2, 2]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          scale={[1, 1, 1]}
         />
-
+        <ViroSound
+          source={require("./res/audio/Kitchen.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[3, 0, 2]}
@@ -119,25 +123,33 @@ export default class KitchenScene extends Component {
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
-
+        <ViroSound
+          source={require("./res/audio/A5_FoundDog.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
-              position={[0, 0, 2]}
+              source={require("./res/artifacts/dogSkull.jpg")}
+              position={[-2.8, -0.2, -2.5]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[-2.8, -0.2, -2.5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+              animation={{ name: "rotateSphere", run: true, loop: true }}
+            />
+          </ViroNode>
         )}
       </ViroScene>
     );
@@ -146,7 +158,7 @@ export default class KitchenScene extends Component {
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 
@@ -155,30 +167,15 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
-  }
-});
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
+    duration: 2500
   },
-  redTextStyle: {
-    color: "red",
-    fontFamily: "Arial",
-    fontSize: 15,
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
+  rotateSphere: {
+    properties: {
+      rotateX: "+=3",
+      rotateY: "-=2"
+    },
+    easing: "Bounce",
+    duration: 30
   }
 });
 

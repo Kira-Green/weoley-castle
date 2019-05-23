@@ -6,7 +6,6 @@ import { StyleSheet } from "react-native";
 
 import {
   ViroScene,
-  ViroText,
   Viro360Image,
   ViroButton,
   Viro3DObject,
@@ -14,32 +13,44 @@ import {
   ViroAmbientLight,
   ViroAnimations,
   ViroPortal,
+  ViroSound,
   ViroDirectionalLight,
-  ViroSpotLight
+  ViroSpotLight,
+  ViroImage
 } from "react-viro";
 
 export default class WelcomeSceneVR extends Component {
   constructor() {
     super();
 
-    this.state = {}; // Set initial state here
+    this.state = {
+      intro: false,
+      artifacts: false,
+      gaze: false
+    };
   }
 
   toDrawbridge = () => {
     this.props.sceneNavigator.push({ scene: require("./Drawbridge.js") });
   };
 
+  introFinished = () => {
+    this.setState(state => ({ artifacts: !this.state.artifacts }));
+  };
+
+  artefactsExplained = () => {
+    this.setState(state => ({ gaze: !this.state.gaze }));
+  };
+
   render() {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/platform2.JPG")} />
-        <ViroText
-          text="The helmet will return you to the previous scene!"
-          width={2.5}
-          height={2.5}
+        <ViroImage
+          source={require("./res/text/returnHelmet.png")}
           position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[1, 1, 1]}
         />
         <ViroButton
           source={require("./res/knight.png")}
@@ -48,16 +59,15 @@ export default class WelcomeSceneVR extends Component {
           height={0.8}
           transformBehaviors={["billboard"]}
         />
-        <ViroText
-          text="Look at the archway to enter the ruins!"
-          width={2}
-          height={2}
-          position={[-2, 1, 4]}
+        <ViroImage
+          source={require("./res/text/welcomeVRruins.png")}
+          position={[-1.8, 1.5, 4]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[2, 2, 2]}
         />
+
         <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={900} />
-        <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
+        {/* <ViroDirectionalLight color="#000" direction={[0, -1, -0.2]} />
         <ViroSpotLight
           innerAngle={5}
           outerAngle={90}
@@ -65,10 +75,10 @@ export default class WelcomeSceneVR extends Component {
           position={[-3, -2, 6]}
           color="#000"
           intensity={250}
-        />
+        /> */}
 
         <ViroPortalScene>
-          <ViroPortal position={[-3, -1, 6]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[-4, -1, 9]} scale={[1, 1, 1]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -84,15 +94,32 @@ export default class WelcomeSceneVR extends Component {
           <Viro360Image source={require("./res/drawbridgeoutside.JPG")} />
         </ViroPortalScene>
 
-        <ViroText
-          text="The logo returns you to this scene!"
-          width={2}
-          height={2}
-          position={[-6, 1, -2]}
+        <ViroImage
+          source={require("./res/text/welcomeVRreturntext.png")}
+          position={[-6, 1.2, -2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[2, 2, 2]}
         />
-
+        <ViroSound
+          source={require("./res/audio/Intro1.mp3")}
+          loop={false}
+          paused={this.state.intro}
+          volume={1}
+          onFinish={this.introFinished}
+        />
+        <ViroSound
+          source={require("./res/audio/SixHiddenArtefacts.mp3")}
+          loop={false}
+          paused={!this.state.artifacts}
+          volume={1}
+          onFinish={this.artefactsExplained}
+        />
+        <ViroSound
+          source={require("./res/audio/GazeFunny.mp3")}
+          loop={false}
+          paused={!this.state.gaze}
+          volume={1}
+        />
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[-6, -0.5, -2]}
@@ -106,22 +133,12 @@ export default class WelcomeSceneVR extends Component {
   }
 }
 
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 30,
-    color: "#ffffff",
-    textAlignVertical: "center",
-    textAlign: "center"
-  }
-});
-
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
+    duration: 2500
   }
 });
 

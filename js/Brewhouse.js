@@ -2,14 +2,13 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
-  ViroText,
   ViroAnimations,
   ViroButton,
+  ViroImage,
+  ViroSound,
   ViroMaterials,
   ViroSphere,
   ViroNode
@@ -20,8 +19,10 @@ export default class BrewhouseScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
-    }; // initialize state
+      artVisible: false,
+      description: false,
+      artifactPaused: true
+    };
   }
 
   backToPlatform = () => {
@@ -33,9 +34,16 @@ export default class BrewhouseScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        description: true,
+        artifactPaused: false
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
@@ -43,22 +51,19 @@ export default class BrewhouseScene extends Component {
     return (
       <ViroScene hdrEnabled={true} shadowsEnabled={true}>
         <Viro360Image source={require("./res/bakehouse.JPG")} />
-        <ViroText
-          text="Here is where the well used to be"
-          width={1}
-          height={1}
-          position={[-1.8, -0.4, -2]}
+        <ViroImage
+          source={require("./res/text/well.png")}
+          position={[-1.8, 0, -2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[0.6, 0.6, 0.6]}
         />
-        <ViroText
-          text="Return to previous scene"
-          width={1}
-          height={1}
-          position={[1.7, 0.5, -2]}
+        <ViroImage
+          source={require("./res/text/returnScene.png")}
+          position={[1.7, 0.7, -2]}
           transformBehaviors={["billboard"]}
-          style={styles.redTextStyle}
+          scale={[0.6, 0.6, 0.6]}
         />
+
         <ViroButton
           source={require("./res/knight.png")}
           position={[2.5, 0, -3]}
@@ -67,22 +72,32 @@ export default class BrewhouseScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
-          text="The brewhouse"
-          width={1}
-          height={1}
-          position={[3, -0.5, 0]}
+
+        <ViroImage
+          source={require("./res/text/brewhouseEnd.png")}
+          position={[3, 1, 0]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[1.3, 1.3, 1.3]}
         />
-        <ViroText
-          text="Return to start scene"
-          width={1}
-          height={1}
-          position={[-2, 1, 2]}
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[-2, 1.3, 2]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          scale={[1, 1, 1]}
         />
+        <ViroSound
+          source={require("./res/audio/Brewhouse.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A6_FoundArrow.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
+
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[-2, 0, 2]}
@@ -95,8 +110,8 @@ export default class BrewhouseScene extends Component {
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
-              position={[0, 0, 2]}
+              source={require("./res/artifacts/arrowHead.jpg")}
+              position={[4, -0.2, 4]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
@@ -106,9 +121,10 @@ export default class BrewhouseScene extends Component {
             heightSegmentCount={20}
             widthSegmentCount={20}
             radius={0.1}
-            position={[0, 0, 5]}
+            position={[4, -0.2, 5]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+            animation={{ name: "rotateSphere", run: true, loop: true }}
           />
         )}
       </ViroScene>
@@ -118,7 +134,7 @@ export default class BrewhouseScene extends Component {
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 
@@ -127,31 +143,15 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
-  }
-});
-
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
+    duration: 2500
   },
-  redTextStyle: {
-    color: "red",
-    fontFamily: "Arial",
-    fontSize: 15,
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
+  rotateSphere: {
+    properties: {
+      rotateX: "+=3",
+      rotateY: "-=2"
+    },
+    easing: "Bounce",
+    duration: 30
   }
 });
 

@@ -20,6 +20,8 @@ buildscript {
     }
 }
 
+
+
 allprojects {
     repositories {
         mavenLocal()
@@ -30,4 +32,25 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
     }
+    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->
+        config.resolutionStrategy.eachDependency { details ->
+            details.useVersion("3.5.0-alpha03-5252756")
+        }
+    }
 }
+
+    productFlavors {
+        ar {
+            resValue 'string', 'app_name', 'ViroSample-ar'
+            buildConfigField 'String', 'VR_PLATFORM', '"GVR"'
+        }
+        gvr {
+            resValue 'string', 'app_name', 'ViroSample-gvr'
+            buildConfigField 'String', 'VR_PLATFORM', '"GVR"'
+        }
+        ovr {
+            resValue 'string', 'app_name', 'ViroSample-ovr'
+            applicationIdSuffix '.ovr'
+            buildConfigField 'String', 'VR_PLATFORM', '"OVR_MOBILE"'
+        }
+    }

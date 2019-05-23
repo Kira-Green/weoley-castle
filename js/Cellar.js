@@ -8,10 +8,12 @@ import {
   ViroScene,
   Viro360Image,
   ViroText,
+  ViroSound,
   ViroButton,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroImage,
   ViroPortalScene,
   ViroAnimations
 } from "react-viro";
@@ -19,8 +21,6 @@ import {
 export default class CellarScene extends Component {
   constructor() {
     super();
-
-    this.state = {}; // initialize state
   }
 
   backToPlatform = () => {
@@ -39,17 +39,25 @@ export default class CellarScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/cellar1.JPG")} />
-        <ViroText
+        {/* <ViroText
           text="To the Great Hall"
           width={1.5}
           height={1.5}
           position={[-3, 0.5, 0]}
           transformBehaviors={["billboard"]}
           style={styles.helloWorldTextStyle}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/toGH.png")}
+          position={[-3.5, 0.7, -0.3]}
+          transformBehaviors={["billboard"]}
+          scale={[1, 1, 1]}
         />
-        <ViroAmbientLight color="#ffffff" />
+
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={800} />
         <ViroPortalScene>
-          <ViroPortal position={[-6, 0, 0]} scale={[0.5, 0.5, 0.5]}>
+          <ViroPortal position={[-3.5, -1, -0.3]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
               source={require("./res/portal_archway.vrx")}
               resources={[
@@ -59,29 +67,33 @@ export default class CellarScene extends Component {
               ]}
               onFuse={{ callback: this.toGreatHall, timeToFuse: 1500 }}
               type="VRX"
-              rotation={[0, 160, 0]}
               transformBehaviors={["billboard"]}
+              rotation={[12, 0, 4]}
             />
           </ViroPortal>
           <Viro360Image source={require("./res/greathall1.JPG")} />
         </ViroPortalScene>
 
-        <ViroText
-          text="You are now in the cellar & toilet"
+        {/* <ViroText
+          text="You are now in the cellar & toilet(swap with image)"
           width={1}
           height={1}
           position={[2, 0, -2]}
           transformBehaviors={["billboard"]}
           style={styles.redTextStyle}
+        /> */}
+
+        <ViroImage
+          source={require("./res/text/cellarText2.png")}
+          position={[0, 0, -2]}
+          transformBehaviors={["billboard"]}
+          scale={[0.8, 0.8, 0.8]}
         />
 
-        <ViroText
-          text="Return to previous scene"
-          width={1.5}
-          height={1.5}
-          position={[0, 0.5, 3]}
-          transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+        <ViroSound
+          source={require("./res/audio/Cellar.mp3")}
+          loop={false}
+          volume={1}
         />
         <ViroButton
           source={require("./res/knight.png")}
@@ -91,16 +103,18 @@ export default class CellarScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-
-        <ViroText
-          text="Return to start scene"
-          width={2}
-          height={2}
-          position={[3.5, 0, 1.2]}
+        <ViroImage
+          source={require("./res/text/returnScene.png")}
+          position={[0, 1, 3]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[0.6, 0.6, 0.6]}
         />
-
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
+          position={[3.5, 0.5, 1.2]}
+          transformBehaviors={["billboard"]}
+          scale={[1, 1, 1]}
+        />
         <ViroButton
           source={require("./res/weoleyface.png")}
           position={[3.5, -0.8, 1.2]}
@@ -120,7 +134,7 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
+    duration: 2500
   }
 });
 var styles = StyleSheet.create({

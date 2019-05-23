@@ -2,16 +2,14 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
-
 import {
   ViroScene,
   Viro360Image,
-  ViroText,
   ViroAnimations,
   ViroAmbientLight,
   Viro3DObject,
   ViroPortal,
+  ViroSound,
   ViroPortalScene,
   ViroImage,
   ViroButton,
@@ -25,8 +23,10 @@ export default class GreatHallScene extends Component {
     super();
 
     this.state = {
-      artVisible: false
-    }; // initialize state
+      artVisible: false,
+      description: false,
+      artifactPaused: true
+    };
   }
 
   backToPlatform = () => {
@@ -35,6 +35,10 @@ export default class GreatHallScene extends Component {
 
   toKitchen = () => {
     this.props.sceneNavigator.push({ scene: require("./Kitchen.js") });
+    this.setState(() => ({
+      artifactPaused: true,
+      description: false
+    }));
   };
 
   showPrevScene = () => {
@@ -42,9 +46,16 @@ export default class GreatHallScene extends Component {
   };
 
   showArt = () => {
-    this.setState({
-      artVisible: true
-    });
+    const { numArtifactsFound } = this.props.sceneNavigator.viroAppProps;
+
+    this.setState(
+      {
+        artVisible: true,
+        artifactPaused: false,
+        description: true
+      },
+      numArtifactsFound
+    );
   };
 
   render() {
@@ -52,13 +63,12 @@ export default class GreatHallScene extends Component {
     return (
       <ViroScene>
         <Viro360Image source={require("./res/greathall1.JPG")} />
-        <ViroText
-          text="Return to previous scene"
-          width={1}
-          height={1}
-          position={[-2, 1, 2]}
+
+        <ViroImage
+          source={require("./res/text/returnScene.png")}
+          position={[-2, 1.3, 2]}
           transformBehaviors={["billboard"]}
-          style={styles.helloWorldTextStyle}
+          scale={[1, 1, 1]}
         />
         <ViroButton
           source={require("./res/knight.png")}
@@ -68,16 +78,15 @@ export default class GreatHallScene extends Component {
           transformBehaviors={["billboard"]}
           onFuse={{ callback: this.showPrevScene, timeToFuse: 2000 }}
         />
-        <ViroText
-          text="To the kitchen"
-          width={1}
-          height={1}
-          position={[3, 1, 3.5]}
+
+        <ViroImage
+          source={require("./res/text/onToKitchen.png")}
+          position={[3, 2, 3.5]}
           transformBehaviors={["billboard"]}
-          style={styles.blackTextStyle}
+          scale={[1.5, 1.5, 1.5]}
         />
 
-        <ViroAmbientLight color="#ffffff" />
+        <ViroAmbientLight color="#ffffff" castsShadow={true} intensity={500} />
         <ViroPortalScene>
           <ViroPortal position={[3, 0, 3.5]} scale={[0.5, 0.5, 0.5]}>
             <Viro3DObject
@@ -94,13 +103,12 @@ export default class GreatHallScene extends Component {
           </ViroPortal>
           <Viro360Image source={require("./res/kitchen.JPG")} />
         </ViroPortalScene>
-        <ViroText
-          text="Return to start scene"
-          width={1}
-          height={1}
+
+        <ViroImage
+          source={require("./res/text/returnStart.png")}
           position={[0.2, 1, -4]}
           transformBehaviors={["billboard"]}
-          style={styles.redTextStyle}
+          scale={[1, 1, 1]}
         />
 
         <ViroButton
@@ -112,25 +120,39 @@ export default class GreatHallScene extends Component {
           onFuse={{ callback: this.backToPlatform, timeToFuse: 2000 }}
           animation={{ name: "rotate", run: true, loop: true }}
         />
-
+        <ViroSound
+          source={require("./res/audio/GreatHall.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.description}
+        />
+        <ViroSound
+          source={require("./res/audio/A4_FoundTile.mp3")}
+          loop={false}
+          volume={1}
+          paused={this.state.artifactPaused}
+        />
         {artVisible ? (
           <ViroNode>
             <ViroImage
-              source={require("./res/artifacts/hare.jpg")}
+              source={require("./res/artifacts/floorTile.jpg")}
               position={[0, 0, 2]}
               transformBehaviors={["billboard"]}
               visible={true}
             />
           </ViroNode>
         ) : (
-          <ViroSphere
-            heightSegmentCount={20}
-            widthSegmentCount={20}
-            radius={0.1}
-            position={[0, 0, 5]}
-            materials={["spherematerial"]}
-            onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-          />
+          <ViroNode>
+            <ViroSphere
+              heightSegmentCount={20}
+              widthSegmentCount={20}
+              radius={0.1}
+              position={[0, 0, 5]}
+              materials={["spherematerial"]}
+              onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
+              animation={{ name: "rotateSphere", run: true, loop: true }}
+            />
+          </ViroNode>
         )}
       </ViroScene>
     );
@@ -139,7 +161,7 @@ export default class GreatHallScene extends Component {
 
 ViroMaterials.createMaterials({
   spherematerial: {
-    diffuseTexture: require("./res/grid_bg.jpg")
+    diffuseTexture: require("./res/stripetexture.jpg")
   }
 });
 
@@ -148,30 +170,15 @@ ViroAnimations.registerAnimations({
     properties: {
       rotateX: "+=90"
     },
-    duration: 2500 //.25 seconds
-  }
-});
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#ffff",
-    textAlignVertical: "center",
-    textAlign: "center"
+    duration: 2500
   },
-  redTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "red",
-    textAlignVertical: "center",
-    textAlign: "center"
-  },
-  blackTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 15,
-    color: "#000000",
-    textAlignVertical: "center",
-    textAlign: "center"
+  rotateSphere: {
+    properties: {
+      rotateX: "+=3",
+      rotateY: "-=2"
+    },
+    easing: "Bounce",
+    duration: 30
   }
 });
 
