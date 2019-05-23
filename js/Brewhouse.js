@@ -124,7 +124,7 @@ export default class BrewhouseScene extends Component {
             position={[4, -0.2, 5]}
             materials={["spherematerial"]}
             onFuse={{ callback: this.showArt, timeToFuse: 1500 }}
-            animation={{ name: "rotate", run: true, loop: true }}
+            animation={{ name: "rotateSphere", run: true, loop: true }}
           />
         )}
       </ViroScene>
@@ -144,6 +144,14 @@ ViroAnimations.registerAnimations({
       rotateX: "+=90"
     },
     duration: 2500
+  },
+  rotateSphere: {
+    properties: {
+      rotateX: "+=3",
+      rotateY: "-=2"
+    },
+    easing: "Bounce",
+    duration: 30
   }
 });
 
