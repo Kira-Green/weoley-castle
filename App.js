@@ -46,9 +46,7 @@ export default class ViroSample extends Component {
     this.state = {
       navigatorType: defaultNavigatorType,
       sharedProps: sharedProps,
-      splash: true,
-      numFound: 0,
-      playCongrats: false
+       numFound: 0,
     };
     this.animatedValue = new Animated.Value(0);
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
@@ -61,7 +59,6 @@ export default class ViroSample extends Component {
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(
       this
     );
-    this.splashToggle = this.splashToggle.bind(this);
     this._exitViro = this._exitViro.bind(this);
   }
 
@@ -134,48 +131,8 @@ export default class ViroSample extends Component {
 
   // Presents the user with a choice of an AR or VR experience/go to link in footer
   _getExperienceSelector() {
-    if (this.state.splash) {
-      return (
-        <View style={localStyles.container}>
-          <View
-            style={{
-              flex: 1,
-              // width: "100%",
-              height: "100%",
-              backgroundColor: "white",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              position: "relative"
-            }}
-          >
-            <TouchableHighlight
-              onPress={this.splashToggle()}
-              // style={{
-              //   shadowColor: "#000",
-              //   shadowOffset: {
-              //     width: 0,
-              //     height: 2
-              //   },
-              //   shadowOpacity: 0.37,
-              //   shadowRadius: 7.49,
-
-              //   elevation: 12
-              // }}
-            >
-              <Image
-                resizeMode="contain"
-                source={require("./js/res/weoleyface.png")}
-                style={{
-                  height: "70%"
-                }}
-              />
-            </TouchableHighlight>
-            <Text>Tap on the face to enter</Text>
-          </View>
-        </View>
-      );
-    } else {
+    
+              
       return (
         <View style={localStyles.container}>
           <Image
@@ -256,7 +213,7 @@ export default class ViroSample extends Component {
         </View>
       );
     }
-  }
+  
 
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
@@ -371,13 +328,6 @@ export default class ViroSample extends Component {
     });
   }
 
-  splashToggle() {
-    return () => {
-      this.setState({
-        splash: false
-      });
-    };
-  }
 }
 
 var localStyles = StyleSheet.create({
